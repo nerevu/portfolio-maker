@@ -1,0 +1,63 @@
+<!-- <div class="navbar navbar-inverse navbar-fixed-top">
+	<div class="container">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			<a class="navbar-brand" href="/">Project name</a>
+		</div>
+		<div class="navbar-collapse collapse">
+			<ul class="nav navbar-nav">
+				{{ #each getCollection('pages').toJSON(): }}
+					<li
+						typeof="sioc:Page"
+						about="<%= document.url %>"
+						class="<%= 'active'	if @document.url is document.url %>"
+					>
+						<a href="<%= document.url %>" property="dc:title">
+							{{ document.title }}							</a>
+					</li>
+				{{/each}}
+			</ul>
+		</div>
+	</div>
+</div> -->
+
+<div class="navbar-header">
+  <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+    <span class="sr-only">Toggle navigation</span>
+    {{#each links}}<span class="icon-bar"></span>{{/each}}
+  </button>
+  <a
+    class="{{#ifActive main.title}}active-nav{{/ifActive}} navbar-brand"
+    href="{{main.href}}">
+    {{main.title}}
+  </a>
+</div>
+<div class="collapse navbar-collapse">
+  <ul class="nav navbar-nav">
+ 	{{#each links}}
+    <li {{#ifActive title}}class="active"{{/ifActive}}>
+      <a href="{{href}}">{{title}}</a>
+    </li>
+	{{/each}}
+  </ul>
+</div><!--/.nav-collapse -->
+
+<!-- <ul class="subscription" data-subscription="rss{% if site.subscribe_email %} email{% endif %}">
+  <li><a href="{{ site.subscribe_rss }}" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  {% if site.subscribe_email %}
+    <li><a href="{{ site.subscribe_email }}" rel="subscribe-email" title="subscribe via email">Email</a></li>
+  {% endif %}
+</ul>
+  {% if search_bar %}
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:{{ site.url | shorthand_url }}" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  {% endif %}
+{% include custom/navigation.html %} -->

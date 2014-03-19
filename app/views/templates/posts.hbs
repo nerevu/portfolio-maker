@@ -1,0 +1,13 @@
+---
+title: Posts
+layout: page
+pageOrder: 2
+---
+
+<nav class="linklist">
+	{{{ document.title }} #each getCollection('posts').toJSON(): }}
+		<li><span>{{ document.date.toDateString() }}</span>
+		&raquo;
+		<a href="{{ document.url }}">{{ document.title }}</a></li>
+	{{/each}}
+</{{ document.title }}av>

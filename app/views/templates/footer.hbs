@@ -1,0 +1,55 @@
+<footer>
+	{{#if document.relatedDocuments and document.relatedDocuments.length }}
+	<section id="related">
+		<h3>Related Posts</h3>
+		<nav class="linklist">
+			{{ #each document.relatedDocuments: }}
+				<li><span>{{ document.date.toDateString() }}</span>
+				&raquo;
+				<a href="{{ document.url }}">{{ document.title }}/li>
+			{{/each}}
+		</nav>
+	</section>
+	{{/if}}
+
+  <p class="meta">
+    {% include author %}
+    {% include date %}
+		{% if updated %}{{ updated }}{% else %}{{ time }}{% endif %}
+    {% include categories %}
+    {% if page.previous.url %}
+      <a 
+				class="basic-alignment left" href="{{page.previous.url}}" 
+				title="Previous Post: {{page.previous.title}}"
+			>
+				&laquo; {{page.previous.title}}
+			</a>
+    {% endif %}
+    {% if page.next.url %}
+      <a 
+				class="basic-alignment right" 
+				href="{{page.next.url}}" 
+				title="Next Post: {{page.next.title}}"
+			>
+				{{page.next.title}} &raquo;
+			</a>
+    {% endif %}
+  </p>
+
+	<p class="pull-left">
+	  Copyright &copy; {{ site.time | date: "%Y" }} - {{ site.author }} -
+	  <span class="credit">Powered by <a href="http://chaplinjs.org">Chaplin</a></span>
+	</p>
+	<p class="pull-right">
+		This website was last updated at <%= @site.date.toISOString() %>
+	</p>
+
+  {% if page.date or page.author %}<p class="meta">
+    {% if page.author %}{% include post/author.html %}{% endif %}
+    {% include post/date.html %}{% if updated %}{{ updated }}{% else %}{{ time }}{% endif %}
+    {% if page.categories %}{% include post/categories.html %}{% endif %}
+  </p>{% endif %}
+  {% unless page.sharing == false %}
+    {% include post/sharing.html %}
+  {% endunless %}
+</footer>

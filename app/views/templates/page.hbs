@@ -1,0 +1,8 @@
+{% include default %}
+
+<article class="pentry" role="page">
+  {{ content }}
+</article>
+
+{% if page.sidebar %}{% include sidebar %}{% /if %}
+{% if page.footer %}{% include footer %}{% /if %}

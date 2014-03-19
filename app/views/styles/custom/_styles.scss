@@ -1,0 +1,110 @@
+// This File is imported last, and will override other styles in the cascade
+// Add styles here to make changes without digging in too much
+
+/* ----- main layout ----- */
+html { background: $page-bg; }
+
+body > div {
+	background-image: none;
+	background: $sidebar-bg;
+	border-bottom: 1px solid $cream;
+}
+
+body > div > div {
+	background-image: none;
+	background: $main-bg;
+}
+
+/* ----- header ----- */
+body > header{
+	padding-top: 0em;
+	padding-bottom: 0em;
+}
+
+body > header h1{
+	font-size: 2.5em;
+	text-shadow: lighten($main-bg, 15) 0 0 8px;
+}
+
+body > header h2{
+	font-size: 1em;
+	letter-spacing: 1px;
+/* 	margin-top: -1.4em; */
+}
+
+body > nav {
+	padding-top: .15em;
+	padding-bottom: .15em;
+}
+
+body > nav form .search {
+	@include box-shadow(lighten($nav-bg, 2) 0 1px);
+	background-color: mix($nav-bg, $white, 65);
+	border: 1px solid $nav-border;
+	color: mix($nav-bg, $black, 65);
+	padding: .2em .3em;
+}
+
+body > nav form .search:focus {
+	color: $dark-gray;
+	border-color: #80b1df;
+	@include box-shadow(#80b1df 0 0 4px, #80b1df 0 0 3px inset);
+	background-color: $page-bg;
+	outline: none;
+}
+
+/* ----- Content ----- */
+#content .blog-index article {padding-top: 1.5em;}
+#content .blog-index article header {margin-bottom: 0.5em;}
+#content .blog-index article footer {padding-bottom: 1em;}
+#content .blog-index article h1 {
+	font-size: 1.8em;
+	padding-top: 0;
+}
+
+h1 {font-size: 2em;}
+h3 {margin: .6em 0 .3em;}
+h4 {margin: .3em 0 .15em;}
+
+/* .blog-index article h1 a:hover{ text-decoration: none; } */
+
+article {padding-top: 0;}
+article.pentry header {padding-top: 0;}
+
+article.hentry header {
+	padding: 1.5em 0 0 0;
+	margin-bottom: 0.5em;
+}
+
+article p {
+	text-align:justify;
+	margin-bottom: 1em;
+}
+
+/* ----- Sidebar ----- */
+
+.collapse-sidebar .toggle-sidebar:after {
+	background: $sidebar-bg;
+	color: $main-bg;
+}
+
+.toggle-sidebar:after {
+    background: $main-bg;
+}
+
+aside.sidebar a { text-decoration: none; }
+
+/*
+aside.sidebar{
+	-moz-border-radius-topright: 0.4em;
+	-webkit-border-radius: 0 0.4em 0 0;
+	border-radius: 0 0.4em 0 0;
+}
+ */
+
+/* ----- Footer ----- */
+
+body > footer{
+	text-align:center;
+	margin-bottom: 2em;
+}

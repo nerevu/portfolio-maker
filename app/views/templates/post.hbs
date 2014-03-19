@@ -1,0 +1,12 @@
+{% include default %}
+
+<article class="hentry" role="article">
+	{% include article.html %}
+	{% if site.disqus_short_name and page.comments %}
+	  {% include disqus %}
+	{% endif %}
+</article>
+
+{% if page.sidebar %}{% include sidebar %}{% /if %}
+{% if page.sharing %}{% include sharing.html %}{% /if %}
+{% if page.footer %}{% include footer %}{% /if %}
