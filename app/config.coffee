@@ -16,15 +16,15 @@ force_mobile = (dev_mode and debug_mobile)
 mobile = mobile_device or force_mobile
 
 if dev_mode and not debug_production
-  console.log 'development envrionment set'
-  mode = 'development'
-  api_logs = "http://localhost:8888/api/logs"
-  age = 72 # in hours
+	console.log 'development envrionment set'
+	mode = 'development'
+	api_logs = "http://localhost:8888/api/logs"
+	age = 72 # in hours
 else
-  console.log 'production envrionment set'
-  mode = 'production'
-  api_logs = 'http://flogger.herokuapp.com/api/logs'
-  age = 12 # in hours
+	console.log 'production envrionment set'
+	mode = 'production'
+	api_logs = 'http://flogger.herokuapp.com/api/logs'
+	age = 12 # in hours
 
 console.log "host: #{host}"
 console.log "mobile device: #{mobile}"
@@ -66,24 +66,18 @@ config =
 	search_bar: true
 	blog_archives: true
 	blog_base_url: 'blog'
-	permalink: "/#{blog_base_url}/{year}/{month}/{day}/{title}/"
-	paginate: 10          # Posts per page on the blog index
-	recent_posts: 5       # Posts in the sidebar Recent Posts section
-	titlecase: true       # Converts page and post titles to titlecase
+	# permalink: "/#{blog_base_url}/{year}/{month}/{day}/{title}/"
+	paginate: 10					# Posts per page on the blog index
+	recent_posts: 5				# Posts in the sidebar Recent Posts section
+	titlecase: true				# Converts page and post titles to titlecase
 
 	# list each of the sidebar modules you want to include, in the order you want 
 	# them to appear.
 	# To add custom asides, create files in /source/_includes/custom/asides/ and 
 	# add them to the list like 'custom_aside_name'
-	default_asides: null
-	custom_asides: 'popular_posts, github, twitter, googleplus'
-	blog_index_asides: 'recent_posts, popular_posts, twitter'
+	page_asides: 'popular_posts, github, twitter, googleplus'
+	# blog_index_asides: 'recent_posts, popular_posts, twitter'
 	post_asides: 'related_posts, recent_posts, popular_posts'
-	home_asides: 'about, recent_posts, popular_posts'
-
-	# API Keys
-	github_api_token = 'cdac348c97dbdf5252d530103e0bfb2b9275d126'
-	cloud_made_api_key = '82e495a4e43045118b51a94617d211c0'
 
 	######################
 	# 3rd Party Settings #
@@ -95,7 +89,7 @@ config =
 	github_skip_forks: true
 
 	# Twitter
-	twitter_user: reubano
+	twitter_user: 'reubano'
 	twitter_tweet_count: 3
 	twitter_show_replies: false
 	twitter_follow_button: true
@@ -104,7 +98,7 @@ config =
 
 	# Google 
 	googleplus_user: 'reubano'
-	googleplus_hidden: true  # No visible button
+	googleplus_hidden: true	 # No visible button
 	google_plus_one: true
 	google_plus_one_size: 'medium'
 	google_analytics_tracking_id: 'UA-35222393-1'
@@ -117,39 +111,38 @@ config =
 	facebook_like: true
 	
 	# Geolookup
-  srchProviders:
-    google: L.GeoSearch.Provider.Google
-    openstreetmap: L.GeoSearch.Provider.OpenStreetMap
-    esri: L.GeoSearch.Provider.Esri
+	# srch_providers:
+	# 	google: L.GeoSearch.Provider.Google
+	# 	osm: L.GeoSearch.Provider.OpenStreetMap
+	# 	esri: L.GeoSearch.Provider.Esri
 		
 	# Mapping
-  tileProviders:
-    1: 'MapBox.reubano.ghdp3e73'
-    2: 'OpenStreetMap'
-    3: 'Esri.WorldTopoMap'
-    4: 'CloudMade'
+	tile_providers:
+		mapbox: {name: 'MapBox.reubano.ghdp3e73', key: null}
+		osm: {name: 'OpenStreetMap', key: null}
+		esri: {name: 'Esri.WorldTopoMap', key: null}
+		cloudmade: {name: 'CloudMade', key: '82e495a4e43045118b51a94617d211c0'}
 
-  options:
-    icon: 'home'
-    markerColor: 'green'
-    markers: false
-    tileProvider: 3
-    tpOptions: {maxZoom: 5, apiKey: cloud_made_api_key, styleID: 1}
-    srchProviderName: 'openstreetmap'
-    zoomLevel: 3
-    setView: true
+	options:
+		icon: 'home'
+		markerColor: 'green'
+		markers: false
+		tile_provider: 'esri'
+		tp_options: {maxZoom: 5, styleID: 1}
+		srch_provider: 'openstreetmap'
+		zoomLevel: 3
+		setView: true
 
 	########################
 	# Development Settings #
 	########################
-  api_token: github_api_token
-  cm_api_key: cloud_made_api_key
-  mode: mode
-  prod: production_mode
-  debug_prod: debug_production
-  dev: dev_mode
-  api_logs: api_logs
-  mobile: mobile
-  max_age: age
+	github_api_token: 'cdac348c97dbdf5252d530103e0bfb2b9275d126'
+	mode: mode
+	prod: production_mode
+	debug_prod: debug_production
+	dev: dev_mode
+	api_logs: api_logs
+	mobile: mobile
+	max_age: age
 
 module.exports = config
