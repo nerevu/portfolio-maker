@@ -5,9 +5,7 @@
   "dependencies": {
     "chaplin": "~0.11.3",
     "console-polyfill": "~0.1.0",
-    "lodash": "~2.0.0",
     "jquery": "~2.0.2",
-    "shelljs": "~0.2.6",
     "h5bp-helpers": "~0.1.0",
     "bootstrap": "~3.0.3",
     "minilog": "*",
@@ -19,10 +17,16 @@
     "L.GeoSearch": "git://github.com/smeijer/L.GeoSearch.git",
     "Leaflet.markercluster": "git://github.com/Leaflet/Leaflet.markercluster",
     "marked": "~0.3.2",
-    "gray-matter": "~0.2.8",
-    "blueimp-md5": "~1.1.0"
+    "blueimp-md5": "~1.1.0",
+    "coffee-script": "~1.6.3",
+    "js-yaml": "~3.0.1",
+    "lodash": "~2.4.1"
   },
   "overrides": {
+    "coffee-script": {
+      "dependencies": {},
+      "main": "lib/coffee-script/coffee-script"
+    },
     "marked": {
       "dependencies": {},
       "main": "lib/marked.js"
@@ -39,9 +43,7 @@
       "main": "backbone.js"
     },
     "nvd3": {
-      "dependencies": {
-        "d3": "3.3.5"
-      },
+      "dependencies": {"d3": "3.3.5"},
       "main": [
         "nv.d3.js",
         "nv.d3.css"
@@ -50,14 +52,10 @@
     "leaflet-dist": {
       "name": "leaflet-dist",
       "dependencies": {},
-      "main": [
-        "leaflet.js"
-      ]
+      "main": "leaflet.js"
     },
     "L.GeoSearch": {
-      "dependencies": {
-        "leaflet-dist": "*"
-      },
+      "dependencies": {"leaflet-dist": "*"},
       "main": [
         "src/js/l.control.geosearch.js",
         "src/js/l.geosearch.provider.google.js",
@@ -67,9 +65,7 @@
       ]
     },
     "Leaflet.markercluster": {
-      "dependencies": {
-        "leaflet-dist": "*"
-      },
+      "dependencies": {"leaflet-dist": "*"},
       "main": [
         "dist/leaflet.markercluster-src.js",
         "dist/MarkerCluster.css",

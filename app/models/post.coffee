@@ -1,6 +1,6 @@
 Model = require 'models/file'
 
-module.exports = class Page extends Model
+module.exports = class Post extends Model
 	# load md file as a model
   initialize: (file) ->
     super

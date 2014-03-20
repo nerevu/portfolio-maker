@@ -1,5 +1,6 @@
 View = require 'views/base/view'
 template = require 'views/templates/page'
+config = require 'config'
 
 module.exports = class ContribView extends View
   autoRender: true
@@ -18,3 +19,8 @@ module.exports = class ContribView extends View
   render: =>
     super
     console.log "rendering page view"
+
+  getTemplateData: =>
+    templateData = super
+    templateData.asides =  @model.asides ? config.page_asides
+    templateData

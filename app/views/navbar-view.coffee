@@ -17,15 +17,16 @@ module.exports = class NavbarView extends CollectionView
   render: =>
     super
     console.log 'rendering navbar view'
-	
-	getTemplateData: =>
+
+  getTemplateData: =>
     templateData = super
-		union = _.union @collection, config.generated_pages
-		hrefs = _.pluck union, 'href'
-		titles = _.pluck union, 'title'
-		zipped = _.zip hrefs, titles
-		templateData.main =  mediator.main
+    # union = _.union @collection, config.generated_pages
+    union = config.generated_pages
+    hrefs = _.pluck union, 'href'
+    titles = _.pluck union, 'title'
+    zipped = _.zip hrefs, titles
+    templateData.main =  mediator.main
     templateData.links = (
-			_.object ['href', 'title'], values for values in zipped)
+      _.object ['href', 'title'], values for values in zipped)
 
     templateData

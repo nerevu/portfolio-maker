@@ -1,17 +1,14 @@
 Model = require 'models/base/model'
+# marked = require 'marked'
 
-module.exports = class Page extends Model
+module.exports = class aFile extends Model
 	# load md file as a model
-  initialize: (file) =>
+  initialize: (options) =>
     super
     console.log "initialize file model"
-		@set html: marked obj.content, cb
-		@set filename: file
-		@set ctime: new Date()
-		@set mtime: new Date()
-		@set slug: obj.context?.slug or @slug_from_filename(file)
-		@set title: obj.context.title
-		@set sidebar: obj.context?.sidebar or true
-		@set comments: obj.context?.comments or true
-		@set sharing: obj.context?.sharing or true
-		@set footer: obj.context?.footer or true
+		# @set html: marked obj.content, cb
+		# @set filename: file
+		# @set ctime: new Date()
+		# @set mtime: new Date()
+		# @set slug: obj.context?.slug ? @slug_from_filename(file)
+

@@ -3,11 +3,11 @@ config= require 'config'
 
 # The application object.
 module.exports = class Application extends Chaplin.Application
-  title: 'Top Githubbers'
-	meta:
-		description: config.description
-		keywords: config.keywords
-		author: config.author
+  title: config.title
+  meta:
+    description: config.description
+    keywords: config.keywords
+    author: config.author
 
   # start: ->
   #   # You can fetch some data here and start app
@@ -25,6 +25,6 @@ module.exports = class Application extends Chaplin.Application
     mediator.markers = null
     mediator.doneSearching = null
     mediator.title = null
-		mediator.main = {href: '/', title: @title}
+    mediator.main = {href: '/', title: @title}
     # Seal the mediator
     super

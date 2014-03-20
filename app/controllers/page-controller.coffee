@@ -5,9 +5,9 @@ utils = require 'lib/utils'
 
 module.exports = class CodeController extends Controller
   pages: (params) =>
-		page = params.page
-    @model = new Pages(page)
-		title = @model.get 'title'
+    page = params.page
+    @model = new Page(page)
+    title = @model.get 'title'
     @adjustTitle "#{title}"
     console.log 'page controller'
     @view = new PageView {@model}

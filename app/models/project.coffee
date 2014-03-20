@@ -11,11 +11,11 @@ module.exports = class Project extends Model
       @set num_files: (k for k of files).length
 
 
-* Language: php
-* Environment: console
-* License: [GPLv3](http://opensource.org/licenses/gplv3-license.php)
-* Status: beta
-* Availability: [pear](reubano.github.com/pear)
-Description
-
-## [View my other projects on GitHub](http://github.com/reubano)
+# * Language: php
+# * Environment: console
+# * License: [GPLv3](http://opensource.org/licenses/gplv3-license.php)
+# * Status: beta
+# * Availability: [pear](reubano.github.com/pear)
+# Description
+# 
+# ## [View my other projects on GitHub](http://github.com/reubano)

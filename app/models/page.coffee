@@ -5,7 +5,7 @@ module.exports = class Page extends Model
   initialize: (file) ->
     super
     console.log "initialize page model"
-		@set template: obj.context?.template ? 'page'
-		@set date: @get ctime
-		@set href: "/#{@get 'slug'}"
-		@set title: @get 'title'
+    # @set template: obj.context?.template ? 'page'
+    # @set date: @get ctime
+    # @set href: "/#{@get 'slug'}"
+    # @set title: @get 'title'
