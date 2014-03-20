@@ -12,7 +12,7 @@ module.exports = class Controller extends Chaplin.Controller
     login = params?.login ? config.login
     @compose 'site', SiteView
     @compose 'navbar', ->
-	    @collection = new Navbar()
+      @collection = new Navbar()
       mediator.title = mediator.main.title
       @view = new NavbarView {@collection}
-	    @collection.fetch()
+      # @collection.fetch()
