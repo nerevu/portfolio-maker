@@ -1,10 +1,12 @@
 View = require 'views/base/view'
-template = require 'views/templates/page'
+mediator = require 'mediator'
 config = require 'config'
+utils = require 'lib/utils'
 
-module.exports = class ContribView extends View
+module.exports = class PageView extends View
   autoRender: true
-  template: template
+  className: 'row'
+  region: 'content'
 
   listen:
 #     'all': (event) => console.log "heard #{event}"
@@ -12,6 +14,11 @@ module.exports = class ContribView extends View
 
   initialize: (options) =>
     super
+    template = @model.get 'template'
+    @template = require "views/templates/#{template}"
+    title = @model.get 'title'
+    mediator.setActive title
+    utils.log "initializing #{title} page view"
     @listenTo @model, 'change', =>
       console.log "heard model change"
       @render()
@@ -19,8 +26,3 @@ module.exports = class ContribView extends View
   render: =>
     super
     console.log "rendering page view"
-
-  getTemplateData: =>
-    templateData = super
-    templateData.asides =  @model.asides ? config.page_asides
-    templateData

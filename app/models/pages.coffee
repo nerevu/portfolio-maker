@@ -5,11 +5,11 @@ config = require 'config'
 module.exports = class Pages extends Collection
   model: Model
 
-  initialize: (file)=>
+  initialize: =>
     super
     console.log "initialize pages collection"
 
-  fetch: (options) =>
+  fetch: =>
     collection = []
     files = require 'paths'
 
