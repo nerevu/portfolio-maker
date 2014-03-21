@@ -35,22 +35,21 @@ register 'url', (routeName, params..., options) ->
 
 # Conditional evaluation
 # ----------------------
-Handlebars.registerHelper 'ifLoggedIn', (options) ->
+register 'ifLoggedIn', (options) ->
   if mediator.user then options.fn(this) else options.inverse(this)
 
-Handlebars.registerHelper 'ifActive', (title, options) ->
+register 'ifActive', (title, options) ->
   if mediator.active is title then options.fn(this) else options.inverse(this)
 
 # Other helpers
 # -----------
-
 # Convert date to day
-Handlebars.registerHelper 'getDay', (date) ->
+register 'getDay', (date) ->
   day = if date[-2..-2] is '0' then date[-1..] else date[-2..]
   new Handlebars.SafeString day
 
 # Loop n times
-Handlebars.registerHelper 'times', (n, block) ->
+register 'times', (n, block) ->
   accum = ''
   i = 0
   x = Math.round n
