@@ -1,9 +1,11 @@
 CollectionView = require 'views/base/collection-view'
 template = require 'views/templates/navbar'
+View = require 'views/base/view'
 mediator = require 'mediator'
 config = require 'config'
 
 module.exports = class NavbarView extends CollectionView
+  itemView: View
   autoRender: true
   className: 'container'
   region: 'navbar'
