@@ -14,5 +14,6 @@ module.exports = class Controller extends Chaplin.Controller
     @compose 'navbar', ->
       @collection = new Navbar()
       mediator.title = mediator.main.title
+      data = @collection.fetch()
+      @collection.set data
       @view = new NavbarView {@collection}
-      # @collection.fetch()

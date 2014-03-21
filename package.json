@@ -22,7 +22,10 @@
     "javascript-brunch": ">= 1.0 < 1.8",
     "less-brunch": ">= 1.0 < 1.8",
     "stylus-brunch": ">= 1.0 < 1.8",
-    "uglify-js-brunch": ">= 1.0 < 1.8"
+    "uglify-js-brunch": ">= 1.0 < 1.8",
+    "markdown-brunch": "git://github.com/reubano/markdown-brunch",
+    "ls-brunch": "git://github.com/reubano/ls-brunch",
+    "yaml-front-matter": "~3.0.1"
   },
   "devDependencies": {}
 }

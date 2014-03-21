@@ -16,21 +16,10 @@
     "Leaflet.awesome-markers": "~2.0.1",
     "L.GeoSearch": "git://github.com/smeijer/L.GeoSearch.git",
     "Leaflet.markercluster": "git://github.com/Leaflet/Leaflet.markercluster",
-    "marked": "~0.3.2",
     "blueimp-md5": "~1.1.0",
-    "coffee-script": "~1.6.3",
-    "js-yaml": "~3.0.1",
     "lodash": "~2.4.1"
   },
   "overrides": {
-    "coffee-script": {
-      "dependencies": {},
-      "main": "lib/coffee-script/coffee-script"
-    },
-    "marked": {
-      "dependencies": {},
-      "main": "lib/marked.js"
-    },
     "blueimp-md5": {
       "dependencies": {},
       "main": "js/md5.js"
