@@ -10,7 +10,7 @@ register = (name, fn) ->
 # Partials
 # ----------------------
 register 'partial', (name, context) ->
-  template = require "views/templates/#{name}"
+  template = require "views/templates/partials/#{name}"
   new Handlebars.SafeString template context
 
 # Helpers
