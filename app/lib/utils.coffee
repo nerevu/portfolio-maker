@@ -1,6 +1,5 @@
 config = require 'config'
-Chaplin = require 'chaplin'
-mediator = Chaplin.mediator
+mediator = require 'mediator'
 
 # Application-specific utilities
 # ------------------------------
