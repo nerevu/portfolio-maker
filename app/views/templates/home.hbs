@@ -1,8 +1,21 @@
-{{partial 'default' this}}
+{{#if sidebar }}
+  <div class="col-sm-8">
+    {{{ content }}}
+  </div>
+  <div class="col-sm-4">
+    {{partial 'sidebar' this}}
+  </div>
+{{else}}
+  <div class="col-sm-12">
+    {{{ content }}}
+    {{#if collapse_sidebar}}
+      {{partial 'sidebar-horz' this}}
+    {{/if}}
+  </div>
+{{/if}}
 
-<div class="col-sm-3">
-  {{{ content }}}
-</div>
+
+
 
 {{!-- <div class="jumbotron">
   <h1>Welcome to your new site!</h1>
