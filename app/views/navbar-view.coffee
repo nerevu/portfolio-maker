@@ -22,13 +22,13 @@ module.exports = class NavbarView extends CollectionView
 
   getTemplateData: =>
     templateData = super
-    # union = _.union @collection, config.generated_pages
-    union = config.generated_pages
-    hrefs = _.pluck union, 'href'
-    titles = _.pluck union, 'title'
-    zipped = _.zip hrefs, titles
     templateData.main =  mediator.main
-    templateData.links = (
-      _.object ['href', 'title'], values for values in zipped)
+    templateData.links = config.generated_pages
+
+    while model = @collection.shift()
+      if model.get 'nav_link'
+        href = model.get 'href'
+        title = model.get 'title'
+        templateData.links.push({href: href, title: title})
 
     templateData

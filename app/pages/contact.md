@@ -1,6 +1,6 @@
 ---
 template: page
-title: Contact Me
+title: Contact
 sidebar: false
 sharing: false
 footer: true

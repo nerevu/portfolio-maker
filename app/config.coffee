@@ -59,7 +59,7 @@ config =
 
   # Pages other than the blog and markdown files you want menu items for
   generated_pages: [
-    {href: '/projects', title: 'projects'}
+    {href: '/projects', title: 'Projects'}
   ]
 
   ###########

@@ -1,6 +1,7 @@
 ---
 template: home
 title: Home
+nav_link: false
 collapse_sidebar: true
 sharing: false
 footer: true

@@ -1,6 +1,6 @@
 ---
 template: custom
-title: About Me
+title: About
 sidebar: true
 sharing: false
 footer: true
