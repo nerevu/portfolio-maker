@@ -23,6 +23,31 @@ g.nv-group.nv-series-1 {overflow: hidden;}
   position: relative;
 }
 
+
+/* Sticky Footer */
+html, body {height: 100%;}
+
+#wrap {
+  height: auto;
+  margin: 0 auto -60px;
+  min-height: 100%;
+  padding: 0 0 60px;
+}
+
+#footer {
+  background-color: #F5F5F5;
+  height: 60px;
+}
+
+#wrap > .container {padding: 60px 15px 0;}
+
+.container .text-muted {margin: 20px 0;}
+
+#footer > .container {
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
 /* NVD3 CSS */
 .nvtooltip {
   transition: opacity 500ms linear;

@@ -1,17 +1,18 @@
 <footer>
-	{{#if document.relatedDocuments and document.relatedDocuments.length }}
+	{{#if related}}
 	<section id="related">
 		<h3>Related Posts</h3>
 		<nav class="linklist">
-			{{ #each document.relatedDocuments: }}
-				<li><span>{{ document.date.toDateString() }}</span>
+			{{#each related}}
+				<li><span>{{date}}</span>
 				&raquo;
-				<a href="{{ document.url }}">{{ document.title }}/li>
+				<a href="{{url}}">{{title}}/li>
 			{{/each}}
 		</nav>
 	</section>
 	{{/if}}
 
+{{!-- 
   <p class="meta">
     {% include author %}
     {% include date %}
@@ -36,14 +37,6 @@
     {% endif %}
   </p>
 
-	<p class="pull-left">
-	  Copyright &copy; {{ site.time | date: "%Y" }} - {{ site.author }} -
-	  <span class="credit">Powered by <a href="http://chaplinjs.org">Chaplin</a></span>
-	</p>
-	<p class="pull-right">
-		This website was last updated at <%= @site.date.toISOString() %>
-	</p>
-
   {% if page.date or page.author %}<p class="meta">
     {% if page.author %}{% include post/author.html %}{% endif %}
     {% include post/date.html %}{% if updated %}{{ updated }}{% else %}{{ time }}{% endif %}
@@ -52,4 +45,5 @@
   {% unless page.sharing == false %}
     {% include post/sharing.html %}
   {% endunless %}
+ --}}
 </footer>
