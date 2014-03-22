@@ -1,15 +1,19 @@
-{{#if sidebar}}
-  <div id="main" class="col-sm-8 jumbotron">
-    {{{content}}}
-  </div>
-  <div id="sidebar" class="col-sm-4">
-    {{partial 'sidebar-vert' this}}
+{{#if collapse_sidebar}}
+  <div class="col-sm-12">
+    <div id="home" class="">{{{content}}}</div>
+    <div id="sidebar" class="row">{{partial 'sidebar-horz' this}}</div>
   </div>
 {{else}}
-  <div class="col-sm-12">
-    <div class="jumbotron">{{{content}}}</div>
-    {{#if collapse_sidebar}}
-      {{partial 'sidebar-horz' this}}
-    {{/if}}
-  </div>
+  {{#if sidebar}}
+    <div id="home" class="col-sm-8">
+      {{{content}}}
+    </div>
+    <div id="sidebar" class="col-sm-4">
+      {{partial 'sidebar-vert' this}}
+    </div>
+  {{else}}
+    <div class="col-sm-12">
+      <div id="home" class="">{{{content}}}</div>
+    </div>
+  {{/if}}
 {{/if}}

@@ -1,10 +1,6 @@
-{{#if recent_posts}}
-  <h1>Recent Posts</h1>
-  <ul id="recent_posts">
-    {{#each recent_posts}}
-      <li class="post">
-        <a href="{{root_url}}{{url}}">{{title}}</a>
-      </li>
-    {{/each}}
-  </ul>
-{{/if}}
+<h3>Recent Posts</h3>
+<ul id="recent-posts" class="list-unstyled">
+  {{#each recent_posts}}
+    <li><a href="{{href}}">{{title}}</a></li>
+  {{/each}}
+</ul>

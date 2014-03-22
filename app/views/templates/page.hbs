@@ -1,5 +1,5 @@
 {{#if sidebar}}
-  <div id="main" class="col-sm-8 page pentry">
+  <div id="page" class="col-sm-8">
     {{{content}}}
   </div>
   <div id="sidebar" class="col-sm-4">
@@ -7,9 +7,9 @@
   </div>
 {{else}}
   <div class="col-sm-12">
-    <div class="page pentry">{{{content}}}</div>
+    <div id="page" class="">{{{content}}}</div>
     {{#if collapse_sidebar}}
-      {{partial 'sidebar-horz' this}}
+      <div id="sidebar" class="row">{{partial 'sidebar-horz' this}}</div>
     {{/if}}
   </div>
 {{/if}}

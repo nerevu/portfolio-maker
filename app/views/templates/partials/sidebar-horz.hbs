@@ -1,8 +1,5 @@
-<div class="row sidebar">
-	{{#each asides}}
-    <div class="col-sm-4">
-      {{this}}
-      {{partial this this}}
-    </div>
-	{{/each}}
-</div>
+{{#each asides}}
+  <div class="col-sm-4">
+    {{partial this ../this}}
+  </div>
+{{/each}}
