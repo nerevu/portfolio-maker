@@ -1,6 +1,8 @@
+# Posts = require 'models/posts'
 mediator = require 'mediator'
 config= require 'config'
 Pages = require 'models/pages'
+Posts = require 'models/posts'
 
 # The application object.
 module.exports = class Application extends Chaplin.Application
@@ -20,13 +22,14 @@ module.exports = class Application extends Chaplin.Application
     # Add additional application-specific properties and methods
     console.log 'initializing mediator'
     pages = new Pages()
+    posts = new Posts()
 
     mediator.active = null
     mediator.googleLoaded = null
     mediator.map = null
     mediator.markers = null
     mediator.doneSearching = null
-    # mediator.posts.set postData
+    mediator.postData = posts.fetch()
     mediator.pageData = pages.fetch()
     mediator.main = {href: '/', title: 'Home'}
     mediator.seal()

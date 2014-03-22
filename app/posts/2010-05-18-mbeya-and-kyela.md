@@ -3,7 +3,7 @@ template: post
 title: Mbeya and Kyela
 date: 2010-05-18
 comments: false
-tags: outro, post
+tags: [outro, post]
 ---
 After leaving Dar on the 2nd, I headed south to Mbeya to meet Daniel. The plan was to join up with CNFA for their farmer exhibitions. However, upon arriving to the CNFA office on Monday, we learned that the exhibitions were on hold pending funding. So to make the best of the situation, Daniel and I went to the TechnoServe office the next day (with our newly acquired bike) to follow up with the contact Hillary told me about the week prior. <!-- more --> It turned out that the person I was looking for, Iddi, was based in Kyela (about 1.5 hours further south). I stopped by the Tanganyika Farmers' Association (TFA) next and met the branch manager, Henry, who agreed to let us hold a demonstration in their parking lot at the end of the week. In the few days leading up to the demo, I printed out flyers and rode the bike around town pubbing our demo to every cell phone shop and agrodealer I saw. Friday, the day of demo, turned out to be a bit of a disaster as issues with the bike and sheller delayed the start for several hours. Once we got things working, we demo'd the sheller and charger in front of our modest crowd for another 15 minutes before we had to pack up and head to the next site up the road. In total, we gave 6 demonstrations over three days and were well received by the villagers. Fortunately, the subsequent demos ran much more smoothly than the first.
 

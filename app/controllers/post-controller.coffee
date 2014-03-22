@@ -1,16 +1,19 @@
 Controller = require 'controllers/base/controller'
-Followers = require 'models/followers'
-FollowersView = require 'views/followers-view'
+PostView = require 'views/post-view'
+Posts = require 'models/posts'
 utils = require 'lib/utils'
+mediator = require 'mediator'
 
-module.exports = class NetworkController extends Controller
+module.exports = class PostController extends Controller
   initialize: =>
-    @adjustTitle 'Followers Map'
-    utils.log 'initialize network-controller'
+    utils.log 'initialize post-controller'
 
-  followers: (params) =>
-    console.log 'network controller'
-    @collection = new Followers params.login
-    console.log @collection
-    @view = new FollowersView {@collection}
-    @collection.fetch()
+  show: (params) =>
+    collection = new Posts()
+    collection.set mediator.postData
+    slug = params.slug
+    utils.log "show #{slug} post-controller"
+    @model = collection.findWhere slug: slug
+    title = @model.get 'title'
+    @adjustTitle "#{title}"
+    @view = new PostView {@model}

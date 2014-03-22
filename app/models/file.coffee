@@ -8,7 +8,4 @@ module.exports = class File extends Model
     @set content: @get 'html'
     @set ctime: new Date()
     @set mtime: new Date()
-    # @set slug: _s.slugify @get 'name'
-    @set slug: @get 'name'
-    @set href: "/#{@get 'slug'}"
 

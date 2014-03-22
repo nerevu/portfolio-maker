@@ -3,7 +3,7 @@ template: post
 title: The Caribbean Dream
 date: 2006-12-11
 comments: false
-tags: outro, post
+tags: [outro, post]
 ---
 I've decided to do it.... take the vacation I never had a chance to take during my undergrad years. What started out as a desire to visit an island in the caribbean has now turned into a half-baked plan to take a month off of work hopping to as many caribbean islands as I can with free (or as close to it as I can get) accomodations. <!-- more --> I just recently started doing research on this and found out that some airlines offer caribbean air passes for $500 - $600 for travel between many of the caribbean islands.
 

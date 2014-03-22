@@ -17,9 +17,14 @@
     "L.GeoSearch": "git://github.com/smeijer/L.GeoSearch.git",
     "Leaflet.markercluster": "git://github.com/Leaflet/Leaflet.markercluster",
     "blueimp-md5": "~1.1.0",
-    "lodash": "~2.4.1"
+    "lodash": "~2.4.1",
+    "underscore.string": "~2.3.3"
   },
   "overrides": {
+    "underscore.string": {
+      "dependencies": {},
+      "main": "lib/underscore.string.js"
+    },
     "blueimp-md5": {
       "dependencies": {},
       "main": "js/md5.js"

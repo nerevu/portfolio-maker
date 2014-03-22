@@ -3,7 +3,7 @@ template: post
 title: Thoughts on Arusha
 date: 2010-04-09
 comments: false
-tags: outro, post
+tags: [outro, post]
 ---
 So far, I've been in Arusha for a month and have found my time here to be quite enjoyable. My first observations were how much brighter the stars look in the sky and how small the community is. The size of the community became apparent after going out my second night and recognizing many of the patrons from my previous night out. <!-- more --> Since the selection of night clubs is rather limited, it appears that each one has a core following of people who show up religiously each week. Unfortunately, the following tends to consist of an order of magnitude more men than women. But fortunately, the DJ's have been consistently good and play a mix of reggae, tanzanian/african tunes, hip-hop, and house.
 

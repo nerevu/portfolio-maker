@@ -1,12 +1,16 @@
-{% include default %}
-
-<article class="hentry" role="article">
-	{% include article.html %}
-	{% if site.disqus_short_name and page.comments %}
-	  {% include disqus %}
-	{% endif %}
-</article>
-
-{% if page.sidebar %}{% include sidebar %}{% /if %}
-{% if page.sharing %}{% include sharing.html %}{% /if %}
-{% if page.footer %}{% include footer %}{% /if %}
+{{#if sidebar}}
+  <div id="main" class="col-sm-8 article hentry">
+    {{partial 'article' this}}
+  </div>
+  <div id="sidebar" class="col-sm-4">
+    {{partial 'sidebar-vert' this}}
+  </div>
+{{else}}
+  <div class="col-sm-12">
+    <div class="article pentry">{{partial 'article' this}}</div>
+    {{#if collapse_sidebar}}
+      {{partial 'sidebar-horz' this}}
+    {{/if}}
+  </div>
+{{/if}}
+{{#if sharing}}{{partial 'sharing' this}}{{/if}}
