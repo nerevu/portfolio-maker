@@ -1,7 +1,6 @@
 ---
 template: post
 title: Spring Break Recap
-date: 2007-04-17
 comments: false
 tags: [outro, post]
 ---

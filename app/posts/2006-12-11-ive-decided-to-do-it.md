@@ -1,7 +1,6 @@
 ---
 template: post
 title: The Caribbean Dream
-date: 2006-12-11
 comments: false
 tags: [outro, post]
 ---

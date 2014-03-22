@@ -1,7 +1,6 @@
 ---
 template: post
 title: Mbeya and Kyela
-date: 2010-05-18
 comments: false
 tags: [outro, post]
 ---

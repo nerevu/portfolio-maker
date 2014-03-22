@@ -1,7 +1,6 @@
 ---
 template: post
 title: From South to North
-date: 2010-06-10
 comments: false
 tags: [outro, post]
 ---

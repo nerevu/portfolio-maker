@@ -1,7 +1,6 @@
 ---
 template: post
 title: Embu Demonstration
-date: 2010-03-12
 comments: false
 tags: [outro, post]
 ---

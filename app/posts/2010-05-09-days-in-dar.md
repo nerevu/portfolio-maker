@@ -1,7 +1,6 @@
 ---
 template: post
 title: Days in Dar
-date: 2010-05-09
 comments: false
 tags: [outro, post]
 ---

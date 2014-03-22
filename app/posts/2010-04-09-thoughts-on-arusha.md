@@ -1,7 +1,6 @@
 ---
 template: post
 title: Thoughts on Arusha
-date: 2010-04-09
 comments: false
 tags: [outro, post]
 ---
