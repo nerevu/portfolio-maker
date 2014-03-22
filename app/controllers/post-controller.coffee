@@ -25,5 +25,5 @@ module.exports = class PostController extends Controller
   index: (params) =>
     utils.log "show post-controller"
     @adjustTitle 'Blog'
-    @collection.comparator = (model) -> model.get 'slug'
+    @collection.comparator = (model) -> - model.get 'date'
     @view = new PostsView {@collection}

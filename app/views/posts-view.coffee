@@ -20,6 +20,7 @@ module.exports = class PostsView extends CollectionView
   render: =>
     super
     console.log 'rendering posts view'
+    @collection.sort()
 
   getTemplateData: =>
     templateData = super
