@@ -1,10 +1,10 @@
-<section>
+{{#if related_posts}}
   <h1>Related Posts</h1>
-  <ul id="recent_posts">
-    {% for post in site.posts limit: site.recent_posts %}
+  <ul id="related_posts">
+    {{#each related_posts}}
       <li class="post">
-        <a href="{{ root_url }}{{ post.url }}">{{ post.title }}</a>
+        <a href="{{root_url}}{{url}}">{{title}}</a>
       </li>
-    {% endfor %}
+    {{/each}}
   </ul>
-</section>
+{{/if}}

@@ -79,9 +79,9 @@ config =
   # them to appear.
   # To add custom asides, create files in /source/_includes/custom/asides/ and
   # add them to the list like 'custom_aside_name'
-  page_asides: 'popular_posts, github, twitter, googleplus'
+  page_asides: ['popular_posts', 'github', 'twitter', 'googleplus']
   # blog_index_asides: 'recent_posts, popular_posts, twitter'
-  post_asides: 'related_posts, recent_posts, popular_posts'
+  post_asides: ['related_posts', 'recent_posts', 'popular_posts']
 
   ######################
   # 3rd Party Settings #

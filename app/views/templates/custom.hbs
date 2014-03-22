@@ -1,16 +1,15 @@
-{% include default %}
-
-<div>
-<article class="pentry" role="page">
-  {% if page.title %}
-  <header>
-    <h1 class="entry-title">{% if site.titlecase %}{{ page.title | titlecase }}{% else %}{{ page.title }}{% endif %}</h1>
-    {% if page.date %}<p class="meta">{% include post/date.html %}{{ time }}</p>{% endif %}
-  </header>
-  {% endif %}
-  {{ content }}
-</article>
-</div>
-{% if page.sidebar %}{% include sidebar %}{% /if %}
-{% if page.footer %}{% include footer %}{% /if %}
-
+{{#if sidebar}}
+  <div id="main" class="col-sm-8 article pentry">
+    {{{content}}}
+  </div>
+  <div id="sidebar" class="col-sm-4">
+    {{partial 'sidebar-vert' this}}
+  </div>
+{{else}}
+  <div class="col-sm-12">
+    <div class="article pentry">{{{content}}}</div>
+    {{#if collapse_sidebar}}
+      {{partial 'sidebar-horz' this}}
+    {{/if}}
+  </div>
+{{/if}}
