@@ -22,7 +22,7 @@ module.exports = class NavbarView extends CollectionView
 
   getTemplateData: =>
     templateData = super
-    templateData.main =  mediator.main
+    templateData.main = mediator.main
     templateData.links = config.generated_pages
 
     while model = @collection.shift()
