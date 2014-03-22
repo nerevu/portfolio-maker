@@ -1,15 +1,9 @@
-{{!--
----
-title: Posts
-layout: page
-pageOrder: 2
----
-
-<nav class="linklist">
-	{{document.title}} #each getCollection('posts').toJSON():}}
-		<li><span>{{document.date.toDateString()}}</span>
-		&raquo;
-		<a href="{{document.url}}">{{document.title}}</a></li>
-	{{/each}}
-</{{document.title}}>
---}}
+{{#if sidebar}}
+  <div id="excerpt-list" class="col-sm-8"></div>
+  <div id="sidebar" class="col-sm-4">{{partial 'sidebar-vert' this}}</div>
+{{else}}
+  <div class="col-sm-12">
+    <div id="excerpt-list"></div>
+    {{#if collapse_sidebar}}{{partial 'sidebar-horz' this}}{{/if}}
+  </div>
+{{/if}}

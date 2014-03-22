@@ -69,8 +69,8 @@ config =
   ###########
   search_bar: true
   blog_archives: true
-  blog_base_url: 'blog'
-  # permalink: "/#{blog_base_url}/{year}/{month}/{day}/{title}/"
+  blog_index_sidebar: true
+  blog_archives_sidebar: true
   paginate: 10          # Posts per page on the blog index
   recent_posts: 5       # Posts in the sidebar Recent Posts section
   titlecase: true       # Converts page and post titles to titlecase
@@ -80,7 +80,7 @@ config =
   # To add custom asides, create files in /source/_includes/custom/asides/ and
   # add them to the list like 'custom_aside_name'
   page_asides: ['popular_posts', 'github', 'twitter', 'googleplus']
-  # blog_index_asides: 'recent_posts, popular_posts, twitter'
+  blog_index_asides: ['recent_posts', 'popular_posts', 'twitter']
   post_asides: ['related_posts', 'recent_posts', 'popular_posts']
 
   ######################

@@ -1,5 +1,6 @@
 Controller = require 'controllers/base/controller'
 PostView = require 'views/post-view'
+PostsView = require 'views/posts-view'
 Posts = require 'models/posts'
 utils = require 'lib/utils'
 mediator = require 'mediator'
@@ -20,3 +21,9 @@ module.exports = class PostController extends Controller
     title = @model.get 'title'
     @adjustTitle "#{title}"
     @view = new PostView {@model}
+
+  index: (params) =>
+    utils.log "show post-controller"
+    @adjustTitle 'Blog'
+    @collection.comparator = (model) -> model.get 'slug'
+    @view = new PostsView {@collection}
