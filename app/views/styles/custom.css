@@ -5,6 +5,11 @@
 }
 #excerpt-title {margin-top: 10px;}
 #excerpt-content {margin-bottom: 10px;}
+
+#archives {
+  padding: 27px 0 18px 0;
+}
+
 #sidebar h3 {
   padding-bottom: 9px;
   border-bottom: 1px solid #eee;
@@ -27,6 +32,10 @@
   border: 0;
   -webkit-box-shadow: none;
   box-shadow: none;
+}
+
+td.numeric {
+  text-align: right;
 }
 
 .gallery {padding-bottom: 1em;}

@@ -4,4 +4,5 @@ module.exports = (match) ->
   match 'projects', 'project#show'
   match 'blog', 'post#index'
   match 'blog/:year/:month/:day/:slug', 'post#show'
+  match 'archives', 'post#archives'
   match ':page', 'page#show'

@@ -61,7 +61,7 @@ config =
   generated_pages: [
     {href: '/projects', title: 'Projects', order: -1}
     {href: '/blog', title: 'Blog', order: -1}
-    {href: '/archive', title: 'Archive', order: -1}
+    {href: '/archives', title: 'Archives', order: -1}
   ]
 
   ###########
