@@ -46,7 +46,7 @@ module.exports = class PostController extends Controller
       type: @type
 
   archives: (params) =>
-    utils.log "show post-controller"
+    utils.log "archives post-controller"
     active = 'Archives'
     title = 'Blog Archives'
     @adjustTitle title

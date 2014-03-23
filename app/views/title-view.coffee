@@ -2,7 +2,7 @@ View = require 'views/base/view'
 template = require 'views/templates/title'
 utils = require 'lib/utils'
 
-module.exports = class ExcerptView extends View
+module.exports = class TitleView extends View
   autoRender: true
   tagName: 'tr'
   template: template

@@ -3,6 +3,7 @@ template = require 'views/templates/index'
 View = require 'views/excerpt-view'
 mediator = require 'mediator'
 config = require 'config'
+utils = require 'lib/utils'
 
 module.exports = class IndexView extends CollectionView
   itemView: View
@@ -14,7 +15,7 @@ module.exports = class IndexView extends CollectionView
 
   initialize: (options) ->
     super
-    console.log 'initializing posts view'
+    utils.log 'initializing index view'
     @type = options.type
     @recent_posts = options.recent_posts
     @title = options.title
@@ -22,7 +23,7 @@ module.exports = class IndexView extends CollectionView
 
   render: =>
     super
-    console.log 'rendering posts view'
+    utils.log 'rendering index view'
 
   getTemplateData: =>
     console.log 'getTemplateData'
