@@ -1,8 +1,8 @@
 # Posts = require 'models/posts'
 mediator = require 'mediator'
-config= require 'config'
 Pages = require 'models/pages'
 Posts = require 'models/posts'
+utils = require 'lib/utils'
 
 # The application object.
 module.exports = class Application extends Chaplin.Application
@@ -20,7 +20,7 @@ module.exports = class Application extends Chaplin.Application
   # Create additional mediator properties.
   initMediator: =>
     # Add additional application-specific properties and methods
-    console.log 'initializing mediator'
+    utils.log 'initializing mediator'
     pages = new Pages()
     posts = new Posts()
 

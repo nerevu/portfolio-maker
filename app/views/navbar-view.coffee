@@ -3,6 +3,7 @@ template = require 'views/templates/navbar'
 View = require 'views/base/view'
 mediator = require 'mediator'
 config = require 'config'
+utils = require 'lib/utils'
 
 module.exports = class NavbarView extends CollectionView
   itemView: View
@@ -14,11 +15,11 @@ module.exports = class NavbarView extends CollectionView
 
   initialize: (options) =>
     super
-    console.log 'initializing navbar view'
+    utils.log 'initializing navbar view'
 
   render: =>
     super
-    console.log 'rendering navbar view'
+    utils.log 'rendering navbar view'
 
   getTemplateData: =>
     templateData = super

@@ -1,16 +1,17 @@
 Collection = require 'models/base/collection'
 Model = require 'models/page'
 config = require 'config'
+utils = require 'lib/utils'
 
 module.exports = class Pages extends Collection
   model: Model
 
   initialize: =>
     super
-    console.log "initialize pages collection"
+    utils.log "initialize pages collection"
 
   fetch: =>
-    console.log "fetch pages collection"
+    utils.log "fetch pages collection"
     collection = []
     files = require 'paths'
 

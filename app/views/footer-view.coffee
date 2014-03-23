@@ -2,6 +2,7 @@ View = require 'views/base/view'
 template = require 'views/templates/site-footer'
 mediator = require 'mediator'
 config = require 'config'
+utils = require 'lib/utils'
 
 module.exports = class FooterView extends View
   autoRender: true
@@ -11,11 +12,11 @@ module.exports = class FooterView extends View
 
   initialize: (options) =>
     super
-    console.log 'initializing footer view'
+    utils.log 'initializing footer view'
 
   render: =>
     super
-    console.log 'rendering footer view'
+    utils.log 'rendering footer view'
 
   getTemplateData: =>
     templateData = super

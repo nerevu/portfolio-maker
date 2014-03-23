@@ -1,11 +1,12 @@
 Model = require 'models/file'
 config = require 'config'
+utils = require 'lib/utils'
 
 module.exports = class Page extends Model
 	# load md file as a model
   initialize: ->
     super
-    console.log "initialize #{@get 'name'} page model"
+    utils.log "initialize #{@get 'name'} page model"
     @set type: 'page'
     @set slug: _.str.slugify @get 'name'
     @set href: "/#{@get 'slug'}"

@@ -6,8 +6,8 @@ module.exports = class ExcerptView extends View
   className: 'row'
 
   listen:
-#     'all': (event) => console.log "heard #{event}"
-    'addedToParent': => console.log "heard addedToParent"
+#     'all': (event) => utils.log "heard #{event}"
+    'addedToParent': => utils.log "heard addedToParent"
 
   initialize: (options) =>
     super

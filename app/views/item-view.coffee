@@ -9,8 +9,8 @@ module.exports = class ItemView extends View
   region: 'content'
 
   listen:
-#     'all': (event) => console.log "heard #{event}"
-    'addedToParent': => console.log "heard addedToParent"
+#     'all': (event) => utils.log "heard #{event}"
+    'addedToParent': => utils.log "heard addedToParent"
 
   initialize: (options) =>
     super
@@ -24,7 +24,7 @@ module.exports = class ItemView extends View
 
   render: =>
     super
-    console.log "rendering item view"
+    utils.log "rendering item view"
 
   getTemplateData: =>
     templateData = super

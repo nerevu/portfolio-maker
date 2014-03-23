@@ -1,11 +1,12 @@
 Model = require 'models/file'
 config = require 'config'
+utils = require 'lib/utils'
 
 module.exports = class Post extends Model
   # load md file as a model
   initialize: (file) ->
     super
-    console.log "initialize #{@get 'name'} post model"
+    utils.log "initialize #{@get 'name'} post model"
     type = 'post'
     name = @get 'name'
     slug = name.split('-')[3..].join('-')
