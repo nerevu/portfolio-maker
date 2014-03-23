@@ -15,5 +15,8 @@ module.exports = class PageController extends Controller
     utils.log "show #{page} page-controller"
     @model = collection.findWhere name: page
     title = @model.get 'title'
-    @adjustTitle "#{title}"
-    @view = new PageView {@model}
+    @adjustTitle title
+    @view = new PageView
+      model: @model
+      active: title
+      title: title

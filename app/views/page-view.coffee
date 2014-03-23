@@ -21,8 +21,9 @@ module.exports = class PageView extends View
     super
     template = @model.get 'template'
     @template = require "views/templates/#{template}"
+    @title = options.title
     title = @model.get 'title'
-    mediator.setActive title
+    mediator.setActive options.active
     utils.log "initializing #{title} page view"
 
   render: =>
@@ -36,6 +37,7 @@ module.exports = class PageView extends View
 
     recent_posts = @collection.slice 0, config.recent_posts
     templateData = super
+    templateData.page_title = @title
     templateData.recent_posts = []
 
     while model = recent_posts.shift()

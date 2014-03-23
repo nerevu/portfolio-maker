@@ -5,9 +5,9 @@ sidebar: true
 sharing: false
 footer: true
 ---
-## About Me
+## Me
 
-### Life
+### My Life
 
 I graduated from [MIT](http://web.mit.edu/) in 2005 with a degree in chemical engineering. During my time there I worked summer research internships at [Los Alamos National Laboratory](http://www.lanl.gov) and [Proctor & Gamble](http://www.pg.com) and soon realized R&D wasn't my cup of tea. Not long afterwards I found out about the [MIT E-Club](http://web.mit.edu/e-club/) and fell in love with entrepreneurship. Shortly afterwards I co-founded [Entreprelliance](http://www.entreprelliance.com), an intercollegiate entrepreneurship organization, and [CarboTran Technologies](https://www.google.com/search?q=carbotran+technologies), a failed clean-energy startup.
 
@@ -18,11 +18,11 @@ Having lived in [Cambridge, MA]() for ten years, I left in 2010 to work for [Glo
 
 I left GCS in late 2012 and currently live in Arusha, Tanzania developing [web and command line applications](/projects).
 
-### Social
+### My Social Connections
 
 [Flickr](http://www.flickr.com/photos/reubano/) | [GitHub](https://github.com/reubano) | [Google+](https://plus.google.com/+reubano) |  [LinkedIn](http://www.linkedin.com/in/reubano) | [Twitter](http://twitter.com/reubano)
 
-### Interests
+### My Interests
 
 #### _Technology_
 
@@ -46,7 +46,7 @@ I love to travel and have so far been to around 20 countries including 13 in Afr
 * Diagnostics
 * Salsa dancing
 
-## About This Site
+## This Site
 
 This site is built with [Octopress](http://octopress.org/) and has been modified with some css and html tweaks here and there with tips I found on the following sites:
 
