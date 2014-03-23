@@ -17,9 +17,14 @@ module.exports = class PostView extends View
     template = @model.get 'template'
     @template = require "views/templates/#{template}"
     title = @model.get 'title'
-    mediator.setActive 'Blog'
+    mediator.setActive options.active
     utils.log "initializing #{title} post view"
 
   render: =>
     super
     console.log "rendering post view"
+
+  getTemplateData: =>
+    templateData = super
+    templateData.page_title = @title
+    templateData

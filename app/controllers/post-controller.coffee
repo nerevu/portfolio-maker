@@ -30,8 +30,12 @@ module.exports = class PostController extends Controller
     utils.log "show #{slug} post-controller"
     @model = @collection.findWhere slug: slug
     title = @model.get 'title'
-    @adjustTitle "#{title}"
-    @view = new PostView {@model}
+    active = 'Blog'
+    @adjustTitle title
+    @view = new PostView
+      model: @model
+      active: active
+      title: title
 
   index: (params) =>
     utils.log "show post-controller"
