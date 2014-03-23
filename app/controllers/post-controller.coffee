@@ -1,6 +1,6 @@
 Controller = require 'controllers/base/controller'
 PostView = require 'views/post-view'
-PostsView = require 'views/posts-view'
+IndexView = require 'views/index-view'
 ArchivesView = require 'views/archives-view'
 Posts = require 'models/posts'
 config = require 'config'
@@ -35,16 +35,15 @@ module.exports = class PostController extends Controller
 
   index: (params) =>
     utils.log "show post-controller"
-    @adjustTitle 'Blog'
-    @collection.comparator = (model) -> - model.get 'date'
-    @collection.sort()
-    posts = @collection.slice 0, config.recent_posts
-    recent_posts = []
+    active = 'Blog'
+    title = 'My Blog'
+    @adjustTitle title
 
-    while model = posts.shift()
-      href = model.get 'href'
-      title = model.get 'title'
-      recent_posts.push({href: href, title: title})
+    @view = new IndexView
+      collection: @collection
+      recent_posts: @recent_posts
+      active: active
+      title: title
 
   archives: (params) =>
     utils.log "show post-controller"

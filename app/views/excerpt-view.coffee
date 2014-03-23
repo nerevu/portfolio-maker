@@ -5,8 +5,6 @@ utils = require 'lib/utils'
 module.exports = class ExcerptView extends View
   autoRender: true
   className: 'row'
-  # tagName: 'tr'
-  region: 'content'
   template: template
 
   listen:

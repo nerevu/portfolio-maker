@@ -1,10 +1,10 @@
 CollectionView = require 'views/base/collection-view'
-template = require 'views/templates/posts'
+template = require 'views/templates/index'
 View = require 'views/excerpt-view'
 mediator = require 'mediator'
 config = require 'config'
 
-module.exports = class PostsView extends CollectionView
+module.exports = class IndexView extends CollectionView
   itemView: View
   autoRender: true
   listSelector: '#excerpt-list'
@@ -16,7 +16,8 @@ module.exports = class PostsView extends CollectionView
     super
     console.log 'initializing posts view'
     @recent_posts = options.recent_posts
-    mediator.setActive 'Blog'
+    @title = options.title
+    mediator.setActive options.active
 
   render: =>
     super
@@ -28,4 +29,5 @@ module.exports = class PostsView extends CollectionView
     templateData.sidebar = config.blog_index_sidebar
     templateData.asides = config.blog_index_asides
     templateData.recent_posts = @recent_posts
+    templateData.page_title = @title
     templateData
