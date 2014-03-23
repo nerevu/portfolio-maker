@@ -8,8 +8,8 @@ module.exports = class TitleView extends View
   template: template
 
   listen:
-#     'all': (event) => console.log "heard #{event}"
-    'addedToParent': => console.log "heard addedToParent"
+#     'all': (event) => utils.log "heard #{event}"
+    'addedToParent': => utils.log "heard addedToParent"
 
   initialize: (options) =>
     super

@@ -26,7 +26,7 @@ module.exports = class IndexView extends CollectionView
     utils.log 'rendering index view'
 
   getTemplateData: =>
-    console.log 'getTemplateData'
+    utils.log 'getTemplateData'
     templateData = super
     templateData.sidebar = config[@type].index_sidebar
     templateData.collapsed = config[@type].index_collapsed
