@@ -37,7 +37,9 @@
       "main": "backbone.js"
     },
     "nvd3": {
-      "dependencies": {"d3": "3.3.5"},
+      "dependencies": {
+        "d3": "3.3.5"
+      },
       "main": [
         "nv.d3.js",
         "nv.d3.css"
@@ -49,7 +51,9 @@
       "main": "leaflet.js"
     },
     "L.GeoSearch": {
-      "dependencies": {"leaflet-dist": "*"},
+      "dependencies": {
+        "leaflet-dist": "*"
+      },
       "main": [
         "src/js/l.control.geosearch.js",
         "src/js/l.geosearch.provider.google.js",
@@ -59,7 +63,9 @@
       ]
     },
     "Leaflet.markercluster": {
-      "dependencies": {"leaflet-dist": "*"},
+      "dependencies": {
+        "leaflet-dist": "*"
+      },
       "main": [
         "dist/leaflet.markercluster-src.js",
         "dist/MarkerCluster.css",
