@@ -1,5 +1,4 @@
 ---
-template: post
 title: Days in Dar
 comments: false
 tags: [outro, post]

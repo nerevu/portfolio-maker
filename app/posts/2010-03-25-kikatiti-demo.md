@@ -1,5 +1,4 @@
 ---
-template: post
 title: Kikatiti Demo
 comments: false
 tags: [outro, post]

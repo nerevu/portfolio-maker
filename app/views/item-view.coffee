@@ -14,13 +14,13 @@ module.exports = class ItemView extends View
 
   initialize: (options) =>
     super
-    template = @model.get 'template'
-    @template = require "views/templates/#{template}"
+    @template = require "views/templates/#{@model.get 'template'}"
     @recent_projects = options.recent_projects
     @recent_posts = options.recent_posts
     @title = options.title
     mediator.setActive options.active
     utils.log "initializing #{@model.get 'title'} item view"
+    console.log @model.get 'asides'
 
   render: =>
     super
@@ -31,5 +31,6 @@ module.exports = class ItemView extends View
     templateData.page_title = @title
     templateData.recent_projects = @recent_projects
     templateData.recent_posts = @recent_posts
+    templateData.partial = @model.get 'partial'
     templateData
 

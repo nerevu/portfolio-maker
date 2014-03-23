@@ -1,5 +1,4 @@
 ---
-template: post
 title: Thoughts on Arusha
 comments: false
 tags: [outro, post]

@@ -31,6 +31,7 @@ module.exports = class PostController extends Controller
       model: @model
       active: active
       title: title
+      recent_posts: @recent_posts
 
   index: (params) =>
     utils.log "index post-controller"

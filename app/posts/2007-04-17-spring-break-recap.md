@@ -1,5 +1,4 @@
 ---
-template: post
 title: Spring Break Recap
 comments: false
 tags: [outro, post]

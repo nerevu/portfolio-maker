@@ -1,5 +1,4 @@
 ---
-template: post
 title: The Caribbean Dream
 comments: false
 tags: [outro, post]

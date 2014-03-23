@@ -1,5 +1,4 @@
 ---
-template: post
 title: Mbeya and Kyela
 comments: false
 tags: [outro, post]

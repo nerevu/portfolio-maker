@@ -1,5 +1,4 @@
 ---
-template: custom
 title: About
 sidebar: true
 sharing: false

@@ -1,5 +1,4 @@
 ---
-template: post
 title: From South to North
 comments: false
 tags: [outro, post]

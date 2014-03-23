@@ -1,5 +1,4 @@
 ---
-template: page
 title: Contact
 sidebar: false
 sharing: false

@@ -1,5 +1,4 @@
 ---
-template: post
 title: Embu Demonstration
 comments: false
 tags: [outro, post]

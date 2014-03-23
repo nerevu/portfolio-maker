@@ -27,8 +27,11 @@ module.exports = class Post extends Model
     @set date_str: date.format("MMMM Do, YYYY")
     @set excerpt: _.str.prune content, 500
     @set href: "/blog/#{year}/#{month}/#{day}/#{slug}"
-    @set template: @get('template') ? type
+    @set template: @get('template') ? 'item'
+    @set partial: @get('partial') ? type
     @set comments: @get('comments') ? true
-    @set asides: @get('asides') ? config.blog.asides
+    @set asides: @get('asides') ? config.blog.page_asides
+    @set sidebar: @get('sidebar') ? config.pages.page_sidebar
+    @set collapsed: @get('collapsed') ? config.pages.page_collapsed
     @set tags: @get('tags') ? []
 
