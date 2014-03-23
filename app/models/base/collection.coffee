@@ -1,5 +1,6 @@
 Model = require './model'
 config = require 'config'
+utils = require 'lib/utils'
 
 module.exports = class Collection extends Chaplin.Collection
   # Mixin a synchronization state machine.
@@ -25,3 +26,10 @@ module.exports = class Collection extends Chaplin.Collection
       recent.push({href: href, title: title})
 
     recent
+
+  # DualStorage Fetch promise helper
+  # --------------------------------
+  cltnFetch: =>
+    $.Deferred((deferred) => @fetch
+      success: deferred.resolve
+      error: deferred.reject).promise()

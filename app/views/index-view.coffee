@@ -17,6 +17,7 @@ module.exports = class IndexView extends CollectionView
     super
     utils.log 'initializing index view'
     @type = options.type
+    @recent_projects = options.recent_projects
     @recent_posts = options.recent_posts
     @title = options.title
     mediator.setActive options.active
@@ -32,5 +33,6 @@ module.exports = class IndexView extends CollectionView
     templateData.collapsed = config[@type].index_collapsed
     templateData.asides = config[@type].index_asides
     templateData.recent_posts = @recent_posts
+    templateData.recent_projects = @recent_projects
     templateData.page_title = @title
     templateData

@@ -2,6 +2,8 @@
 mediator = require 'mediator'
 Pages = require 'models/pages'
 Posts = require 'models/posts'
+Projects = require 'models/projects'
+config= require 'config'
 utils = require 'lib/utils'
 
 # The application object.
@@ -23,6 +25,7 @@ module.exports = class Application extends Chaplin.Application
     utils.log 'initializing mediator'
     pages = new Pages()
     posts = new Posts()
+    mediator.projects = new Projects()
 
     mediator.active = null
     mediator.googleLoaded = null
@@ -31,6 +34,8 @@ module.exports = class Application extends Chaplin.Application
     mediator.doneSearching = null
     mediator.postData = posts.fetch()
     mediator.pageData = pages.fetch()
+    mediator.projects.cltnFetch().done (collection) ->
+      localStorage.setItem "#{config.title}:synced", true
     mediator.main = {href: '/', title: 'Home'}
     mediator.seal()
     super

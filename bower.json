@@ -16,6 +16,7 @@
     "Leaflet.awesome-markers": "~2.0.1",
     "L.GeoSearch": "git://github.com/smeijer/L.GeoSearch.git",
     "Leaflet.markercluster": "git://github.com/Leaflet/Leaflet.markercluster",
+    "Backbone.dualStorage": "git://github.com/nilbus/Backbone.dualStorage",
     "blueimp-md5": "~1.1.0",
     "lodash": "~2.4.1",
     "underscore.string": "~2.3.3"

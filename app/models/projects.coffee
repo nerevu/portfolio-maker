@@ -5,8 +5,16 @@ utils = require 'lib/utils'
 
 module.exports = class Projects extends Collection
   model: Model
+  url: "https://api.github.com/users/#{config.github.user}/repos"
+  storeName: 'Projects'
+  local: -> localStorage.getItem "#{config.title}:synced"
+  # local: -> false
+
+  sync: (method, collection, options) =>
+    utils.log "collection's sync method is #{method}"
+    utils.log "read collection from server: #{not @local()}"
+    Backbone.sync(method, collection, options)
 
   initialize: =>
     super
-    @url = -> "https://api.github.com/users/reubano/repos"
     utils.log "initialize projects collection"

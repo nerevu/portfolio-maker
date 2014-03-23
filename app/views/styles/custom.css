@@ -21,6 +21,12 @@
   border-bottom: 1px solid #eee;
 }
 
+#recent-projects {margin-top: -10px;}
+#recent-projects li {
+  padding: 7px 0;
+  border-bottom: 1px solid #eee;
+}
+
 #popular-posts {margin-top: -10px;}
 #popular-posts li {
   padding: 7px 0;
