@@ -1,6 +1,8 @@
-<div id="page-title" class="col-sm-12"><h1>{{page_title}}</h1></div>
 {{#if sidebar}}
-  <div id="excerpt-list" class="col-sm-8"></div>
+  <div class="col-sm-8">
+    <div id="page-title"><h1>{{page_title}}</h1></div>
+    <div id="excerpt-list"></div>
+  </div>
   <div id="sidebar" class="col-sm-4">{{partial 'sidebar-vert' this}}</div>
 {{else}}
   <div class="col-sm-12">

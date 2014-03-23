@@ -7,7 +7,11 @@
 #excerpt-content {margin-bottom: 10px;}
 
 #archives {
-  padding: 27px 0 18px 0;
+  padding: 27px 20px 18px 0;
+}
+
+#sidebar {
+  margin-left: 0px;
 }
 
 #sidebar h3 {
@@ -40,7 +44,7 @@
   box-shadow: none;
 }
 
-td.numeric {
+.numeric {
   text-align: right;
 }
 

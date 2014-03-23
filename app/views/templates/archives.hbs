@@ -1,14 +1,22 @@
 <div id="page-title" class="col-sm-12"><h1>{{page_title}}</h1></div>
 {{#if sidebar}}
   <div id="archives" class="col-sm-8">
-    <table class="table table-borderd">
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>Year</th>
+          <th>Month</th>
+          <th class="numeric">Day</th>
+          <th>Title</th>
+        </tr>
+      </thead>
       <tbody id="title-list"></tbody>
     </table>
   </div>
   <div id="sidebar" class="col-sm-4">{{partial 'sidebar-vert' this}}</div>
 {{else}}
   <div class="col-sm-12">
-    <table class="table table-borderd">
+    <table class="table table-bordered">
       <tbody id="title-list"></tbody>
     </table>
     {{#if collapsed}}{{partial 'sidebar-horz' this}}{{/if}}
