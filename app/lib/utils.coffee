@@ -1,4 +1,4 @@
-config = require 'config'
+devconfig = require 'devconfig'
 mediator = require 'mediator'
 
 # Application-specific utilities
@@ -9,7 +9,7 @@ utils = Chaplin.utils.beget Chaplin.utils
 
 Minilog
   .enable()
-  .pipe new Minilog.backends.jQuery {url: config.api_logs, interval: 5000}
+  .pipe new Minilog.backends.jQuery {url: devconfig.api_logs, interval: 5000}
 
 minilog = Minilog 'tophubbers'
 
@@ -58,9 +58,9 @@ _(utils).extend
   # Logging helper
   # ---------------------
   log: (message, level='debug') ->
-    if config.dev and not config.debug_minilog then console.log message
+    if devconfig.dev and not devconfig.debug_minilog then console.log message
     else if level
-      console.log message if config.debug_prod_verbose and level is 'debug'
+      console.log message if devconfig.debug_prod_verbose and level is 'debug'
       text = JSON.stringify message
       message = if text.length > 512 then "size exceeded" else message
 

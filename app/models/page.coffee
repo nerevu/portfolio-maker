@@ -6,8 +6,11 @@ module.exports = class Page extends Model
   initialize: ->
     super
     console.log "initialize #{@get 'name'} page model"
+    @set type: 'page'
     @set slug: _.str.slugify @get 'name'
     @set href: "/#{@get 'slug'}"
-    @set template: if @has('template') then @get('template') else 'page'
-    @set nav_link: if @has('nav_link') then @get('nav_link') else true
-    @set asides: if @has('asides') then @get('asides') else config.page_asides
+    @set template: @get('template') ? 'page'
+    @set nav_link: @get('nav_link') ? true
+    @set asides: @get('asides') ? config.pages.asides
+    @set sidebar: @get('sidebar') ? config.pages.sidebar
+    @set collapsed: @get('collapsed') ? config.pages.collapsed

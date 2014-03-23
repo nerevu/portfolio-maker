@@ -6,6 +6,7 @@ module.exports = class Post extends Model
   initialize: (file) ->
     super
     console.log "initialize #{@get 'name'} post model"
+    type = 'post'
     name = @get 'name'
     slug = name.split('-')[3..].join('-')
     date_arr = _.str.words(name, '-')[0..2]
@@ -15,6 +16,7 @@ module.exports = class Post extends Model
     date = moment new Date year, month - 1, day
     content = _.str.stripTags @get 'content'
 
+    @set type: type
     @set slug: slug
     @set year: year
     @set year_month: "#{year}#{month}"
@@ -24,8 +26,8 @@ module.exports = class Post extends Model
     @set date_str: date.format("MMMM Do, YYYY")
     @set excerpt: _.str.prune content, 500
     @set href: "/blog/#{year}/#{month}/#{day}/#{slug}"
-    @set template: if @has('template') then @get('template') else 'post'
-    @set comments: if @has('comments') then @get('comments') else true
-    @set asides: if @has('asides') then @get('asides') else config.post_asides
-    @set tags: if @has('tags') then @get('tags') else []
+    @set template: @get('template') ? type
+    @set comments: @get('comments') ? true
+    @set asides: @get('asides') ? config.blog.asides
+    @set tags: @get('tags') ? []
 

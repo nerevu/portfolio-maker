@@ -15,6 +15,7 @@ module.exports = class IndexView extends CollectionView
   initialize: (options) ->
     super
     console.log 'initializing posts view'
+    @type = options.type
     @recent_posts = options.recent_posts
     @title = options.title
     mediator.setActive options.active
@@ -26,8 +27,9 @@ module.exports = class IndexView extends CollectionView
   getTemplateData: =>
     console.log 'getTemplateData'
     templateData = super
-    templateData.sidebar = config.blog_index_sidebar
-    templateData.asides = config.blog_index_asides
+    templateData.sidebar = config[@type].index_sidebar
+    templateData.collapsed = config[@type].index_collapsed
+    templateData.asides = config[@type].index_asides
     templateData.recent_posts = @recent_posts
     templateData.page_title = @title
     templateData
