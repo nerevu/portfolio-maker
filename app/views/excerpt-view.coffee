@@ -1,11 +1,9 @@
 View = require 'views/base/view'
-template = require 'views/templates/excerpt'
 utils = require 'lib/utils'
 
 module.exports = class ExcerptView extends View
   autoRender: true
   className: 'row'
-  template: template
 
   listen:
 #     'all': (event) => console.log "heard #{event}"
@@ -13,8 +11,9 @@ module.exports = class ExcerptView extends View
 
   initialize: (options) =>
     super
-    utils.log "initializing excerpt view"
+    utils.log "initializing excerpt view for #{@model.get 'name'}"
+    @template = require "views/templates/#{@model.get 'type'}-excerpt"
 
   render: =>
     super
-    utils.log "rendering excerpt view"
+    utils.log "rendering excerpt view for #{@model.get 'name'}"
