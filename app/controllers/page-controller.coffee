@@ -1,12 +1,19 @@
 Controller = require 'controllers/base/controller'
-PageView = require 'views/page-view'
+ItemView = require 'views/item-view'
 Pages = require 'models/pages'
+Posts = require 'models/posts'
 utils = require 'lib/utils'
 mediator = require 'mediator'
 
 module.exports = class PageController extends Controller
+  posts = new Posts()
+  posts.set mediator.postData
+  posts: posts
+
   initialize: =>
     utils.log 'initialize page-controller'
+    @posts.comparator = (model) -> - model.get 'date'
+    @posts.sort()
 
   show: (params) =>
     collection = new Pages()
@@ -16,7 +23,9 @@ module.exports = class PageController extends Controller
     @model = collection.findWhere name: page
     title = @model.get 'title'
     @adjustTitle title
-    @view = new PageView
+    @view = new ItemView
       model: @model
       active: title
       title: title
+      recent_posts: @posts.getRecent 'blog'
+      recent_projects: @projects.getRecent 'portfolio', {fork: false}

@@ -1,5 +1,5 @@
 Controller = require 'controllers/base/controller'
-PostView = require 'views/post-view'
+ItemView = require 'views/item-view'
 IndexView = require 'views/index-view'
 ArchivesView = require 'views/archives-view'
 Posts = require 'models/posts'
@@ -11,19 +11,14 @@ module.exports = class PostController extends Controller
   collection = new Posts()
   collection.set mediator.postData
   collection: collection
+  type: 'blog'
 
   initialize: =>
     # @collection.comparator = (model) -> model.get 'date'
     utils.log 'initialize post-controller'
     @collection.comparator = (model) -> - model.get 'date'
     @collection.sort()
-    posts = @collection.slice 0, config.recent_posts
-    @recent_posts = []
-
-    while model = posts.shift()
-      href = model.get 'href'
-      title = model.get 'title'
-      @recent_posts.push({href: href, title: title})
+    @recent_posts = @collection.getRecent @type
 
   show: (params) =>
     slug = params.slug
@@ -32,13 +27,13 @@ module.exports = class PostController extends Controller
     title = @model.get 'title'
     active = 'Blog'
     @adjustTitle title
-    @view = new PostView
+    @view = new ItemView
       model: @model
       active: active
       title: title
 
   index: (params) =>
-    utils.log "show post-controller"
+    utils.log "index post-controller"
     active = 'Blog'
     title = 'My Blog'
     @adjustTitle title
@@ -48,6 +43,7 @@ module.exports = class PostController extends Controller
       recent_posts: @recent_posts
       active: active
       title: title
+      type: @type
 
   archives: (params) =>
     utils.log "show post-controller"

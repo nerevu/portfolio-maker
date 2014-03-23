@@ -3,7 +3,7 @@ mediator = require 'mediator'
 config = require 'config'
 utils = require 'lib/utils'
 
-module.exports = class PostView extends View
+module.exports = class ItemView extends View
   autoRender: true
   className: 'row'
   region: 'content'
@@ -16,15 +16,20 @@ module.exports = class PostView extends View
     super
     template = @model.get 'template'
     @template = require "views/templates/#{template}"
-    title = @model.get 'title'
+    @recent_projects = options.recent_projects
+    @recent_posts = options.recent_posts
+    @title = options.title
     mediator.setActive options.active
-    utils.log "initializing #{title} post view"
+    utils.log "initializing #{@model.get 'title'} item view"
 
   render: =>
     super
-    console.log "rendering post view"
+    console.log "rendering item view"
 
   getTemplateData: =>
     templateData = super
     templateData.page_title = @title
+    templateData.recent_projects = @recent_projects
+    templateData.recent_posts = @recent_posts
     templateData
+
