@@ -41,9 +41,9 @@ module.exports = class PostController extends Controller
 
     @view = new IndexView
       collection: @collection
-      recent_posts: @recent_posts
       active: active
       title: title
+      recent_posts: @recent_posts
       type: @type
 
   archives: (params) =>
@@ -71,6 +71,6 @@ module.exports = class PostController extends Controller
 
     @view = new ArchivesView
       collection: @collection
-      recent_posts: @recent_posts
       active: active
       title: title
+      recent_posts: @recent_posts

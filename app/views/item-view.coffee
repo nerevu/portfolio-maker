@@ -20,7 +20,6 @@ module.exports = class ItemView extends View
     @title = options.title
     mediator.setActive options.active
     utils.log "initializing #{@model.get 'title'} item view"
-    console.log @model.get 'asides'
 
   render: =>
     super
