@@ -10,6 +10,7 @@ module.exports = class Pages extends Collection
     console.log "initialize pages collection"
 
   fetch: =>
+    console.log "fetch pages collection"
     collection = []
     files = require 'paths'
 

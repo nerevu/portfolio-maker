@@ -10,6 +10,7 @@ module.exports = class Posts extends Collection
     console.log "initialize posts collection"
 
   fetch: =>
+    console.log "fetch posts collection"
     collection = []
     files = require 'paths'
 

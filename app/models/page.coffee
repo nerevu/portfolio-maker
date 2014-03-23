@@ -5,7 +5,7 @@ module.exports = class Page extends Model
 	# load md file as a model
   initialize: ->
     super
-    console.log "initialize page model"
+    console.log "initialize #{@get 'name'} page model"
     @set slug: _.str.slugify @get 'name'
     @set href: "/#{@get 'slug'}"
     @set template: if @has('template') then @get('template') else 'page'
