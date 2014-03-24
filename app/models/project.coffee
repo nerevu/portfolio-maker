@@ -66,6 +66,6 @@ module.exports = class Project extends Model
 
   addTags: (newTags) =>
     curTags = @get 'tags'
-    tags = _.union curTags, newTags
+    tags = _.union curTags, (t for t in newTags when t?)
     @set tags: tags
     @save patch: true
