@@ -35,14 +35,14 @@ module.exports = class Project extends Model
 
   initialize: (options) ->
     super
-    utils.log "initialize #{@get 'name'} project model"
+    name = @get 'name'
+    utils.log "initialize #{name} project model"
     language = @get('language')?.toLowerCase()
-    title = @get 'name'
     type = 'project'
 
     @set type: type
-    @set title: title
-    @set href: "/portfolio/#{title}"
+    @set title: name
+    @set href: "/portfolio/#{name}"
     @set template: 'item'
     @set partial: type
     @set asides: config.portfolio.page_asides

@@ -6,11 +6,13 @@ module.exports = class Page extends Model
 	# load md file as a model
   initialize: ->
     super
-    utils.log "initialize #{@get 'name'} page model"
+    name = @get 'name'
+    slug = _.str.slugify name
+    utils.log "initialize #{name} page model"
     type = 'page'
     @set type: type
-    @set slug: _.str.slugify @get 'name'
-    @set href: "/#{@get 'slug'}"
+    @set slug: slug
+    @set href: "/#{slug}"
     @set template: @get('template') ? 'item'
     @set partial: @get('partial') ? type
     @set nav_link: @get('nav_link') ? true

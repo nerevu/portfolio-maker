@@ -6,9 +6,9 @@ module.exports = class Post extends Model
   # load md file as a model
   initialize: (file) ->
     super
-    utils.log "initialize #{@get 'name'} post model"
-    type = 'post'
     name = @get 'name'
+    utils.log "initialize #{name} post model"
+    type = 'post'
     slug = name.split('-')[3..].join('-')
     date_arr = _.str.words(name, '-')[0..2]
     year = date_arr[0]
