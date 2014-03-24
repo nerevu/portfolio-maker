@@ -1,38 +1,32 @@
 /* Bootstrap CSS */
-#excerpt-list .row {
-  padding: 27px 0 18px 0;
+#page-title {margin-bottom: 20px;}
+#excerpt-footer {
+  padding-bottom: 15px;
   border-bottom: 1px dashed #eee;
+  margin-bottom: 20px;
 }
+
 #excerpt-title {margin-top: 10px;}
 #excerpt-content {margin-bottom: 10px;}
-
-#archives {
-  padding: 27px 20px 18px 0;
-}
-
-#sidebar {
-  margin-left: 0px;
-}
+#excerpt-thumbnail {margin-bottom: 10px;}
+#archives {padding: 27px 20px 18px 0;}
+#sidebar { margin-left: 0px;}
+/*.collapsing {width: 0;}*/
 
 #sidebar h3 {
   padding-bottom: 9px;
   border-bottom: 1px solid #eee;
 }
 
-#recent-posts {margin-top: -10px;}
-#recent-posts li {
+.tag {margin-bottom: 10px;}
+.list-recent {margin-top: -10px;}
+.list-recent li {
   padding: 7px 0;
   border-bottom: 1px solid #eee;
 }
 
-#recent-projects {margin-top: -10px;}
-#recent-projects li {
-  padding: 7px 0;
-  border-bottom: 1px solid #eee;
-}
-
-#popular-posts {margin-top: -10px;}
-#popular-posts li {
+.list-popular {margin-top: -10px;}
+.list-popular li {
   padding: 7px 0;
   border-bottom: 1px solid #eee;
 }

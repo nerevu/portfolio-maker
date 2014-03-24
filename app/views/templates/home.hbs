@@ -1,19 +1,17 @@
-{{#if collapsed}}
-  <div class="col-sm-12">
-    <div id="home" class="">{{{content}}}</div>
-    <div id="sidebar" class="row">{{partial 'sidebar-horz' this}}</div>
-  </div>
-{{else}}
-  {{#if sidebar}}
+{{#if sidebar}}
+  {{#if collapsed}}
+    <div class="col-sm-12">
+      <div id="home" class="">{{{content}}}</div>
+      <div id="sidebar" class="row">{{partial 'sidebar-horz' this}}</div>
+    </div>
+  {{else}}
     <div id="home" class="col-sm-8">
       {{{content}}}
     </div>
-    <div id="sidebar" class="col-sm-4">
-      {{partial 'sidebar-vert' this}}
-    </div>
-  {{else}}
-    <div class="col-sm-12">
-      <div id="home" class="">{{{content}}}</div>
-    </div>
+    <div id="sidebar" class="col-sm-4">{{partial 'sidebar-vert' this}}</div>
   {{/if}}
+{{else}}
+  <div class="col-sm-12">
+    <div id="home" class="">{{{content}}}</div>
+  </div>
 {{/if}}

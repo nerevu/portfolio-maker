@@ -1,12 +1,28 @@
 {{#if sidebar}}
-  <div class="col-sm-8">
-    <div id="page-title"><h1>{{page_title}}</h1></div>
-    <div id="excerpt-list"></div>
-  </div>
-  <div id="sidebar" class="col-sm-4">{{partial 'sidebar-vert' this}}</div>
+  {{#if collapsed}}
+    <div class="col-sm-12">
+      <div id="page">
+        <div id="page-title"><h1>{{page_title}}</h1></div>
+        <div id="excerpt-list"></div>
+      </div>
+      <div id="sidebar" class="row">{{partial 'sidebar-horz' this}}</div>
+    </div>
+  {{else}}
+    <div id="page" class="col-sm-8">
+      <div class="row">
+        <div id="page-title" class="col-sm-12"><h1>{{page_title}}</h1></div>
+        <div id="excerpt-list" class="col-sm-12"></div>
+      </div>
+    </div>
+    <div id="sidebar" class="col-sm-4">
+      {{partial 'sidebar-vert' this}}
+    </div>
+  {{/if}}
 {{else}}
   <div class="col-sm-12">
-    <div id="excerpt-list"></div>
-    {{#if collapsed}}{{partial 'sidebar-horz' this}}{{/if}}
+    <div id="page">
+      <div id="page-title"><h1>{{page_title}}</h1></div>
+      <div id="excerpt-list"></div>
+    </div>
   </div>
 {{/if}}
