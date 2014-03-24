@@ -57,7 +57,7 @@ config =
     index_collapsed: false
     archives_collapsed: false
     page_asides: ['related_projects', 'recent_projects', 'popular_projects']
-    index_asides: ['recent_projects', 'popular_projects', 'github']
+    index_asides: ['recent_projects', 'popular_projects']
     archives_asides: []
     recent_count: 5
     popular_count: 5
@@ -74,7 +74,7 @@ config =
     index_collapsed: false
     archives_collapsed: false
     page_asides: ['related_photos', 'recent_photos', 'popular_photos']
-    index_asides: ['recent_photos', 'popular_photos', 'flickr']
+    index_asides: ['recent_photos', 'popular_photos']
     archives_asides: []
     recent_count: 5
     popular_count: 5
@@ -91,7 +91,7 @@ config =
     index_collapsed: false
     archives_collapsed: false
     page_asides: ['related_posts', 'recent_posts', 'popular_posts']
-    index_asides: ['recent_posts', 'popular_posts', 'twitter']
+    index_asides: ['recent_posts', 'popular_posts']
     archives_asides: []
     recent_count: 5
     popular_count: 5
@@ -125,7 +125,7 @@ config =
     analytics_tracking_id: 'UA-35222393-1'
 
   disqus:
-    short_name: 'reubano'
+    user: 'reubano'
     show_comment_count: true
 
   # Geolookup
