@@ -3,22 +3,6 @@ config = require 'config'
 utils = require 'lib/utils'
 
 module.exports = class Project extends Model
-  language_options:
-    javascript:
-      meta_files: ['bower.json', 'package.json']
-      package_managers: ['npm', 'bower']
-    coffeescript:
-      meta_files: ['bower.json', 'package.json']
-    python:
-      meta_files: ['setup.py']
-      package_managers: ['pypi']
-    php:
-      meta_files: ['package.xml', 'pearfarm.spec']
-      package_managers: ['pear']
-    shell:
-      meta_files: ['portfile']
-      package_managers: ['macports']
-
   github_api: "https://api.github.com/repos"
   token: "access_token=#{config.github.api_token}"
   url: => "#{github_api}/#{@get 'full_name'}"
@@ -56,9 +40,29 @@ module.exports = class Project extends Model
     @set updated_str: updated.format("MMMM Do, YYYY")
 
     @addTags [language]
-    @meta_files = @language_options[language]?.meta_files ? []
-    @package_managers = @language_options[language]?.package_managers ? []
+    @meta_files = @getOptions language, 'meta_files'
+    @package_managers = @getOptions language, 'package_managers'
     # @meta_files.push 'meta.yml'
+
+  getOptions: (language, option) =>
+    switch language
+      when 'javascript', 'coffeescript'
+        switch option
+          when 'meta_files' then ['bower.json', 'package.json']
+          when 'package_managers' then ['npm', 'bower']
+      when 'python'
+        switch option
+          when 'meta_files' then ['setup.py']
+          when 'package_managers' then ['pypi']
+      when 'php'
+        switch option
+          when 'meta_files' then ['package.xml', 'pearfarm.spec']
+          when 'package_managers' then ['pear']
+      when 'shell'
+        switch option
+          when 'meta_files' then ['portfile']
+          when 'package_managers' then ['macports']
+      else []
 
   addTags: (newTags) =>
     curTags = @get 'tags'
