@@ -14,7 +14,7 @@ module.exports = class ProjectController extends Controller
 
   initialize: =>
     utils.log 'initialize project-controller'
-    @collection.comparator = (model) -> - moment model.get 'created_at'
+    @collection.comparator = (model) -> - model.get 'created'
     @collection.sort()
     @recent_projects = @collection.getRecent @type, {fork: false}
 
