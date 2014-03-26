@@ -1,53 +1,94 @@
-<div class="col-sm-12">
-  <h2 id="excerpt-title">
-    <a href="{{href}}">{{title}}</a>
-  </h2>
+<div class="col-xs-12 col-sm-5 col-md-5">
+  <img id="excerpt-thumbnail" class="img-responsive" src="images/holder.png" alt="...">
 </div>
-<div class="col-sm-12 col-md-6">
-  <div id="excerpt-content" class="panel panel-default">
-    <div id="excerpt-body" class="panel-body">
-      <p class="">{{description}}</p>
+<div class="col-xs-12 col-sm-7 col-md-7">
+  <h2 class="hidden-sm" id="excerpt-title">
+    <a href="{{href}}">{{title}}</a><br>
+    <small>{{description}}</small>
+  </h2>
+  <h2 class="visible-sm" id="excerpt-title">
+    <a href="{{href}}">{{title}}</a><br>
+  </h2>
+ 	{{#each tags}}<a href="{{href}}"><span class="badge tag">{{this}}</span></a>{{/each}}
+</div>
+<div class="visible-sm col-sm-12">
+  <h2 id="excerpt-title"><small>{{description}}</small></h2>
+</div>
+<div id="excerpt-content" class="col-xs-12">
+  <div class="visible-xs">
+    <dl class="dl-horizontal">
+      <dt>Stars</dt>
+      <dd>{{stargazers_count}}</dd>
+      <dt>Forks</dt>
+      <dd>{{forks}}</dd>
+      <dt>Version</dt>
+      <dd>1.0.3</dd>
+      <dt>Environment</dt>
+      <dd>web</dd>
+      <dt>Languague</dt>
+      <dd>{{language}}</dd>
+      <dt>Created</dt>
+      <dd>{{created_str}}</dd>
+      <dt>Updated</dt>
+      <dd>{{updated_str}}</dd>
+    </dl>
+  </div>
+  <div class="visible-sm row">
+    <div class="col-sm-12 btn-group tag">
+      <button type="button" class="btn btn-default">
+        <div class="lead">{{stargazers_count}}</div><div>Stars</div>
+      </button>
+      <button type="button" class="btn btn-default">
+        <div class="lead">{{forks}}</div><div>Forks</div>
+      </button>
+      <button type="button" class="btn btn-default">
+        <div class="lead">1.0.3</div><div>Version</div>
+      </button>
     </div>
-    <ul class="list-group">
-      <li class="list-group-item">
-        Environment <span class="badge">web</span>
-      </li>
-      <li class="list-group-item">
-        Type <span class="badge">application</span>
-      </li>
-      <li class="list-group-item">
-        Languague <span class="badge">{{language}}</span>
-      </li>
-      <li class="list-group-item">
-        Stars <span class="badge">{{stargazers_count}}</span>
-      </li>
-      <li class="list-group-item">
-        Forks <span class="badge">{{forks}}</span>
-      </li>
-      <li class="list-group-item">
-        Version <span class="badge">1.0.3</span>
-      </li>
-      <li class="list-group-item">
-        Status <span class="badge">beta</span>
-      </li>
-    </ul>
+    <div class="col-sm-12 btn-group">
+      <button type="button" class="btn btn-default">
+        <div class="lead">web</div><div>Environment</div>
+      </button>
+      <button type="button" class="btn btn-default">
+        <div class="lead">application</div><div>Type</div>
+      </button>
+      <button type="button" class="btn btn-default">
+        <div class="lead">{{language}}</div><div>Languague</div>
+      </button>
+    </div>
+  </div>
+  <div class="hidden-sm hidden-xs btn-group">
+    <button type="button" class="btn btn-default">
+      <div class="lead">{{stargazers_count}}</div><div>Stars</div>
+    </button>
+    <button type="button" class="btn btn-default">
+      <div class="lead">{{forks}}</div><div>Forks</div>
+    </button>
+    <button type="button" class="btn btn-default">
+      <div class="lead">1.0.3</div><div>Version</div>
+    </button>
+    <button type="button" class="btn btn-default">
+      <div class="lead">web</div><div>Environment</div>
+    </button>
+    <button type="button" class="btn btn-default">
+      <div class="lead">application</div><div>Type</div>
+    </button>
+    <button type="button" class="btn btn-default">
+      <div class="lead">{{language}}</div><div>Languague</div>
+    </button>
   </div>
 </div>
-<div class="col-sm-12 col-md-6">
-  <img id="excerpt-thumbnail" class="img-thumbnail img-responsive" src="images/holder.png" alt="...">
- 	{{#each tags}}
-    <button type="button" class="btn btn-default btn-lg tag">
-      {{this}} <span class="glyphicon glyphicon-tags"></span>
-    </button>
-	{{/each}}
+<div class="hidden-xs col-sm-12">
   <button type="button" class="btn btn-default tag">
-    Created: {{created_str}}
-  </button>
-  <button type="button" class="btn btn-default tag">
-    Updated: {{updated_str}}
+    <dl class="dl-horizontal">
+      <dt>Created</dt>
+      <dd>{{created_str}}</dd>
+      <dt>Updated</dt>
+      <dd>{{updated_str}}</dd>
+    </dl>
   </button>
 </div>
-<div id="excerpt-footer" class="col-sm-12">
+<div id="excerpt-footer" class="col-xs-12">
   <a href="{{href}}" class="btn btn-default btn-lg" role="button">
     Visit <span class="glyphicon glyphicon-chevron-right"></span>
   </a>
