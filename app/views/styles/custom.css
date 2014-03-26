@@ -1,8 +1,8 @@
 /* Bootstrap CSS */
-.dl-horizontal {
+.dl-excerpt {
   margin-bottom: 0;
 }
-.dl-horizontal dt {
+.dl-excerpt dt {
   float: left;
   width: 100px;
   overflow: hidden;
@@ -11,23 +11,23 @@
   text-overflow: ellipsis;
   white-space: nowrap;
 }
-.dl-horizontal dd {
+.dl-excerpt dd {
   margin-left: 110px;
 }
-.dl-horizontal dd:before,
-.dl-horizontal dd:after {
+.dl-excerpt dd:before,
+.dl-excerpt dd:after {
   display: table;
   content: " ";
 }
-.dl-horizontal dd:after {
+.dl-excerpt dd:after {
   clear: both;
 }
-.dl-horizontal dd:before,
-.dl-horizontal dd:after {
+.dl-excerpt dd:before,
+.dl-excerpt dd:after {
   display: table;
   content: " ";
 }
-.dl-horizontal dd:after {
+.dl-excerpt dd:after {
   clear: both;
 }
 

@@ -14,50 +14,26 @@
 <div class="visible-sm col-sm-12">
   <h2 id="excerpt-title"><small>{{description}}</small></h2>
 </div>
-<div id="excerpt-content" class="col-xs-12">
-  <div class="visible-xs">
-    <dl class="dl-horizontal">
-      <dt>Stars</dt>
-      <dd>{{stargazers_count}}</dd>
-      <dt>Forks</dt>
-      <dd>{{forks}}</dd>
-      <dt>Version</dt>
-      <dd>1.0.3</dd>
-      <dt>Environment</dt>
-      <dd>web</dd>
-      <dt>Languague</dt>
-      <dd>{{language}}</dd>
-      <dt>Created</dt>
-      <dd>{{created_str}}</dd>
-      <dt>Updated</dt>
-      <dd>{{updated_str}}</dd>
-    </dl>
-  </div>
-  <div class="visible-sm row">
-    <div class="col-sm-12 btn-group tag">
-      <button type="button" class="btn btn-default">
-        <div class="lead">{{stargazers_count}}</div><div>Stars</div>
-      </button>
-      <button type="button" class="btn btn-default">
-        <div class="lead">{{forks}}</div><div>Forks</div>
-      </button>
-      <button type="button" class="btn btn-default">
-        <div class="lead">1.0.3</div><div>Version</div>
-      </button>
-    </div>
-    <div class="col-sm-12 btn-group">
-      <button type="button" class="btn btn-default">
-        <div class="lead">web</div><div>Environment</div>
-      </button>
-      <button type="button" class="btn btn-default">
-        <div class="lead">application</div><div>Type</div>
-      </button>
-      <button type="button" class="btn btn-default">
-        <div class="lead">{{language}}</div><div>Languague</div>
-      </button>
-    </div>
-  </div>
-  <div class="hidden-sm hidden-xs btn-group">
+<div id="excerpt-content" class="visible-xs col-xs-12">
+  <dl class="dl-excerpt">
+    <dt>Stars</dt>
+    <dd>{{stargazers_count}}</dd>
+    <dt>Forks</dt>
+    <dd>{{forks}}</dd>
+    <dt>Version</dt>
+    <dd>1.0.3</dd>
+    <dt>Environment</dt>
+    <dd>web</dd>
+    <dt>Languague</dt>
+    <dd>{{language}}</dd>
+    <dt>Created</dt>
+    <dd>{{created_str}}</dd>
+    <dt>Updated</dt>
+    <dd>{{updated_str}}</dd>
+  </dl>
+</div>
+<div id="excerpt-content" class="visible-sm col-sm-12">
+  <div class="btn-group tag">
     <button type="button" class="btn btn-default">
       <div class="lead">{{stargazers_count}}</div><div>Stars</div>
     </button>
@@ -67,6 +43,8 @@
     <button type="button" class="btn btn-default">
       <div class="lead">1.0.3</div><div>Version</div>
     </button>
+  </div>
+  <div class="btn-group">
     <button type="button" class="btn btn-default">
       <div class="lead">web</div><div>Environment</div>
     </button>
@@ -78,9 +56,29 @@
     </button>
   </div>
 </div>
-<div class="hidden-xs col-sm-12">
+<div id="excerpt-content" class="hidden-sm hidden-xs col-md-12 btn-group">
+  <button type="button" class="btn btn-default">
+    <div class="lead">{{stargazers_count}}</div><div>Stars</div>
+  </button>
+  <button type="button" class="btn btn-default">
+    <div class="lead">{{forks}}</div><div>Forks</div>
+  </button>
+  <button type="button" class="btn btn-default">
+    <div class="lead">1.0.3</div><div>Version</div>
+  </button>
+  <button type="button" class="btn btn-default">
+    <div class="lead">web</div><div>Environment</div>
+  </button>
+  <button type="button" class="btn btn-default">
+    <div class="lead">application</div><div>Type</div>
+  </button>
+  <button type="button" class="btn btn-default">
+    <div class="lead">{{language}}</div><div>Languague</div>
+  </button>
+</div>
+<div id="excerpt-dates" class="hidden-xs col-sm-12">
   <button type="button" class="btn btn-default tag">
-    <dl class="dl-horizontal">
+    <dl class="dl-excerpt">
       <dt>Created</dt>
       <dd>{{created_str}}</dd>
       <dt>Updated</dt>
