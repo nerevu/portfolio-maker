@@ -44,8 +44,8 @@ config =
   search_bar: true
 
   pages:
-    # asides: ['popular_projects', 'popular_photos', 'popular_posts']
-    asides: ['recent_projects', 'recent_photos', 'recent_posts']
+    # asides: ['popular-projects', 'popular-photos', 'popular-posts']
+    asides: ['recent-projects', 'recent-photos', 'recent-posts']
 
   portfolio:
     index: true
@@ -56,8 +56,8 @@ config =
     page_collapsed: false
     index_collapsed: false
     archives_collapsed: false
-    page_asides: ['related_projects', 'recent_projects', 'popular_projects']
-    index_asides: ['recent_projects', 'popular_projects']
+    page_asides: ['related-projects', 'recent-projects', 'popular-projects']
+    index_asides: ['recent-projects', 'popular-projects']
     archives_asides: []
     recent_count: 5
     popular_count: 5
@@ -73,8 +73,8 @@ config =
     page_collapsed: false
     index_collapsed: false
     archives_collapsed: false
-    page_asides: ['related_photos', 'recent_photos', 'popular_photos']
-    index_asides: ['recent_photos', 'popular_photos']
+    page_asides: ['related-photos', 'recent-photos', 'popular-photos']
+    index_asides: ['recent-photos', 'popular-photos']
     archives_asides: []
     recent_count: 5
     popular_count: 5
@@ -90,8 +90,8 @@ config =
     page_collapsed: false
     index_collapsed: false
     archives_collapsed: false
-    page_asides: ['related_posts', 'recent_posts', 'popular_posts']
-    index_asides: ['recent_posts', 'popular_posts']
+    page_asides: ['related-posts', 'recent-posts', 'popular-posts']
+    index_asides: ['recent-posts', 'popular-posts']
     archives_asides: []
     recent_count: 5
     popular_count: 5
