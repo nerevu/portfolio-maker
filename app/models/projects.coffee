@@ -4,8 +4,10 @@ config = require 'config'
 utils = require 'lib/utils'
 
 module.exports = class Projects extends Collection
+  token = "access_token=#{config.github.api_token}"
+
   model: Model
-  url: "https://api.github.com/users/#{config.github.user}/repos"
+  url: "https://api.github.com/users/#{config.github.user}/repos?#{token}"
   storeName: 'Projects'
   local: -> localStorage.getItem "#{config.title}:synced"
   # local: -> false

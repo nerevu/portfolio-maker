@@ -3,9 +3,9 @@ config = require 'config'
 utils = require 'lib/utils'
 
 module.exports = class Project extends Model
-  github_api: "https://api.github.com/repos"
-  token: "access_token=#{config.github.api_token}"
-  url: => "#{github_api}/#{@get 'full_name'}"
+  github_api = "https://api.github.com/repos"
+  token = "access_token=#{config.github.api_token}"
+  url: => "#{github_api}/#{@get 'full_name'}?#{token}"
 
   sync: (method, model, options) =>
     @local = -> method isnt 'read'
