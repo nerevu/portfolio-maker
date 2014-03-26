@@ -14,7 +14,6 @@ module.exports = class PostController extends Controller
   type: 'blog'
 
   initialize: =>
-    # @collection.comparator = (model) -> model.get 'date'
     utils.log 'initialize post-controller'
     @collection.comparator = (model) -> - model.get 'date'
     @collection.sort()
