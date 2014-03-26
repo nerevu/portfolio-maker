@@ -39,7 +39,7 @@ module.exports = class Project extends Model
     @set created_str: created.format("MMMM Do, YYYY")
     @set updated_str: updated.format("MMMM Do, YYYY")
 
-    @addTags [language]
+    if language then @addTags [language]
     @meta_files = @getOptions language, 'meta_files'
     @package_managers = @getOptions language, 'package_managers'
     # @meta_files.push 'meta.yml'
@@ -66,6 +66,6 @@ module.exports = class Project extends Model
 
   addTags: (newTags) =>
     curTags = @get 'tags'
-    tags = _.union curTags, (t for t in newTags when t?)
+    tags = _.filter _.union(curTags, newTags), (tag) -> tag
     @set tags: tags
     @save patch: true
