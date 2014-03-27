@@ -27,10 +27,3 @@ module.exports = class Collection extends Chaplin.Collection
       recent.length is config[type].recent_count
 
     recent
-
-  # DualStorage Fetch promise helper
-  # --------------------------------
-  cltnFetch: =>
-    $.Deferred((deferred) => @fetch
-      success: deferred.resolve
-      error: deferred.reject).promise()

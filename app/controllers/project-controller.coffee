@@ -1,12 +1,10 @@
 Controller = require 'controllers/base/controller'
 ItemView = require 'views/item-view'
 IndexView = require 'views/index-view'
-mediator = require 'mediator'
 config = require 'config'
 utils = require 'lib/utils'
 
 module.exports = class ProjectController extends Controller
-  collection: mediator.projects
   type: 'portfolio'
 
   filterer: (item, index) ->
@@ -14,14 +12,14 @@ module.exports = class ProjectController extends Controller
 
   initialize: =>
     utils.log 'initialize project-controller'
-    @collection.comparator = (model) -> - model.get 'created'
-    @collection.sort()
-    @recent_projects = @collection.getRecent @type, {fork: false}
+    @projects.comparator = (model) -> - model.get 'created'
+    @projects.sort()
+    @recent_projects = @projects.getRecent @type, {fork: false}
 
   show: (params) =>
     repo = params.repo
     utils.log "show #{repo} project-controller"
-    @model = @collection.findWhere name: repo
+    @model = @projects.findWhere name: repo
     title = @model.get 'title'
     active = 'Portfolio'
     @adjustTitle title
@@ -38,7 +36,7 @@ module.exports = class ProjectController extends Controller
     @adjustTitle title
 
     @view = new IndexView
-      collection: @collection
+      collection: @projects
       active: active
       title: title
       recent_projects: @recent_projects

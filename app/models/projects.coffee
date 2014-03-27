@@ -10,7 +10,6 @@ module.exports = class Projects extends Collection
   url: "https://api.github.com/users/#{config.github.user}/repos?#{token}"
   storeName: 'Projects'
   local: -> localStorage.getItem "#{config.title}:synced"
-  # local: -> false
 
   sync: (method, collection, options) =>
     utils.log "collection's sync method is #{method}"
@@ -20,3 +19,8 @@ module.exports = class Projects extends Collection
   initialize: =>
     super
     utils.log "initialize projects collection"
+
+  cltnFetch: =>
+    $.Deferred((deferred) => @fetch
+      success: deferred.resolve
+      error: deferred.reject).promise()

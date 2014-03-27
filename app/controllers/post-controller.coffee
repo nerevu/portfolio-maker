@@ -4,26 +4,24 @@ IndexView = require 'views/index-view'
 ArchivesView = require 'views/archives-view'
 config = require 'config'
 utils = require 'lib/utils'
-mediator = require 'mediator'
 
 module.exports = class PostController extends Controller
-  collection: mediator.posts
   type: 'blog'
 
   initialize: =>
     utils.log 'initialize post-controller'
-    @collection.comparator = (model) -> - model.get 'date'
-    @collection.sort()
-    @recent_posts = @collection.getRecent @type
+    @posts.comparator = (model) -> - model.get 'date'
+    @posts.sort()
+    @recent_posts = @posts.getRecent @type
 
   show: (params) =>
     slug = params.slug
     utils.log "show #{slug} post-controller"
-    title = @collection.findWhere({slug: slug}).get 'title'
+    title = @posts.findWhere({slug: slug}).get 'title'
     active = 'Blog'
     @adjustTitle title
     @view = new ItemView
-      model: @collection.findWhere({slug: slug})
+      model: @posts.findWhere({slug: slug})
       active: active
       title: title
       recent_posts: @recent_posts
@@ -35,7 +33,7 @@ module.exports = class PostController extends Controller
     @adjustTitle title
 
     @view = new IndexView
-      collection: @collection
+      collection: @posts
       active: active
       title: title
       recent_posts: @recent_posts
@@ -46,17 +44,17 @@ module.exports = class PostController extends Controller
     active = 'Archives'
     title = 'Blog Archives'
     @adjustTitle title
-    years = @collection.pluck 'year'
-    year_months = @collection.pluck 'year_month'
+    years = @posts.pluck 'year'
+    year_months = @posts.pluck 'year_month'
 
     setShowYear = (year) ->
-      model = @collection.findWhere year: year
+      model = @posts.findWhere year: year
       count = (y for y in years when y is year).length
       model.set show_year: true
       model.set year_rowspan: count
 
     setShowMonth = (year_month) ->
-      model = @collection.findWhere year_month: year_month
+      model = @posts.findWhere year_month: year_month
       count = (y for y in year_months when y is year_month).length
       model.set show_month: true
       model.set month_rowspan: count
@@ -65,7 +63,7 @@ module.exports = class PostController extends Controller
     _.each _.uniq(year_months), setShowMonth, @
 
     @view = new ArchivesView
-      collection: @collection
+      collection: @posts
       active: active
       title: title
       recent_posts: @recent_posts
