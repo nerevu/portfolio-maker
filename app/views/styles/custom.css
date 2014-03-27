@@ -1,34 +1,4 @@
 /* Bootstrap CSS */
-.dl-excerpt {
-  margin-bottom: 0;
-}
-.dl-excerpt dt {
-  float: left;
-  width: 100px;
-  clear: left;
-  text-align: right;
-  white-space: nowrap;
-}
-.dl-excerpt dd {
-  margin-left: 110px;
-}
-.dl-excerpt dd:before,
-.dl-excerpt dd:after {
-  display: table;
-  content: " ";
-}
-.dl-excerpt dd:after {
-  clear: both;
-}
-.dl-excerpt dd:before,
-.dl-excerpt dd:after {
-  display: table;
-  content: " ";
-}
-.dl-excerpt dd:after {
-  clear: both;
-}
-
 #page-title {margin-bottom: 20px;}
 #excerpt {
   padding-bottom: 15px;
@@ -88,6 +58,36 @@
 
 .numeric {
   text-align: right;
+}
+
+.dl-excerpt {
+  margin-bottom: 0;
+}
+.dl-excerpt dt {
+  float: left;
+  width: 100px;
+  clear: left;
+  text-align: right;
+  white-space: nowrap;
+}
+.dl-excerpt dd {
+  margin-left: 110px;
+}
+.dl-excerpt dd:before,
+.dl-excerpt dd:after {
+  display: table;
+  content: " ";
+}
+.dl-excerpt dd:after {
+  clear: both;
+}
+.dl-excerpt dd:before,
+.dl-excerpt dd:after {
+  display: table;
+  content: " ";
+}
+.dl-excerpt dd:after {
+  clear: both;
 }
 
 .gallery {padding-bottom: 1em;}
