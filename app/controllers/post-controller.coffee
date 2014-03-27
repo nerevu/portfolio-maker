@@ -2,15 +2,12 @@ Controller = require 'controllers/base/controller'
 ItemView = require 'views/item-view'
 IndexView = require 'views/index-view'
 ArchivesView = require 'views/archives-view'
-Posts = require 'models/posts'
 config = require 'config'
 utils = require 'lib/utils'
 mediator = require 'mediator'
 
 module.exports = class PostController extends Controller
-  collection = new Posts()
-  collection.set mediator.postData
-  collection: collection
+  collection: mediator.posts
   type: 'blog'
 
   initialize: =>
@@ -22,12 +19,11 @@ module.exports = class PostController extends Controller
   show: (params) =>
     slug = params.slug
     utils.log "show #{slug} post-controller"
-    @model = @collection.findWhere slug: slug
-    title = @model.get 'title'
+    title = @collection.findWhere({slug: slug}).get 'title'
     active = 'Blog'
     @adjustTitle title
     @view = new ItemView
-      model: @model
+      model: @collection.findWhere({slug: slug})
       active: active
       title: title
       recent_posts: @recent_posts

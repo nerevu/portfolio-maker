@@ -24,7 +24,7 @@ module.exports = class Application extends Chaplin.Application
     # Add additional application-specific properties and methods
     utils.log 'initializing mediator'
     pages = new Pages()
-    posts = new Posts()
+    mediator.posts = new Posts()
     mediator.projects = new Projects()
 
     mediator.active = null
@@ -32,9 +32,10 @@ module.exports = class Application extends Chaplin.Application
     mediator.map = null
     mediator.markers = null
     mediator.doneSearching = null
-    mediator.postData = posts.fetch()
     mediator.pageData = pages.fetch()
-    mediator.projects.cltnFetch().done (collection) ->
+    mediator.posts.fetch()
+    mediator.projects.cltnFetch().done (response) ->
+      if response.message then return
       localStorage.setItem "#{config.title}:synced", true
     mediator.main = {href: '/', title: 'Home'}
     mediator.seal()

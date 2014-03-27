@@ -12,7 +12,7 @@ module.exports = class Posts extends Collection
 
   fetch: =>
     utils.log "fetch posts collection"
-    collection = []
+    data = []
     files = require 'paths'
 
     for file in files.posts
@@ -20,6 +20,6 @@ module.exports = class Posts extends Collection
       model = require "posts/#{base}"
       model.name = base
       model.id = md5 JSON.stringify model
-      collection.push model
+      data.push model
 
-    collection
+    @set data

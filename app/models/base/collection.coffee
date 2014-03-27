@@ -15,15 +15,16 @@ module.exports = class Collection extends Chaplin.Collection
   model: Model
 
   getRecent: (type, filter=false) =>
+    console.log "#{type} getRecent"
     @sort()
     collection = if filter then @where(filter) else @
-    collection = collection.slice 0, config[type].recent_count
     recent = []
 
-    _.each collection, (model) ->
+    _.some collection.models, (model) ->
       href = model.get 'href'
       title = model.get 'title'
       recent.push({href: href, title: title})
+      recent.length is config[type].recent_count
 
     recent
 
