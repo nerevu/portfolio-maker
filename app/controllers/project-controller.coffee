@@ -19,12 +19,11 @@ module.exports = class ProjectController extends Controller
   show: (params) =>
     repo = params.repo
     utils.log "show #{repo} project-controller"
-    @model = @projects.findWhere name: repo
-    title = @model.get 'title'
+    title = @projects.findWhere({name: repo}).get 'title'
     active = 'Portfolio'
     @adjustTitle title
     @view = new ItemView
-      model: @model
+      model: @projects.findWhere({name: repo})
       active: active
       title: title
       recent_projects: @recent_projects

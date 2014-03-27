@@ -20,10 +20,17 @@ module.exports = class Collection extends Chaplin.Collection
     collection = if filter then @where(filter) else @
     recent = []
 
-    _.some collection.models, (model) ->
-      href = model.get 'href'
-      title = model.get 'title'
-      recent.push({href: href, title: title})
-      recent.length is config[type].recent_count
+    try
+      _.some collection, (model) ->
+        href = model.get 'href'
+        title = model.get 'title'
+        recent.push({href: href, title: title})
+        recent.length is config[type].recent_count
+    catch TypeError
+      _.some collection.models, (model) ->
+        href = model.get 'href'
+        title = model.get 'title'
+        recent.push({href: href, title: title})
+        recent.length is config[type].recent_count
 
     recent
