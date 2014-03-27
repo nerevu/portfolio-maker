@@ -23,7 +23,7 @@ module.exports = class Application extends Chaplin.Application
   initMediator: =>
     # Add additional application-specific properties and methods
     utils.log 'initializing mediator'
-    pages = new Pages()
+    mediator.pages = new Pages()
     mediator.posts = new Posts()
     mediator.projects = new Projects()
 
@@ -32,7 +32,7 @@ module.exports = class Application extends Chaplin.Application
     mediator.map = null
     mediator.markers = null
     mediator.doneSearching = null
-    mediator.pageData = pages.fetch()
+    mediator.pages.fetch()
     mediator.posts.fetch()
     mediator.projects.cltnFetch().done (response) ->
       if response.message then return

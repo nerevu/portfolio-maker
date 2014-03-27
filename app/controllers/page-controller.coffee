@@ -1,15 +1,12 @@
 Controller = require 'controllers/base/controller'
 ItemView = require 'views/item-view'
-Pages = require 'models/pages'
-Posts = require 'models/posts'
 utils = require 'lib/utils'
 mediator = require 'mediator'
 
 module.exports = class PageController extends Controller
-  posts = new Posts()
-  posts.set mediator.postData
-  posts: posts
+  posts: mediator.posts
   projects: mediator.projects
+  collection: mediator.pages
 
   initialize: =>
     utils.log 'initialize page-controller'
@@ -19,15 +16,12 @@ module.exports = class PageController extends Controller
     @projects.sort()
 
   show: (params) =>
-    collection = new Pages()
-    collection.set mediator.pageData
     page = params?.page ? 'home'
     utils.log "show #{page} page-controller"
-    @model = collection.findWhere name: page
-    title = @model.get 'title'
+    title = @collection.findWhere({name: page}).get 'title'
     @adjustTitle title
     @view = new ItemView
-      model: @model
+      model: @collection.findWhere name: page
       active: title
       title: title
       recent_posts: @posts.getRecent 'blog'
