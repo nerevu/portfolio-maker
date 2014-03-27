@@ -1,11 +1,26 @@
 Collection = require 'models/base/collection'
 Model = require 'models/project'
 config = require 'config'
+utils = require 'lib/utils'
 
 module.exports = class Projects extends Collection
-  model: Model
+  token = "access_token=#{config.github.api_token}"
 
-  initialize: (login) =>
+  model: Model
+  url: "https://api.github.com/users/#{config.github.user}/repos?#{token}"
+  storeName: 'Projects'
+  local: -> localStorage.getItem "#{config.title}:synced"
+
+  sync: (method, collection, options) =>
+    utils.log "collection's sync method is #{method}"
+    utils.log "read collection from server: #{not @local()}"
+    Backbone.sync(method, collection, options)
+
+  initialize: =>
     super
-    console.log "initialize projects collection"
-    @url = -> "https://api.github.com/users/reubano/repos"
+    utils.log "initialize projects collection"
+
+  cltnFetch: =>
+    $.Deferred((deferred) => @fetch
+      success: deferred.resolve
+      error: deferred.reject).promise()

@@ -1,3 +1,109 @@
+/* Bootstrap CSS */
+#page-title {margin-bottom: 20px;}
+#excerpt {
+  padding-bottom: 15px;
+  border-bottom: 1px dashed #eee;
+  margin-bottom: 20px;
+}
+
+#excerpt-title {margin-top: 10px;}
+#excerpt-content {margin-bottom: 10px;}
+#excerpt-thumbnail {margin-bottom: 10px;}
+#archives {padding: 27px 20px 18px 0;}
+#sidebar { margin-left: 0px;}
+/*.collapsing {width: 0;}*/
+
+#sidebar h3 {
+  padding-bottom: 9px;
+  border-bottom: 1px solid #eee;
+}
+
+/* Sticky Footer */
+#wrap {
+    height: auto;
+    margin: 0 auto -60px;
+    min-height: 100%;
+    padding: 0 0 60px;
+}
+
+#site-footer {
+    background-color: #F5F5F5;
+    height: 60px;
+}
+
+#site-footer p {margin: 20px 0;}
+
+/* Other */
+.tag {margin-bottom: 10px;}
+.tag:hover {background-color: #428BCA;}
+.cushion {margin-bottom: 10px;}
+.list-recent {margin-top: -10px;}
+.list-recent li {
+  padding: 7px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.list-popular {margin-top: -10px;}
+.list-popular li {
+  padding: 7px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.navbar .navbar-form {
+  padding: 0 15px;
+  border: 0;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+
+.numeric {
+  text-align: right;
+}
+
+.dl-excerpt {
+  margin-bottom: 0;
+}
+.dl-excerpt dt {
+  float: left;
+  width: 100px;
+  clear: left;
+  text-align: right;
+  white-space: nowrap;
+}
+.dl-excerpt dd {
+  margin-left: 110px;
+}
+.dl-excerpt dd:before,
+.dl-excerpt dd:after {
+  display: table;
+  content: " ";
+}
+.dl-excerpt dd:after {
+  clear: both;
+}
+.dl-excerpt dd:before,
+.dl-excerpt dd:after {
+  display: table;
+  content: " ";
+}
+.dl-excerpt dd:after {
+  clear: both;
+}
+
+.gallery {padding-bottom: 1em;}
+.active-nav {color: #555555 !important;}
+.progress .bar-muted {opacity: 0.2 !important;}
+.progress .bar-transparent {opacity: 0 !important;}
+.btn-padleft {margin-left: 50px !important;}
+.leaflet-control-geosearch {display: none;}
+
+.collapse.width {
+  height: auto;
+  -webkit-transition: width 0.35s ease;
+  -moz-transition: width 0.35s ease;
+  -o-transition: width 0.35s ease;
+  transition: width 0.35s ease;
+}
 /*
 Chart CSS
 
@@ -48,12 +154,3 @@ g.nv-group.nv-series-1 {overflow: hidden;}
   line-height: 12px;
   font-weight: normal;
 }
-
-/* Bootstrap CSS */
-body {padding-top: 60px;}
-.gallery {padding-bottom: 1em;}
-.leaflet-control-geosearch {display: none;}
-.active-nav {color: #FFFFFF !important;}
-.progress .bar-muted {opacity: 0.2 !important;}
-.progress .bar-transparent {opacity: 0 !important;}
-.btn-padleft {margin-left: 50px !important;}

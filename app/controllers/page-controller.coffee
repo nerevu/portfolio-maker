@@ -1,13 +1,23 @@
 Controller = require 'controllers/base/controller'
-Page = require 'models/page'
-PageView = require 'views/page-view'
+ItemView = require 'views/item-view'
 utils = require 'lib/utils'
 
-module.exports = class CodeController extends Controller
-  pages: (params) =>
-		page = params.page
-    @model = new Pages(page)
-		title = @model.get 'title'
-    @adjustTitle "#{title}"
-    console.log 'page controller'
-    @view = new PageView {@model}
+module.exports = class PageController extends Controller
+  initialize: =>
+    utils.log 'initialize page-controller'
+    @posts.comparator = (model) -> - model.get 'date'
+    @projects.comparator = (model) -> - moment model.get 'created_at'
+    @posts.sort()
+    @projects.sort()
+
+  show: (params) =>
+    page = params?.page ? 'home'
+    utils.log "show #{page} page-controller"
+    title = @pages.findWhere({name: page}).get 'title'
+    @adjustTitle title
+    @view = new ItemView
+      model: @pages.findWhere({name: page})
+      active: title
+      title: title
+      recent_posts: @posts.getRecent 'blog'
+      recent_projects: @projects.getRecent 'portfolio', {fork: false}

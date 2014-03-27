@@ -1,0 +1,11 @@
+<p class="meta">
+  {{date_str}}
+  {{#if disqus_short_name}}{{#if comments}}{{#if disqus_show_comment_count}}
+   | <a href="#disqus_thread">Comments</a>
+  {{/if}}{{/if}}{{/if}}
+</p>
+
+<h2 id="post-title">{{title}}</h2>
+<div id="post-content">{{{content}}}</div>
+
+<!-- {{#if disqus.user}}{{partial disqus this}}{{/if}} -->

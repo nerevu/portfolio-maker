@@ -1,0 +1,19 @@
+{{#if sidebar}}
+  {{#if collapsed}}
+    <div class="col-sm-12">
+      <div id="item" class="">{{partial partial this}}</div>
+      <div id="sidebar" class="row">{{partial 'sidebar-horz' this}}</div>
+    </div>
+  {{else}}
+    <div id="item" class="col-sm-8">
+      {{partial partial this}}
+    </div>
+    <div id="sidebar" class="col-sm-4">
+      {{partial 'sidebar-vert' this}}
+    </div>
+  {{/if}}
+{{else}}
+  <div class="col-sm-12">
+    <div id="item" class="">{{partial partial this}}</div>
+  </div>
+{{/if}}

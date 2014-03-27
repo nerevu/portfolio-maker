@@ -1,30 +1,25 @@
-require 'shelljs/global'
-
 Collection = require 'models/base/collection'
 Model = require 'models/page'
 config = require 'config'
-matter = require 'gray-matter'
-marked = require 'marked'
-md5 = require 'md5'
+utils = require 'lib/utils'
 
 module.exports = class Pages extends Collection
   model: Model
-	url = -> "views/pages/"
 
   initialize: =>
     super
-    console.log "initialize pages collection"
+    utils.log "initialize pages collection"
 
-  parse: (response, options) =>
-		cb = (err, content) ->
-		  if (err) throw err
-		  console.log(content)
+  fetch: =>
+    utils.log "fetch pages collection"
+    data = []
+    files = require 'paths'
 
-		cd @url
-		all_md = (cat file for file in ls '*.md')
-		all_matter = (matter md for md in all_md)
+    for file in files.pages
+      base = file.split('.')[0]
+      model = require "pages/#{base}"
+      model.name = base
+      model.id = md5 JSON.stringify model
+      data.push model
 
-		for obj in all_matter
-			obj.id = md5(obj.original)
-		
-		all_matter.toJSON()
+    @set data

@@ -1,0 +1,33 @@
+<div id="excerpt" class="col-xs-12">
+  <div class="row">
+    <div class="hidden-xs col-sm-5 col-md-5">
+      {{partial 'project-image' this}}
+    </div>
+    <div class="col-xs-12 col-sm-7 col-md-7">
+      <h2 class="hidden-sm" id="excerpt-title">
+        <a href="{{href}}">{{title}}</a><br>
+        <small>{{description}}</small>
+      </h2>
+      <h2 class="visible-sm" id="excerpt-title">
+        <a href="{{href}}">{{title}}</a><br>
+      </h2>
+     	{{partial 'tags' this}}
+    </div>
+    <div class="visible-xs col-xs-12 cushion">
+      {{partial 'project-image' this}}
+    </div>
+    <div class="visible-sm col-sm-12">
+      <h2 id="excerpt-description"><small>{{description}}</small></h2>
+    </div>
+    <div id="excerpt-meta" class="hidden-xs col-xs-12">
+      {{partial 'project-meta-table' this}}
+    </div>
+    <div id="excerpt-meta" class="visible-xs col-xs-12">
+      {{partial 'project-meta-list' this}}
+    </div>
+    <div id="excerpt-updated" class="col-xs-12">
+      {{partial 'project-updated' this}}
+    </div>
+  </div>
+</div>
+

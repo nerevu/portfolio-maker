@@ -1,6 +1,5 @@
-config = require 'config'
-Chaplin = require 'chaplin'
-mediator = Chaplin.mediator
+devconfig = require 'devconfig'
+mediator = require 'mediator'
 
 # Application-specific utilities
 # ------------------------------
@@ -10,11 +9,27 @@ utils = Chaplin.utils.beget Chaplin.utils
 
 Minilog
   .enable()
-  .pipe new Minilog.backends.jQuery {url: config.api_logs, interval: 5000}
+  .pipe new Minilog.backends.jQuery {url: devconfig.api_logs, interval: 5000}
 
 minilog = Minilog 'tophubbers'
 
 _(utils).extend
+  # Logging helper
+  # ---------------------
+  log: (message, level='debug') ->
+    if devconfig.dev and not devconfig.debug_minilog then console.log message
+    else if level
+      console.log message if devconfig.debug_prod_verbose and level is 'debug'
+      text = JSON.stringify message
+      message = if text.length > 512 then "size exceeded" else message
+
+      data =
+        message: message
+        time: (new Date()).getTime()
+        user: mediator?.user?.get('email')
+
+      minilog[level] data if level isnt 'debug'
+
   makeChart: (data, selection, resize=true) ->
     retLab = (data) -> data.label
     retVal = (data) -> data.value
@@ -26,7 +41,7 @@ _(utils).extend
     maxTime = 24
     chartRange = [minTime * 60, maxTime * 60]
     color = 'steelblue'
-    console.log 'making ' + selection
+    @log 'making ' + selection
 
     chart = nv.models.multiBarHorizontalChart()
       .x(retLab)
@@ -53,24 +68,8 @@ _(utils).extend
       .call(chart)
 
     nv.utils.windowResize(chart.update) if resize
-    chart.dispatch.on 'stateChange', -> console.log 'stateChange'
+    chart.dispatch.on 'stateChange', -> @log 'stateChange'
     chart
-
-  # Logging helper
-  # ---------------------
-  log: (message, level='debug') ->
-    if config.dev and not config.debug_minilog then console.log message
-    else if level
-      console.log message if config.debug_prod_verbose and level is 'debug'
-      text = JSON.stringify message
-      message = if text.length > 512 then "size exceeded" else message
-
-      data =
-        message: message
-        time: (new Date()).getTime()
-        user: mediator?.user?.get('email')
-
-      minilog[level] data if level isnt 'debug'
 
 # Prevent creating new properties and stuff.
 Object.seal? utils

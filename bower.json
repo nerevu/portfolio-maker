@@ -5,9 +5,7 @@
   "dependencies": {
     "chaplin": "~0.11.3",
     "console-polyfill": "~0.1.0",
-    "lodash": "~2.0.0",
     "jquery": "~2.0.2",
-    "shelljs": "~0.2.6",
     "h5bp-helpers": "~0.1.0",
     "bootstrap": "~3.0.3",
     "minilog": "*",
@@ -18,14 +16,15 @@
     "Leaflet.awesome-markers": "~2.0.1",
     "L.GeoSearch": "git://github.com/smeijer/L.GeoSearch.git",
     "Leaflet.markercluster": "git://github.com/Leaflet/Leaflet.markercluster",
-    "marked": "~0.3.2",
-    "gray-matter": "~0.2.8",
-    "blueimp-md5": "~1.1.0"
+    "Backbone.dualStorage": "git://github.com/nilbus/Backbone.dualStorage",
+    "blueimp-md5": "~1.1.0",
+    "lodash": "~2.4.1",
+    "underscore.string": "~2.3.3"
   },
   "overrides": {
-    "marked": {
+    "underscore.string": {
       "dependencies": {},
-      "main": "lib/marked.js"
+      "main": "lib/underscore.string.js"
     },
     "blueimp-md5": {
       "dependencies": {},
@@ -50,9 +49,7 @@
     "leaflet-dist": {
       "name": "leaflet-dist",
       "dependencies": {},
-      "main": [
-        "leaflet.js"
-      ]
+      "main": "leaflet.js"
     },
     "L.GeoSearch": {
       "dependencies": {

@@ -7,9 +7,14 @@ mediator = require 'mediator'
 register = (name, fn) ->
   Handlebars.registerHelper name, fn
 
-# Map helpers
-# -----------
+# Partials
+# ----------------------
+register 'partial', (name, context) ->
+  template = require "views/templates/partials/#{name}"
+  new Handlebars.SafeString template context
 
+# Helpers
+# -----------
 # Make 'with' behave a little more mustachey.
 register 'with', (context, options) ->
   if not context or Handlebars.Utils.isEmpty context
@@ -28,28 +33,23 @@ register 'without', (context, options) ->
 register 'url', (routeName, params..., options) ->
   Chaplin.helpers.reverse routeName, params
 
-# Partials
-# ----------------------
-Handlebars.registerPartial
-
 # Conditional evaluation
 # ----------------------
-Handlebars.registerHelper 'ifLoggedIn', (options) ->
+register 'ifLoggedIn', (options) ->
   if mediator.user then options.fn(this) else options.inverse(this)
 
-Handlebars.registerHelper 'ifActive', (title, options) ->
+register 'ifActive', (title, options) ->
   if mediator.active is title then options.fn(this) else options.inverse(this)
 
 # Other helpers
 # -----------
-
 # Convert date to day
-Handlebars.registerHelper 'getDay', (date) ->
+register 'getDay', (date) ->
   day = if date[-2..-2] is '0' then date[-1..] else date[-2..]
   new Handlebars.SafeString day
 
 # Loop n times
-Handlebars.registerHelper 'times', (n, block) ->
+register 'times', (n, block) ->
   accum = ''
   i = 0
   x = Math.round n
