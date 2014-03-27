@@ -1,12 +1,15 @@
 SiteView = require 'views/site-view'
 NavbarView = require 'views/navbar-view'
 FooterView = require 'views/footer-view'
-Pages = require 'models/pages'
 config = require 'config'
 utils = require 'lib/utils'
 mediator = require 'mediator'
 
 module.exports = class Controller extends Chaplin.Controller
+  posts: mediator.posts
+  projects: mediator.projects
+  pages: mediator.pages
+
   # Compositions persist stuff between controllers.
   # You may also persist models etc.
   beforeAction: (params, route) =>
@@ -14,6 +17,4 @@ module.exports = class Controller extends Chaplin.Controller
     @compose 'site', SiteView
     @compose 'footer', FooterView
     @compose 'navbar', =>
-      collection = new Pages()
-      collection.set mediator.pageData
-      @view = new NavbarView {collection}
+      @view = new NavbarView {collection: @pages}

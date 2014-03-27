@@ -12,7 +12,7 @@ module.exports = class Pages extends Collection
 
   fetch: =>
     utils.log "fetch pages collection"
-    collection = []
+    data = []
     files = require 'paths'
 
     for file in files.pages
@@ -20,6 +20,6 @@ module.exports = class Pages extends Collection
       model = require "pages/#{base}"
       model.name = base
       model.id = md5 JSON.stringify model
-      collection.push model
+      data.push model
 
-    collection
+    @set data

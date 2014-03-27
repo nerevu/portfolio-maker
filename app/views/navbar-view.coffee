@@ -16,6 +16,19 @@ module.exports = class NavbarView extends CollectionView
   initialize: (options) =>
     super
     utils.log 'initializing navbar view'
+    links = config.generated_pages
+    console.log '-------------'
+    console.log _.pluck config.generated_pages, 'title'
+    console.log _.pluck links, 'title'
+
+    _.each @collection.models, (model) ->
+      if model.get 'nav_link'
+        console.log _.pluck links, 'title'
+        href = model.get 'href'
+        title = model.get 'title'
+        links.push({href: href, title: title})
+
+    @links = links
 
   render: =>
     super
@@ -24,12 +37,5 @@ module.exports = class NavbarView extends CollectionView
   getTemplateData: =>
     templateData = super
     templateData.main = mediator.main
-    templateData.links = config.generated_pages
-
-    while model = @collection.shift()
-      if model.get 'nav_link'
-        href = model.get 'href'
-        title = model.get 'title'
-        templateData.links.push({href: href, title: title})
-
+    templateData.links = @links
     templateData
