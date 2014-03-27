@@ -48,6 +48,22 @@
   border-bottom: 1px solid #eee;
 }
 
+/* Sticky Footer */
+#wrap {
+    height: auto;
+    margin: 0 auto -60px;
+    min-height: 100%;
+    padding: 0 0 60px;
+}
+
+#site-footer {
+    background-color: #F5F5F5;
+    height: 60px;
+}
+
+#site-footer p {margin: 20px 0;}
+
+/* Other */
 .tag {margin-bottom: 10px;}
 .tag:hover {background-color: #428BCA;}
 .cushion {margin-bottom: 10px;}
@@ -112,8 +128,6 @@ g.nv-group.nv-series-1 {overflow: hidden;}
   width: 750px;
   position: relative;
 }
-
-/* Sticky Footer */
 
 /* NVD3 CSS */
 .nvtooltip {
