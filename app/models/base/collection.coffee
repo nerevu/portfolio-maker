@@ -43,21 +43,13 @@ module.exports = class Collection extends Chaplin.Collection
 
   getRecent: (type, filter=false) =>
     console.log "#{type} getRecent"
-    @sort()
-    collection = if filter then @where(filter) else @
+    collection = if filter then new Collection(@where(filter)) else @
     recent = []
 
-    try
-      _.some collection, (model) ->
-        href = model.get 'href'
-        title = model.get 'title'
-        recent.push({href: href, title: title})
-        recent.length is config[type].recent_count
-    catch TypeError
-      _.some collection.models, (model) ->
-        href = model.get 'href'
-        title = model.get 'title'
-        recent.push({href: href, title: title})
-        recent.length is config[type].recent_count
+    _.some collection.models, (model) ->
+      href = model.get 'href'
+      title = model.get 'title'
+      recent.push({href: href, title: title})
+      recent.length is config[type].recent_count
 
     recent
