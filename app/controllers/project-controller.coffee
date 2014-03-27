@@ -15,6 +15,7 @@ module.exports = class ProjectController extends Controller
     @projects.comparator = (model) -> - model.get 'created'
     @projects.sort()
     @recent_projects = @projects.getRecent @type, {fork: false}
+    @projects.setPagers {fork: false}
 
   show: (params) =>
     repo = params.repo

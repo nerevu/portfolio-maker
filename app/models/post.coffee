@@ -17,6 +17,8 @@ module.exports = class Post extends Model
     date = moment new Date year, month - 1, day
     content = _.str.stripTags @get 'content'
 
+    @set first: false
+    @set last: false
     @set type: type
     @set slug: slug
     @set year: year

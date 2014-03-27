@@ -13,6 +13,7 @@ module.exports = class PostController extends Controller
     @posts.comparator = (model) -> - model.get 'date'
     @posts.sort()
     @recent_posts = @posts.getRecent @type
+    @posts.setPagers()
 
   show: (params) =>
     slug = params.slug

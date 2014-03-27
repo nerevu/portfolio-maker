@@ -26,6 +26,8 @@ module.exports = class Project extends Model
     created = moment @get 'created_at'
     updated = moment @get 'updated_at'
 
+    @set first: false
+    @set last: false
     @set type: type
     @set title: name
     @set href: "/portfolio/#{name}"
