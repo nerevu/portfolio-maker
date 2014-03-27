@@ -23,7 +23,7 @@ module.exports = class PostController extends Controller
     active = 'Blog'
     @adjustTitle title
     @view = new ItemView
-      model: @collection.findWhere({slug: slug})
+      model: @collection.findWhere slug: slug
       active: active
       title: title
       recent_posts: @recent_posts
