@@ -14,10 +14,15 @@ module.exports = class Application extends Chaplin.Application
     keywords: config.keywords
     author: config.author
 
-  # start: ->
-  #   # You can fetch some data here and start app
-  #   # (by calling `super`) after that.
-  #   super
+  start: ->
+    # You can fetch some data here and start app
+    # (by calling `super`) after that.
+    mediator.pages.fetch()
+    mediator.posts.fetch()
+    mediator.projects.cltnFetch().done (response) ->
+      if response.message then return
+      localStorage.setItem "#{config.title}:synced", true
+    super
 
   # Create additional mediator properties.
   initMediator: =>
@@ -32,11 +37,6 @@ module.exports = class Application extends Chaplin.Application
     mediator.map = null
     mediator.markers = null
     mediator.doneSearching = null
-    mediator.pages.fetch()
-    mediator.posts.fetch()
-    mediator.projects.cltnFetch().done (response) ->
-      if response.message then return
-      localStorage.setItem "#{config.title}:synced", true
     mediator.main = {href: '/', title: 'Home'}
     mediator.seal()
     super
