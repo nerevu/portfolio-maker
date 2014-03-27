@@ -17,13 +17,9 @@ module.exports = class NavbarView extends CollectionView
     super
     utils.log 'initializing navbar view'
     links = config.generated_pages
-    console.log '-------------'
-    console.log _.pluck config.generated_pages, 'title'
-    console.log _.pluck links, 'title'
 
     _.each @collection.models, (model) ->
       if model.get 'nav_link'
-        console.log _.pluck links, 'title'
         href = model.get 'href'
         title = model.get 'title'
         links.push({href: href, title: title})
