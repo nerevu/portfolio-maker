@@ -49,6 +49,8 @@
 }
 
 .tag {margin-bottom: 10px;}
+.tag:hover {background-color: #428BCA;}
+.cushion {margin-bottom: 10px;}
 .list-recent {margin-top: -10px;}
 .list-recent li {
   padding: 7px 0;
