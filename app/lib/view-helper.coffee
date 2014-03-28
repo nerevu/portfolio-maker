@@ -51,8 +51,8 @@ register 'getDay', (date) ->
 # Loop n times
 register 'times', (n, block) ->
   accum = ''
-  i = 0
-  x = Math.round n
+  i = 1
+  x = n + 1
 
   while i < x
     accum += block.fn(i)
