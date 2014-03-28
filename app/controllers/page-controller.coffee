@@ -7,7 +7,7 @@ module.exports = class PageController extends Controller
     utils.log 'initialize page-controller'
     @posts.comparator = (model) -> - model.get 'date'
     @projects.comparator = (model) -> - moment model.get 'created_at'
-    @photos.comparator = (model) -> - moment model.get 'created_at'
+    @photos.comparator = (model) -> - moment model.get 'created'
     @posts.sort()
     @projects.sort()
     @photos.sort()
