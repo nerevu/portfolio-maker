@@ -6,9 +6,7 @@ utils = require 'lib/utils'
 
 module.exports = class ProjectController extends Controller
   type: 'portfolio'
-
-  filterer: (item, index) ->
-    item.get('fork') is false
+  filterer: (item, index) -> item.get('fork') is false
 
   initialize: =>
     utils.log 'initialize project-controller'

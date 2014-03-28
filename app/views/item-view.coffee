@@ -27,6 +27,7 @@ module.exports = class ItemView extends View
     utils.log "rendering item view"
 
   getTemplateData: =>
+    utils.log 'get item view template data'
     templateData = super
     templateData.page_title = @title
     templateData.recent_projects = @recent_projects

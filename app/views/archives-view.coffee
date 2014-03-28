@@ -15,17 +15,17 @@ module.exports = class ArchivesView extends CollectionView
 
   initialize: (options) ->
     super
-    utils.log 'initializing posts view'
+    utils.log 'initializing archives view'
     @recent_posts = options.recent_posts
     @title = options.title
     mediator.setActive options.active
 
   render: =>
     super
-    utils.log 'rendering posts view'
+    utils.log 'rendering archives view'
 
   getTemplateData: =>
-    utils.log 'getTemplateData'
+    utils.log 'get archives view template data'
     templateData = super
     templateData.sidebar = config.blog.index_sidebar
     templateData.asides = config.blog.index_asides
