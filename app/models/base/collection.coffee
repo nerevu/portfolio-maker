@@ -17,19 +17,12 @@ module.exports = class Collection extends Chaplin.Collection
   setPagers: (filter=false) =>
     console.log "setPagers"
     collection = if filter then new Collection(@where(filter)) else @
-    # first = collection.at(0)
-    # first.set first: true
-    # last = collection.at(collection.length - 1)
-    # last.set last: true
-
     len = collection.length + 1
     num = len
 
     while num -= 1
       real = num - 1
       cur = collection.at(real)
-      console.log collection
-      console.log real
       if real is len - 2
         cur.set first: true
         cur.set next_href: collection.at(real - 1).get 'href'
@@ -46,7 +39,7 @@ module.exports = class Collection extends Chaplin.Collection
     collection = if filter then new Collection(@where(filter)) else @
     recent = []
 
-    _.some collection.models, (model) ->
+    _(collection.models).some (model) ->
       href = model.get 'href'
       title = model.get 'title'
       recent.push({href: href, title: title})
