@@ -16,6 +16,10 @@ module.exports = class Photo extends Model
   initialize: (options) ->
     super
     name = @get('id')
+    dms = utils.deg2dms @get('latitude'), @get('longitude')
+    dms_str = "#{dms.lat.deg}° #{dms.lat.min}' #{dms.lat.sec}\" #{dms.lat.dir}"
+    dms_str += "<br>"
+    dms_str += "#{dms.lon.deg}° #{dms.lon.min}' #{dms.lon.sec}\" #{dms.lon.dir}"
     utils.log "initialize #{name} photo model"
     console.log @
     created = moment @get 'datetaken'
@@ -24,6 +28,8 @@ module.exports = class Photo extends Model
     @set first: false
     @set last: false
     @set href: "/gallery/#{name}"
+    @set dms: dms
+    @set dms_str: dms_str
     @set template: 'item'
     @set partial: @get('type')
     @set asides: config.gallery.page_asides

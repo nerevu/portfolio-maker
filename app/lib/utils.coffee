@@ -30,6 +30,33 @@ _(utils).extend
 
       minilog[level] data if level isnt 'debug'
 
+  _deg2dms: (deg) ->
+  # http://stackoverflow.com/a/5786627/408556
+  # http://stackoverflow.com/a/5786281/408556
+    d = Math.floor deg
+    minfloat = (deg - d) * 60
+    m = Math.floor minfloat
+    secfloat = (minfloat - m) * 60
+    s = Math.round (minfloat - m) * 60
+    if s is 60
+      m++
+      s = 0
+
+    if m is 60
+      d++
+      m = 0
+
+    deg: Math.abs(d), min: Math.abs(m), sec: Math.abs(s)
+
+  deg2dms: (deglat, deglon) ->
+    lat = {}
+    lon = {}
+    lat.dir = if lat > 0 then 'N' else 'S'
+    lon.dir = if lon > 0 then 'E' else 'W'
+    _(lat).extend @_deg2dms deglat
+    _(lon).extend @_deg2dms deglon
+    lat: lat, lon: lon
+
   makeChart: (data, selection, resize=true) ->
     retLab = (data) -> data.label
     retVal = (data) -> data.value
