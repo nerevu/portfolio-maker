@@ -21,6 +21,7 @@ module.exports = class Project extends Model
     super
     name = @get 'name'
     utils.log "initialize #{name} project model"
+    console.log @
     language = @get('language')?.toLowerCase()
     type = 'project'
     created = moment @get 'created_at'
