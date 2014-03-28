@@ -9,6 +9,7 @@ module.exports = class Controller extends Chaplin.Controller
   posts: mediator.posts
   projects: mediator.projects
   pages: mediator.pages
+  photos: mediator.photos
 
   # Compositions persist stuff between controllers.
   # You may also persist models etc.

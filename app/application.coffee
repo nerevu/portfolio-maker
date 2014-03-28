@@ -3,6 +3,7 @@ mediator = require 'mediator'
 Pages = require 'models/pages'
 Posts = require 'models/posts'
 Projects = require 'models/projects'
+Photos = require 'models/photos'
 config= require 'config'
 utils = require 'lib/utils'
 
@@ -22,6 +23,9 @@ module.exports = class Application extends Chaplin.Application
     mediator.projects.cltnFetch().done (response) ->
       if response.message then return
       localStorage.setItem "#{config.title}:synced", true
+    mediator.photos.fetch().done (response) ->
+      console.log 'done fetching photos'
+      localStorage.setItem "#{config.title}:Photos:synced", true
     super
 
   # Create additional mediator properties.
@@ -31,6 +35,7 @@ module.exports = class Application extends Chaplin.Application
     mediator.pages = new Pages()
     mediator.posts = new Posts()
     mediator.projects = new Projects()
+    mediator.photos = new Photos()
 
     mediator.active = null
     mediator.googleLoaded = null

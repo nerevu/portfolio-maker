@@ -7,8 +7,10 @@ module.exports = class PageController extends Controller
     utils.log 'initialize page-controller'
     @posts.comparator = (model) -> - model.get 'date'
     @projects.comparator = (model) -> - moment model.get 'created_at'
+    @photos.comparator = (model) -> - moment model.get 'created_at'
     @posts.sort()
     @projects.sort()
+    @photos.sort()
 
   show: (params) =>
     page = params?.page ? 'home'
@@ -21,3 +23,4 @@ module.exports = class PageController extends Controller
       title: title
       recent_posts: @posts.getRecent 'blog'
       recent_projects: @projects.getRecent 'portfolio', {fork: false}
+      recent_photos: @photos.getRecent 'gallery'

@@ -17,6 +17,7 @@ module.exports = class ItemView extends View
     @template = require "views/templates/#{@model.get 'template'}"
     @recent_projects = options.recent_projects
     @recent_posts = options.recent_posts
+    @recent_photos = options.recent_photos
     @title = options.title
     mediator.setActive options.active
     utils.log "initializing #{@model.get 'title'} item view"
@@ -30,6 +31,7 @@ module.exports = class ItemView extends View
     templateData.page_title = @title
     templateData.recent_projects = @recent_projects
     templateData.recent_posts = @recent_posts
+    templateData.recent_photos = @recent_photos
     templateData.partial = @model.get 'partial'
     templateData
 
