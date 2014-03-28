@@ -15,7 +15,9 @@ module.exports = class Photo extends Model
 
   initialize: (options) ->
     super
-    name = @get('id')
+    id = @get 'id'
+    title = @get('title') or 'Untitled'
+    name = title
     tags = @get('tags').split(' ')
     tags = if _(tags).any() then tags else ['untagged']
     dms = utils.deg2dms @get('latitude'), @get('longitude')
@@ -29,10 +31,12 @@ module.exports = class Photo extends Model
 
     @set first: false
     @set last: false
-    @set href: "/gallery/#{name}"
     @set tags: tags
+    @set href: "/gallery/item/#{id}"
     @set dms: dms
     @set dms_str: dms_str
+    @set name: name
+    @set title: title
     @set template: 'item'
     @set partial: @get('type')
     @set asides: config.gallery.page_asides
