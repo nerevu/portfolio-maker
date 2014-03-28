@@ -18,6 +18,7 @@ module.exports = class Photo extends Model
     id = @get 'id'
     title = @get('title') or 'Untitled'
     name = title
+    type = @get 'media'
     tags = @get('tags').split(' ')
     tags = if _(tags).any() then tags else ['untagged']
     dms = utils.deg2dms @get('latitude'), @get('longitude')
@@ -31,6 +32,7 @@ module.exports = class Photo extends Model
 
     @set first: false
     @set last: false
+    @set type: type
     @set tags: tags
     @set href: "/gallery/item/#{id}"
     @set dms: dms
@@ -38,7 +40,7 @@ module.exports = class Photo extends Model
     @set name: name
     @set title: title
     @set template: 'item'
-    @set partial: @get('type')
+    @set partial: type
     @set asides: config.gallery.page_asides
     @set sidebar: config.gallery.page_sidebar
     @set collapsed: config.gallery.page_collapsed
