@@ -10,6 +10,7 @@ module.exports = class PostController extends Controller
 
   initialize: =>
     utils.log 'initialize post-controller'
+    @active = _.str.capitalize @type
     @posts.comparator = (model) -> - model.get 'date'
     @posts.sort()
     @recent_posts = @posts.getRecent @type
@@ -19,23 +20,21 @@ module.exports = class PostController extends Controller
     slug = params.slug
     utils.log "show #{slug} post-controller"
     title = @posts.findWhere({slug: slug}).get 'title'
-    active = 'Blog'
     @adjustTitle title
     @view = new ItemView
       model: @posts.findWhere({slug: slug})
-      active: active
+      active: @active
       title: title
       recent_posts: @recent_posts
 
   index: (params) =>
     utils.log "index post-controller"
-    active = 'Blog'
     title = 'My Blog'
     @adjustTitle title
 
     @view = new IndexView
       collection: @posts
-      active: active
+      active: @active
       title: title
       recent_posts: @recent_posts
       type: @type

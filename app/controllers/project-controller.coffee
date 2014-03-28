@@ -12,6 +12,7 @@ module.exports = class ProjectController extends Controller
 
   initialize: =>
     utils.log 'initialize project-controller'
+    @active = _.str.capitalize @type
     @projects.comparator = (model) -> - model.get 'created'
     @projects.sort()
     @recent_projects = @projects.getRecent @type, {fork: false}
@@ -21,23 +22,21 @@ module.exports = class ProjectController extends Controller
     repo = params.repo
     utils.log "show #{repo} project-controller"
     title = @projects.findWhere({name: repo}).get 'title'
-    active = 'Portfolio'
     @adjustTitle title
     @view = new ItemView
       model: @projects.findWhere({name: repo})
-      active: active
+      active: @active
       title: title
       recent_projects: @recent_projects
 
   index: (params) =>
     utils.log "index project-controller"
-    active = 'Portfolio'
     title = 'My Project Portfolio'
     @adjustTitle title
 
     @view = new IndexView
       collection: @projects
-      active: active
+      active: @active
       title: title
       recent_projects: @recent_projects
       filterer: @filterer
