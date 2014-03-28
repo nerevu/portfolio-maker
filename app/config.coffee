@@ -33,7 +33,7 @@ config =
   # Pages other than the blog and markdown files you want menu items for
   generated_pages: [
     {href: '/portfolio', title: 'Portfolio'}
-    # {href: '/gallery', title: 'Gallery'}
+    {href: '/gallery', title: 'Gallery'}
     {href: '/blog', title: 'Blog'}
     {href: '/archives', title: 'Archives'}
   ]
@@ -71,7 +71,7 @@ config =
     index_sidebar: true
     archives_sidebar: true
     page_collapsed: false
-    index_collapsed: false
+    index_collapsed: true
     archives_collapsed: false
     page_asides: ['related-photos', 'recent-photos', 'popular-photos']
     index_asides: ['recent-photos', 'popular-photos']
@@ -79,7 +79,7 @@ config =
     recent_count: 5
     popular_count: 5
     related_count: 5
-    items_per_index: 10
+    items_per_index: 12
 
   blog:
     index: true
