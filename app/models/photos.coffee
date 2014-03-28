@@ -4,7 +4,7 @@ config = require 'config'
 utils = require 'lib/utils'
 
 module.exports = class Photos extends Collection
-  _.extend @prototype, Chaplin.SyncMachine
+  _(@prototype).extend Chaplin.SyncMachine
 
   base_url = "https://api.flickr.com/services/rest/"
   base_data =
@@ -17,7 +17,7 @@ module.exports = class Photos extends Collection
     url: "https://www.flickr.com/photos/#{config.flickr.user}/"
 
   model: Model
-  url: "#{base_url}?#{$.param _.extend url_data, base_data}"
+  url: "#{base_url}?#{$.param _(url_data).extend base_data}"
   storeName: 'Photos'
   local: -> localStorage.getItem "#{config.title}:#{@storeName}:synced"
 
@@ -38,7 +38,7 @@ module.exports = class Photos extends Collection
       collection_id: config.flickr.collection_id
       user_id: response.user.id
 
-    $.get base_url, _.extend data, base_data
+    $.get base_url, _(data).extend base_data
 
   getSets: (response) =>
     extras = "license, date_upload, date_taken, owner_name, icon_server,"
@@ -53,7 +53,7 @@ module.exports = class Photos extends Collection
         extras: extras
         photoset_id: id
 
-      deferreds.push $.get base_url, _.extend data, base_data
+      deferreds.push $.get base_url, _(data).extend base_data
 
     deferreds
 
