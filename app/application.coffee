@@ -20,9 +20,9 @@ module.exports = class Application extends Chaplin.Application
     # (by calling `super`) after that.
     mediator.pages.fetch()
     mediator.posts.fetch()
-    mediator.projects.cltnFetch().done (response) ->
+    mediator.projects.fetch().done (response) ->
       if response.message then return
-      localStorage.setItem "#{config.title}:synced", true
+      localStorage.setItem "#{config.title}:Projects:synced", true
     mediator.photos.fetch().done (response) ->
       console.log 'done fetching photos'
       localStorage.setItem "#{config.title}:Photos:synced", true

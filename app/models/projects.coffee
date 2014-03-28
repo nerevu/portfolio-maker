@@ -9,18 +9,19 @@ module.exports = class Projects extends Collection
   model: Model
   url: "https://api.github.com/users/#{config.github.user}/repos?#{token}"
   storeName: 'Projects'
-  local: -> localStorage.getItem "#{config.title}:synced"
+  local: -> localStorage.getItem "#{config.title}:#{@storeName}:synced"
 
   sync: (method, collection, options) =>
-    utils.log "collection's sync method is #{method}"
-    utils.log "read collection from server: #{not @local()}"
+    utils.log "#{@storeName} collection's sync method is #{method}"
+    utils.log "read #{@storeName} collection from server: #{not @local()}"
     Backbone.sync(method, collection, options)
 
   initialize: =>
     super
     utils.log "initialize projects collection"
 
-  cltnFetch: =>
-    $.Deferred((deferred) => @fetch
+  fetch: =>
+    utils.log "fetch projects collection"
+    $.Deferred((deferred) => super
       success: deferred.resolve
       error: deferred.reject).promise()
