@@ -20,7 +20,13 @@ module.exports = class IndexView extends CollectionView
     @recent_projects = options.recent_projects
     @recent_posts = options.recent_posts
     @title = options.title
+    @className = options.class ? 'row'
     mediator.setActive options.active
+
+  initItemView: (model) ->
+    new @itemView
+      model: model
+      className: @className
 
   render: =>
     super

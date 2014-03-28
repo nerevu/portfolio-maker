@@ -1,9 +1,9 @@
 View = require 'views/base/view'
 utils = require 'lib/utils'
+config = require 'config'
 
 module.exports = class ExcerptView extends View
   autoRender: true
-  className: 'row'
 
   listen:
 #     'all': (event) => utils.log "heard #{event}"
