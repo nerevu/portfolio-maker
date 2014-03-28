@@ -19,6 +19,7 @@ module.exports = class IndexView extends CollectionView
     @type = options.type
     @recent_projects = options.recent_projects
     @recent_posts = options.recent_posts
+    @recent_photos = options.recent_photos
     @title = options.title
     @className = options.class ? 'row'
     mediator.setActive options.active
@@ -40,5 +41,7 @@ module.exports = class IndexView extends CollectionView
     templateData.asides = config[@type].index_asides
     templateData.recent_posts = @recent_posts
     templateData.recent_projects = @recent_projects
+    templateData.recent_photos = @recent_photos
     templateData.page_title = @title
+    templateData.type = @type
     templateData
