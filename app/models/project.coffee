@@ -26,11 +26,13 @@ module.exports = class Project extends Model
     type = 'project'
     created = moment @get 'created_at'
     updated = moment @get 'updated_at'
+    popularity = parseInt(@get 'stargazers_count') + parseInt(@get 'forks') * 2
 
     @set first: false
     @set last: false
     @set type: type
     @set title: name
+    @set popularity: popularity
     @set href: "/portfolio/item/#{name}"
     @set template: 'item'
     @set partial: type

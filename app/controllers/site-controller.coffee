@@ -9,10 +9,14 @@ utils = require 'lib/utils'
 module.exports = class PageController extends Controller
   initialize: (params) =>
     utils.log 'initialize page-controller'
-    get_recent = true
     @type = params?.type ? 'home'
     @id = params.id
+    recent_comparator = config[@type]?.recent_comparator
+    popular_comparator = config[@type]?.popular_comparator
+    console.log recent_comparator
+    console.log popular_comparator
     identifier = config[@type]?.identifier
+
     if identifier
       @find_where = {}
       @find_where[identifier] = @id
@@ -34,7 +38,6 @@ module.exports = class PageController extends Controller
         collection = @pages
         @sub_title = ''
         @sub_type = ''
-        get_recent = false
 
     filterer = config[@type]?.filterer
 
@@ -43,22 +46,21 @@ module.exports = class PageController extends Controller
       key = _.keys(filterer)[0]
       value = _.values(filterer)[0]
       @filterer = (item, index) -> item.get(key) is value
-      @pager_filterer = filterer
+      @pager_filter = filterer
     else
       @filterer = null
-      @pager_filterer = null
+      @pager_filter = null
 
-    if get_recent
-      console.log 'filterer'
-      @recent = collection.getRecent @type, filterer
-    # @popular = collection.getPopular @type, filterer
-      console.log @recent
+    if recent_comparator
+      @recent = collection.getRecent @type, recent_comparator, @pager_filter
+
+    if popular_comparator
+      @popular = collection.getPopular @type, popular_comparator, @pager_filter
 
     @active = _.str.capitalize @type
-    comparator = config[@type]?.comparator
 
-    if comparator
-      collection.comparator = (model) -> - model.get comparator
+    if recent_comparator
+      collection.comparator = (model) -> - model.get recent_comparator
       collection.sort()
 
     @collection = collection.toJSON()
@@ -66,7 +68,7 @@ module.exports = class PageController extends Controller
   show: (params) =>
     utils.log "show #{@type} #{@id} page-controller"
     collection = new Collection @collection
-    collection.setPagers @pager_filterer
+    collection.setPagers @pager_filter
     model = collection.findWhere @find_where
     title = model.get 'title'
 
@@ -77,6 +79,7 @@ module.exports = class PageController extends Controller
       title: title
       pager: config[@type].show_pager
       recent: @recent
+      popular: @popular
       type: @type
       sub_type: @sub_type
 
@@ -94,32 +97,40 @@ module.exports = class PageController extends Controller
         model: model
         active: title
         title: title
-        recent_posts: @posts.getRecent 'blog'
-        recent_projects: @projects.getRecent 'portfolio', {fork: false}
-        recent_photos: @photos.getRecent 'gallery'
+        recent_posts: @posts.getRecent 'blog', config.blog.recent_comparator
+        recent_projects: @projects.getRecent(
+          'portfolio', config.portfolio.recent_comparator, {fork: false})
+
+        popular_projects: @projects.getPopular(
+          'portfolio', config.portfolio.popular_comparator, {fork: false})
+
+        recent_photos: @photos.getRecent(
+          'gallery', config.gallery.recent_comparator)
+
+        popular_photos: @photos.getPopular(
+          'gallery', config.gallery.popular_comparator)
 
     else
       utils.log "#{@type} is a collection"
-      console.log @recent
       title = "My #{@sub_title}#{@active}"
       num = parseInt params?.num ? 1
-      per = config[@type]?.items_per_index
-      paginator = if per then collection.paginator per, num else {}
+      per = config[@type]?.items_per_index ? 10
+      paginator = collection.paginator per, num, @pager_filter
       @adjustTitle title
 
       @view = new IndexView
-        collection: paginator?.collection
+        collection: paginator.collection
         pages: paginator.pages
         filterer: @filterer
-        first_page: paginator?.first_page
-        last_page: paginator?.last_page
+        first_page: paginator.first_page
+        last_page: paginator.last_page
         cur_page: num
         next_page: num + 1
         prev_page: num - 1
         active: @active
         title: title
         recent: @recent
-        # popular: @popular
+        popular: @popular
         type: @type
         sub_type: @sub_type
         class: config[@type].index_class

@@ -46,7 +46,7 @@ config =
 
   pages:
     # asides: ['popular-projects', 'popular-photos', 'popular-posts']
-    asides: ['recent-projects', 'recent-photos', 'recent-posts']
+    asides: ['popular-projects', 'popular-photos', 'recent-posts']
 
   portfolio:
     index: true
@@ -67,7 +67,8 @@ config =
     show_pager: true
     filterer: {fork: false}
     identifier: 'name'
-    comparator: 'created_at'
+    recent_comparator: 'created_at'
+    popular_comparator: 'popularity'
 
   gallery:
     index: true
@@ -88,7 +89,8 @@ config =
     index_class: 'col-sm-6 col-md-4'
     show_pager: true
     identifier: 'id'
-    comparator: 'created'
+    recent_comparator: 'created'
+    popular_comparator: 'views'
 
   blog:
     index: true
@@ -108,7 +110,8 @@ config =
     items_per_index: 10
     show_pager: true
     identifier: 'slug'
-    comparator: 'date'
+    recent_comparator: 'date'
+    popular_comparator: 'comments'
 
   ######################
   # 3rd Party Settings #

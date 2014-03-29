@@ -15,9 +15,15 @@ module.exports = class ItemView extends View
   initialize: (options) =>
     super
     @template = require "views/templates/#{@model.get 'template'}"
-    @recent_projects = options.recent_projects
+    @type = options.type
+    @sub_type = options.sub_type
     @recent_posts = options.recent_posts
+    @recent_projects = options.recent_projects
+    @popular_projects = options.popular_projects
     @recent_photos = options.recent_photos
+    @popular_photos = options.popular_photos
+    @recent = options.recent
+    @popular = options.popular
     @title = options.title
     @pager = options.pager
     mediator.setActive options.active
@@ -32,9 +38,13 @@ module.exports = class ItemView extends View
     templateData = super
     templateData.page_title = @title
     templateData.pager = @pager
-    templateData.recent_projects = @recent_projects
     templateData.recent_posts = @recent_posts
+    templateData.recent_projects = @recent_projects
+    templateData.popular_projects = @popular_projects
     templateData.recent_photos = @recent_photos
+    templateData.popular_photos = @popular_photos
+    templateData["recent_#{@sub_type}"] = @recent
+    templateData["popular_#{@sub_type}"] = @popular
     templateData.partial = @model.get 'partial'
     templateData
 
