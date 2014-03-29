@@ -32,17 +32,16 @@ module.exports = class PhotoController extends Controller
     per = config[@type].items_per_index
     utils.log "index photo-controller"
     title = "My Photo #{@active}"
-    # paginator = @photos.paginator per, num
-    # console.log paginator
+    paginator = @photos.paginator per, num
+    console.log paginator
     @adjustTitle title
 
     @view = new IndexView
-      # collection: paginator.collection
-      # pages: paginator.pages
-      collection: @photos
+      collection: paginator.collection
+      pages: paginator.pages
       num: num
-      # first_page: paginator.first_page
-      # last_page: paginator.last_page
+      first_page: paginator.first_page
+      last_page: paginator.last_page
       active: @active
       title: title
       recent_photos: @recent_photos
