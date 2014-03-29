@@ -24,6 +24,7 @@ module.exports = class PhotoController extends Controller
       model: @photos.findWhere({id: id})
       active: @active
       title: title
+      pager: true
       recent_photos: @recent_photos
 
   index: (params) =>

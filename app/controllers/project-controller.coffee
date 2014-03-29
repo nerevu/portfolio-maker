@@ -25,6 +25,7 @@ module.exports = class ProjectController extends Controller
       model: @projects.findWhere({name: repo})
       active: @active
       title: title
+      pager: true
       recent_projects: @recent_projects
 
   index: (params) =>

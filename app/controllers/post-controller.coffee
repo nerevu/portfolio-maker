@@ -25,6 +25,7 @@ module.exports = class PostController extends Controller
       model: @posts.findWhere({slug: slug})
       active: @active
       title: title
+      pager: true
       recent_posts: @recent_posts
 
   index: (params) =>

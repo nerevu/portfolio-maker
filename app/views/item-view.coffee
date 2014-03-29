@@ -19,6 +19,7 @@ module.exports = class ItemView extends View
     @recent_posts = options.recent_posts
     @recent_photos = options.recent_photos
     @title = options.title
+    @pager = options.pager
     mediator.setActive options.active
     utils.log "initializing #{@model.get 'title'} item view"
 
@@ -30,6 +31,7 @@ module.exports = class ItemView extends View
     utils.log 'get item view template data'
     templateData = super
     templateData.page_title = @title
+    templateData.pager = @pager
     templateData.recent_projects = @recent_projects
     templateData.recent_posts = @recent_posts
     templateData.recent_photos = @recent_photos
