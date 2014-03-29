@@ -37,16 +37,17 @@
 .tag {margin-bottom: 10px;}
 .tag:hover {background-color: #428BCA;}
 .cushion {margin-bottom: 10px;}
+.caption .table {margin-bottom: 0;}
 .list-recent {margin-top: -10px;}
 .list-recent li {
   padding: 7px 0;
-  border-bottom: 1px solid #eee;
+  border-top: 1px solid #eee;
 }
 
 .list-popular {margin-top: -10px;}
 .list-popular li {
   padding: 7px 0;
-  border-bottom: 1px solid #eee;
+  border-top: 1px solid #eee;
 }
 
 .navbar .navbar-form {
