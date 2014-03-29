@@ -19,8 +19,12 @@ module.exports = class Photo extends Model
     title = @get('title') or 'Untitled'
     name = title
     type = @get 'media'
-    tags = @get('tags').split(' ')
     # console.log @
+
+    try
+      tags = @get('tags').split(' ')
+    catch TypeError
+      null
 
     tags = if _(tags).any() then tags else ['untagged']
     dms = utils.deg2dms @get('latitude'), @get('longitude')
