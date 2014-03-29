@@ -31,7 +31,7 @@ module.exports = class Project extends Model
     @set last: false
     @set type: type
     @set title: name
-    @set href: "/portfolio/#{name}"
+    @set href: "/portfolio/item/#{name}"
     @set template: 'item'
     @set partial: type
     @set asides: config.portfolio.page_asides

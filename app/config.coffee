@@ -12,6 +12,7 @@ config =
   ################
   author: 'Reuben Cummings'
   email: 'reubano@gmail.com'
+  site: 'reubano.github.io'
 
   # The default title of this website
   title: "reubano"
@@ -35,7 +36,7 @@ config =
     {href: '/portfolio', title: 'Portfolio'}
     {href: '/gallery', title: 'Gallery'}
     {href: '/blog', title: 'Blog'}
-    {href: '/archives', title: 'Archives'}
+    {href: '/blog/archives', title: 'Archives'}
   ]
 
   ###########
@@ -63,6 +64,10 @@ config =
     popular_count: 5
     related_count: 5
     items_per_index: 10
+    show_pager: true
+    filterer: {fork: false}
+    identifier: 'name'
+    comparator: 'created_at'
 
   gallery:
     index: true
@@ -80,6 +85,10 @@ config =
     popular_count: 5
     related_count: 5
     items_per_index: 12
+    index_class: 'col-sm-6 col-md-4'
+    show_pager: true
+    identifier: 'id'
+    comparator: 'created'
 
   blog:
     index: true
@@ -97,6 +106,9 @@ config =
     popular_count: 5
     related_count: 5
     items_per_index: 10
+    show_pager: true
+    identifier: 'slug'
+    comparator: 'date'
 
   ######################
   # 3rd Party Settings #

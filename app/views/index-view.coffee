@@ -17,9 +17,8 @@ module.exports = class IndexView extends CollectionView
     super
     utils.log 'initializing index view'
     @type = options.type
-    @recent_projects = options.recent_projects
-    @recent_posts = options.recent_posts
-    @recent_photos = options.recent_photos
+    @sub_type = options.sub_type
+    @recent = options.recent
     @pages = options.pages
     @first_page = options.first_page
     @last_page = options.last_page
@@ -45,9 +44,7 @@ module.exports = class IndexView extends CollectionView
     templateData.sidebar = config[@type].index_sidebar
     templateData.collapsed = config[@type].index_collapsed
     templateData.asides = config[@type].index_asides
-    templateData.recent_posts = @recent_posts
-    templateData.recent_projects = @recent_projects
-    templateData.recent_photos = @recent_photos
+    templateData["recent_#{@sub_type}"] = @recent
     templateData.page_title = @title
     templateData.pages = @pages
     templateData.first_page = @first_page

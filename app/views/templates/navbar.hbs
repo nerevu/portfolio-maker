@@ -25,7 +25,6 @@
       method="get"
     >
       <div class="input-group">
-        <input type="hidden" name="q" value="site:{{url "page#show"}}">
         <input
           class="form-control"
           type="text"
@@ -34,6 +33,7 @@
           results="0"
           placeholder="Search..."
         >
+        <input type="hidden" name="q" value="site:{{site}}">
         <div class="input-group-btn">
           <button class="btn btn-default" type="submit">
             <span class="glyphicon glyphicon-search"></span>
