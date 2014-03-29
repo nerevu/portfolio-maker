@@ -33,7 +33,6 @@ module.exports = class Collection extends Chaplin.Collection
         cur.set next_href: collection.at(real - 1).get 'href'
         cur.set prev_href: collection.at(real + 1).get 'href'
 
-
   getRecent: (type, filter=false) =>
     console.log "#{type} getRecent"
     collection = if filter then new Collection(@where(filter)) else @
