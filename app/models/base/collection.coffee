@@ -14,6 +14,20 @@ module.exports = class Collection extends Chaplin.Collection
   # Use the project base model per default, not Chaplin.Model
   model: Model
 
+  paginator: (perPage, page) =>
+    console.log "paginator"
+    pages = @length / perPage | 0 + 1
+    collection = @rest perPage * (page - 1)
+    collection = new Collection _(collection).first perPage
+    first_page = page is 1
+    last_page = page is pages
+
+    return {
+      collection: collection
+      first_page: first_page
+      last_page: last_page
+      pages: pages}
+
   setPagers: (filter=false) =>
     console.log "setPagers"
     collection = if filter then new Collection(@where(filter)) else @

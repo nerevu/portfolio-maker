@@ -1,15 +1,24 @@
 <ul class="pagination pagination-lg">
-  <li {{#if first_page}}class="disabled"{{/if}}>
-    <a href="#">&laquo;</a>
-  </li>
+  {{#if first_page}}
+    <li class="disabled"><a>&laquo;</a></li>
+  {{else}}
+    <li><a href="{{type}}/page/{{prev_page}}">&laquo;</a></li>
+  {{/if}}
   {{#times pages}}
-    <li {{#if active}}class="active"{{/if}}>
-      <a href="{{../type}}/page/{{this}}">
-        {{this}} {{#if active}}<span class="sr-only">(current)</span>{{/if}}
-      </a>
-    </li>
+    {{#ifCurrent this ../cur_page}}
+      <li class="active">
+        <a>{{this}}<span class="sr-only">(current)</span></a>
+      </li>
+    {{else}}
+      <li>
+        <a href="{{../../type}}/page/{{this}}">{{this}}</a>
+      </li>
+    {{/ifCurrent}}
   {{/times}}
-  <li {{#if last_page}}class="disabled"{{/if}}>
-    <a href="{{../type}}/page/{{p}}">&raquo;</a>
-  </li>
+  {{#if last_page}}
+    <li class="disabled"><a>&raquo;</a></li>
+  {{else}}
+    <li><a href="{{type}}/page/{{next_page}}">&raquo;</a></li>
+  {{/if}}
 </ul>
+

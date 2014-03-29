@@ -41,6 +41,11 @@ register 'ifLoggedIn', (options) ->
 register 'ifActive', (title, options) ->
   if mediator.active is title then options.fn(this) else options.inverse(this)
 
+register 'ifCurrent', (page, cur_page, options) ->
+  console.log page
+  console.log cur_page
+  if page is cur_page then options.fn(this) else options.inverse(this)
+
 # Other helpers
 # -----------
 # Convert date to day
