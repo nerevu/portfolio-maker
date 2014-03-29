@@ -20,13 +20,14 @@ module.exports = class Photo extends Model
     name = title
     type = @get 'media'
     tags = @get('tags').split(' ')
+    # console.log @
+
     tags = if _(tags).any() then tags else ['untagged']
     dms = utils.deg2dms @get('latitude'), @get('longitude')
     dms_str = "#{dms.lat.deg}° #{dms.lat.min}' #{dms.lat.sec}\" #{dms.lat.dir}"
     dms_str += "<br>"
     dms_str += "#{dms.lon.deg}° #{dms.lon.min}' #{dms.lon.sec}\" #{dms.lon.dir}"
     utils.log "initialize #{name} photo model"
-    console.log @
     created = moment @get 'datetaken'
     updated = created
 

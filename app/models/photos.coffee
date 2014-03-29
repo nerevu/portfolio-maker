@@ -82,7 +82,6 @@ module.exports = class Photos extends Collection
     success = options.success
 
     options.success = (resp) =>
-      console.log 'resp done!'
       method = if options.reset then 'reset' else 'set'
       setData = (data) =>
         @[method] data, options
