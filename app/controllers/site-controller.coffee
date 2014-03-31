@@ -93,7 +93,7 @@ module.exports = class SiteController extends Controller
         recent_posts: @posts.getRecent 'blog'
         recent_projects: @projects.getRecent 'portfolio'
         popular_projects: @projects.getPopular 'portfolio'
-        recent_photos: @photos.getRecent'gallery'
+        recent_photos: @photos.getRecent 'gallery'
         popular_photos: @photos.getPopular 'gallery'
 
     else
