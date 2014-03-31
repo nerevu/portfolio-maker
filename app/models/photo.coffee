@@ -24,7 +24,7 @@ module.exports = class Photo extends Model
     try
       tags = @get('tags').split(' ')
     catch TypeError
-      null
+      tags = @get('tags')
 
     tags = if _(tags).any() then tags else ['untagged']
     dms = utils.deg2dms @get('latitude'), @get('longitude')
