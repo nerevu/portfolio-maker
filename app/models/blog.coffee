@@ -3,15 +3,15 @@ Model = require 'models/post'
 config = require 'config'
 utils = require 'lib/utils'
 
-module.exports = class Posts extends Collection
+module.exports = class Blog extends Collection
   model: Model
 
   initialize: =>
     super
-    utils.log "initialize posts collection"
+    utils.log "initialize blog collection"
 
   fetch: =>
-    utils.log "fetch posts collection"
+    utils.log "fetch blog collection"
     data = []
     files = require 'paths'
 

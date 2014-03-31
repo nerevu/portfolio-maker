@@ -3,7 +3,7 @@ Model = require 'models/project'
 config = require 'config'
 utils = require 'lib/utils'
 
-module.exports = class Projects extends Collection
+module.exports = class Portfolio extends Collection
   token = "access_token=#{config.github.api_token}"
 
   model: Model
@@ -18,10 +18,10 @@ module.exports = class Projects extends Collection
 
   initialize: =>
     super
-    utils.log "initialize projects collection"
+    utils.log "initialize portfolio collection"
 
   fetch: =>
-    utils.log "fetch projects collection"
+    utils.log "fetch portfolio collection"
     $.Deferred((deferred) => super
       success: deferred.resolve
       error: deferred.reject).promise()

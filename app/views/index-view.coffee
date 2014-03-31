@@ -46,8 +46,8 @@ module.exports = class IndexView extends CollectionView
     templateData.sidebar = config[@type].index_sidebar
     templateData.collapsed = config[@type].index_collapsed
     templateData.asides = config[@type].index_asides
-    templateData["recent_#{@sub_type}"] = @recent
-    templateData["popular_#{@sub_type}"] = @popular
+    templateData["recent_#{@sub_type}s"] = @recent
+    templateData["popular_#{@sub_type}s"] = @popular
     templateData.page_title = @title
     templateData.pages = @pages
     templateData.first_page = @first_page
@@ -57,4 +57,5 @@ module.exports = class IndexView extends CollectionView
     templateData.next_page = @next_page
     templateData.prev_page = @prev_page
     templateData.type = @type
+    templateData.sub_type = @sub_type
     templateData

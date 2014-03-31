@@ -23,19 +23,21 @@ module.exports = class Project extends Model
     utils.log "initialize #{name} project model"
     # console.log @
     language = @get('language')?.toLowerCase()
-    type = 'project'
+    type = 'portfolio'
+    sub_type = 'project'
     created = moment @get 'created_at'
     updated = moment @get 'updated_at'
     popularity = parseInt(@get 'stargazers_count') + parseInt(@get 'forks') * 2
 
     @set first: false
     @set last: false
+    @set sub_type: sub_type
     @set type: type
     @set title: name
     @set popularity: popularity
     @set href: "/portfolio/item/#{name}"
     @set template: 'item'
-    @set partial: type
+    @set partial: sub_type
     @set asides: config.portfolio.page_asides
     @set sidebar: config.portfolio.page_sidebar
     @set collapsed: config.portfolio.page_collapsed

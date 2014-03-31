@@ -13,8 +13,9 @@ module.exports = class ExcerptView extends View
     super
     @name = @model.get 'name'
     @type = @model.get 'type'
+    @sub_type = @model.get 'sub_type'
     utils.log "initializing excerpt view for #{@name}"
-    @template = require "views/templates/#{@type}-excerpt"
+    @template = require "views/templates/#{@sub_type}-excerpt"
 
   render: =>
     super

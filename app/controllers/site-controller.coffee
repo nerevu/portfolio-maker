@@ -20,17 +20,17 @@ module.exports = class SiteController extends Controller
 
     switch @type
       when 'gallery'
-        collection = @photos
+        collection = @gallery
         @sub_title = 'Photo '
-        @sub_type = 'photos'
+        @sub_type = 'photo'
       when 'portfolio'
-        collection = @projects
+        collection = @portfolio
         @sub_title = 'Project '
-        @sub_type = 'projects'
+        @sub_type = 'project'
       when 'blog'
-        collection = @posts
+        collection = @blog
         @sub_title = ''
-        @sub_type = 'posts'
+        @sub_type = 'post'
       else
         collection = @pages
         @sub_title = ''
@@ -90,11 +90,11 @@ module.exports = class SiteController extends Controller
         model: model
         active: title
         title: title
-        recent_posts: @posts.getRecent 'blog'
-        recent_projects: @projects.getRecent 'portfolio'
-        popular_projects: @projects.getPopular 'portfolio'
-        recent_photos: @photos.getRecent 'gallery'
-        popular_photos: @photos.getPopular 'gallery'
+        recent_posts: @blog.getRecent 'blog'
+        recent_projects: @portfolio.getRecent 'portfolio'
+        popular_projects: @portfolio.getPopular 'portfolio'
+        recent_photos: @gallery.getRecent 'gallery'
+        popular_photos: @gallery.getPopular 'gallery'
 
     else
       utils.log "#{@type} is a collection"

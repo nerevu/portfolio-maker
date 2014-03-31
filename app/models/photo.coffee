@@ -18,7 +18,8 @@ module.exports = class Photo extends Model
     id = @get 'id'
     title = @get('title') or 'Untitled'
     name = title
-    type = @get 'media'
+    type = 'gallery'
+    sub_type = @get 'media'
     # console.log @
 
     try
@@ -38,6 +39,7 @@ module.exports = class Photo extends Model
     @set first: false
     @set last: false
     @set type: type
+    @set sub_type: sub_type
     @set tags: tags
     @set href: "/gallery/item/#{id}"
     @set dms: dms
@@ -45,7 +47,7 @@ module.exports = class Photo extends Model
     @set name: name
     @set title: title
     @set template: 'item'
-    @set partial: type
+    @set partial: sub_type
     @set asides: config.gallery.page_asides
     @set sidebar: config.gallery.page_sidebar
     @set collapsed: config.gallery.page_collapsed

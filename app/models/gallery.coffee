@@ -3,7 +3,7 @@ Model = require 'models/photo'
 config = require 'config'
 utils = require 'lib/utils'
 
-module.exports = class Photos extends Collection
+module.exports = class Gallery extends Collection
   _(@prototype).extend Chaplin.SyncMachine
 
   base_url = "https://api.flickr.com/services/rest/"
@@ -28,8 +28,8 @@ module.exports = class Photos extends Collection
 
   initialize: =>
     super
-    utils.log "initialize photos collection"
-    @syncStateChange => console.debug 'photos state changed'
+    utils.log "initialize gallery collection"
+    @syncStateChange => console.debug 'gallery state changed'
 
   getCollection: (response) =>
     utils.log "get collection"
@@ -60,7 +60,7 @@ module.exports = class Photos extends Collection
   applySets: (deferreds) => $.when.apply($, deferreds)
 
   getData: (results...) =>
-    utils.log "get photos data"
+    utils.log "get gallery data"
     _.flatten (r[0].photoset.photo for r in results)
 
   parseBeforeLocalSave: (resp) =>
@@ -77,7 +77,7 @@ module.exports = class Photos extends Collection
       @unSync
 
   _fetch: (options) =>
-    utils.log "_fetch photos collection"
+    utils.log "_fetch gallery collection"
     @beginSync()
     options = if options then _.clone(options) else {}
     success = options.success
@@ -99,7 +99,7 @@ module.exports = class Photos extends Collection
     @sync 'read', @, options
 
   fetch: =>
-    utils.log "fetch photos collection"
+    utils.log "fetch gallery collection"
     $.Deferred((deferred) => @_fetch
       success: deferred.resolve
       error: deferred.reject).promise()

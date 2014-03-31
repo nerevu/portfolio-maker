@@ -8,7 +8,8 @@ module.exports = class Post extends Model
     super
     name = @get 'name'
     utils.log "initialize #{name} post model"
-    type = 'post'
+    type = 'blog'
+    sub_type = 'post'
     slug = name.split('-')[3..].join('-')
     date_arr = _.str.words(name, '-')[0..2]
     year = date_arr[0]
@@ -20,6 +21,7 @@ module.exports = class Post extends Model
     @set first: false
     @set last: false
     @set type: type
+    @set sub_type: sub_type
     @set slug: slug
     @set year: year
     @set year_month: "#{year}#{month}"
@@ -30,7 +32,7 @@ module.exports = class Post extends Model
     @set excerpt: _.str.prune content, 500
     @set href: "/blog/#{year}/#{month}/#{day}/#{slug}"
     @set template: @get('template') ? 'item'
-    @set partial: @get('partial') ? type
+    @set partial: @get('partial') ? sub_type
     @set comments: @get('comments') ? true
     @set asides: @get('asides') ? config.blog.page_asides
     @set sidebar: @get('sidebar') ? config.pages.page_sidebar
