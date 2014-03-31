@@ -39,14 +39,14 @@ module.exports = class Collection extends Chaplin.Collection
       real = num - 1
       cur = collection.at(real)
       if real is len - 2
-        cur.set first: true
-        cur.set next_href: collection.at(real - 1).get 'href'
-      else if real is 0
         cur.set last: true
-        cur.set prev_href: collection.at(real + 1).get 'href'
+        cur.set prev_href: collection.at(real - 1).get 'href'
+      else if real is 0
+        cur.set first: true
+        cur.set next_href: collection.at(real + 1).get 'href'
       else
-        cur.set next_href: collection.at(real - 1).get 'href'
-        cur.set prev_href: collection.at(real + 1).get 'href'
+        cur.set prev_href: collection.at(real - 1).get 'href'
+        cur.set next_href: collection.at(real + 1).get 'href'
 
   getRecent: (type) =>
     console.log "get recent #{type}"
