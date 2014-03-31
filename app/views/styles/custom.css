@@ -2,7 +2,7 @@
 #page-title {margin-bottom: 20px;}
 #excerpt {
   padding-bottom: 15px;
-  border-bottom: 1px dashed #eee;
+  border-bottom: 2px dashed #eee;
   margin-bottom: 20px;
 }
 
@@ -16,6 +16,14 @@
 #sidebar h3 {
   padding-bottom: 9px;
   border-bottom: 1px solid #eee;
+}
+
+h1 {
+  border-bottom: 2px solid #eee;
+}
+
+#home h1 {
+  border-bottom: 0;
 }
 
 /* Sticky Footer */

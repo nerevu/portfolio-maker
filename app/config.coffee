@@ -99,7 +99,7 @@ config =
     archives: true
     page_sidebar: true
     index_sidebar: true
-    archives_sidebar: true
+    archives_sidebar: false
     page_collapsed: false
     index_collapsed: false
     archives_collapsed: false

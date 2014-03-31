@@ -1,7 +1,7 @@
 ---
 title: From South to North
 comments: false
-tags: [outro, post]
+tags: [gcs, tanzania]
 ---
 A lot has happened over the past month. I arrived in Sumbawanga on Tuesday, May 18th to join CNFA on a field day demonstration. We spent the first few days making arrangements in preparation for Friday's demonstration. On Friday we arrived to the site, a large field in Malonje Village, and got to work assembling the sheller. <!-- more --> Allam, my CNFA contact, had previously informed the villagers that I needed a Phoenix brand bicycle, and they had two waiting for me. I immediately ran into difficulties with the first bike because it had an aftermarket rear rack which was too long for the sheller to fit on. Luckily, Malonje had an abundance of Phoenix bikes and we went through 3 more before finding one that worked. After installing the sheller, we moved it onto a tarp where a group of villagers were eagerly waiting. The demonstration went over fantastically and we shelled half a sack of maize with plenty of audience participation. Once we finished, a group of villagers gave us a wonderful 'thank you' musical celebration full of song and dance. It was a great ending to the day.
 
