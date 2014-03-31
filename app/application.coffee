@@ -28,7 +28,6 @@ module.exports = class Application extends Chaplin.Application
     mediator.photos.fetch().done (response) =>
       console.log 'done fetching photos'
       @publishEvent 'photos:synced', response
-      console.log response
       localStorage.setItem "#{config.title}:Photos:synced", true
     super
 
