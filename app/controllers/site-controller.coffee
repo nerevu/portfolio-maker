@@ -63,7 +63,7 @@ module.exports = class SiteController extends Controller
     collection = new Collection @collection
     collection.setPagers @pager_filter
     model = collection.findWhere @find_where
-    title = model.get 'title'
+    title = model?.get 'title'
 
     @adjustTitle title
     @view = new ItemView
@@ -83,7 +83,7 @@ module.exports = class SiteController extends Controller
     if @type in @pages.pluck 'name'
       utils.log "#{@type} is a model"
       model = collection.findWhere({name: @type})
-      title = model.get 'title'
+      title = model?.get 'title'
       @adjustTitle title
 
       @view = new ItemView
