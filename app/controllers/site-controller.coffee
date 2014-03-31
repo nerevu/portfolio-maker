@@ -10,11 +10,12 @@ module.exports = class SiteController extends Controller
   initialize: (params) =>
     utils.log 'initialize site-controller'
     @type = params?.type ? 'home'
-    @id = params.id
+    @tag = params?.tag
+    @id = params?.id
     recent_comparator = config[@type]?.recent_comparator
     identifier = config[@type]?.identifier
 
-    if identifier
+    if @id and identifier
       @find_where = {}
       @find_where[identifier] = @id
 
@@ -38,8 +39,10 @@ module.exports = class SiteController extends Controller
 
     filterer = config[@type]?.filterer
 
-    if filterer
-      console.log 'filterer'
+    if @tag
+      @filterer = (item, index=false) => @tag in item.get 'tags'
+      @pager_filter = @filterer
+    else if filterer
       key = _.keys(filterer)[0]
       value = _.values(filterer)[0]
       @filterer = (item, index) -> item.get(key) is value
@@ -103,6 +106,8 @@ module.exports = class SiteController extends Controller
       per = config[@type]?.items_per_index ? 10
       paginator = collection.paginator per, num, @pager_filter
       @adjustTitle title
+      tags = _(_.flatten(collection.pluck 'tags')).uniq()
+      tags = _.filter tags, (tag) -> tag
 
       @view = new IndexView
         collection: paginator.collection
@@ -118,6 +123,8 @@ module.exports = class SiteController extends Controller
         title: title
         recent: @recent
         popular: @popular
+        tags: tags
+        tag: @tag
         type: @type
         sub_type: @sub_type
         class: config[@type].index_class

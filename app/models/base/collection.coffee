@@ -16,7 +16,16 @@ module.exports = class Collection extends Chaplin.Collection
 
   paginator: (perPage, page, filter=false) =>
     console.log "paginator"
-    collection = if filter then new Collection(@where(filter)) else @
+    if  _.isFunction filter
+      console.log 'filter is function'
+      collection = new Collection _(@models).filter filter
+    else if filter
+      console.log 'filter isnt function'
+      collection = new Collection @where filter
+    else
+      console.log 'no filter'
+      collection = @
+
     pages = collection.length / perPage | 0
     pages = if collection.length % perPage then pages + 1 else pages
     collection = collection.rest perPage * (page - 1)
@@ -34,7 +43,17 @@ module.exports = class Collection extends Chaplin.Collection
 
   setPagers: (filter=false) =>
     console.log "setPagers"
-    collection = if filter then new Collection(@where(filter)) else @
+
+    if  _.isFunction filter
+      console.log 'filter is function'
+      collection = new Collection _(@models).filter filter
+    else if filter
+      console.log 'filter isnt function'
+      collection = new Collection @where filter
+    else
+      console.log 'no filter'
+      collection = @
+
     len = collection.length + 1
     num = len
 

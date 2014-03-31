@@ -28,6 +28,8 @@ module.exports = class IndexView extends CollectionView
     @next_page = options.next_page
     @prev_page = options.prev_page
     @title = options.title
+    @tags = options.tags
+    @tag = options.tag
     @className = options.class ? 'row'
     mediator.setActive options.active
 
@@ -58,4 +60,6 @@ module.exports = class IndexView extends CollectionView
     templateData.prev_page = @prev_page
     templateData.type = @type
     templateData.sub_type = @sub_type
+    templateData.tags = @tags
+    templateData.tag = @tag
     templateData

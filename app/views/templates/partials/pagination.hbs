@@ -3,7 +3,15 @@
     {{#if first_page}}
       <li class="disabled"><a>&laquo;</a></li>
     {{else}}
-      <li><a href="{{type}}/page/{{prev_page}}">&laquo;</a></li>
+      {{#if tag}}
+        <li>
+          <a href="/{{type}}/items/tagged/{{tag}}/page/{{prev_page}}">
+            &laquo;
+          </a>
+        </li>
+      {{else}}
+        <li><a href="/{{type}}/page/{{prev_page}}">&laquo;</a></li>
+      {{/if}}
     {{/if}}
     {{#times pages}}
       {{#ifCurrent this ../cur_page}}
@@ -11,15 +19,29 @@
           <a>{{this}}<span class="sr-only">(current)</span></a>
         </li>
       {{else}}
-        <li>
-          <a href="{{../../type}}/page/{{this}}">{{this}}</a>
-        </li>
+        {{#if ../../tag}}
+          <li>
+            <a href="/{{../../../type}}/items/tagged/{{../../../tag}}/page/{{this}}">
+              {{this}}
+            </a>
+          </li>
+        {{else}}
+          <li><a href="/{{../../type}}/page/{{this}}">{{this}}</a></li>
+        {{/if}}
       {{/ifCurrent}}
     {{/times}}
     {{#if last_page}}
       <li class="disabled"><a>&raquo;</a></li>
     {{else}}
-      <li><a href="{{type}}/page/{{next_page}}">&raquo;</a></li>
+      {{#if tag}}
+        <li>
+          <a href="/{{type}}/items/tagged/{{tag}}/page/{{next_page}}">
+            &raquo;
+          </a>
+        </li>
+      {{else}}
+        <li><a href="/{{type}}/page/{{next_page}}">&raquo;</a></li>
+      {{/if}}
     {{/if}}
   </ul>
 {{/unless}}

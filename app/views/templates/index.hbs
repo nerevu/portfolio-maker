@@ -2,7 +2,10 @@
   {{#if collapsed}}
     <div class="col-sm-12">
       <div id="page" class="row">
-        <div id="page-title" class="col-sm-12"><h1>{{page_title}}</h1></div>
+        <div id="page-title" class="col-sm-12">
+          <h1>{{page_title}}</h1>
+          <p>Filter by tags: {{partial 'tags' this}}</p>
+        </div>
         <div id="excerpt-list"></div>
       </div>
       <div id="pagination" class="text-center">
@@ -13,7 +16,10 @@
   {{else}}
     <div id="page" class="col-sm-8">
       <div class="row">
-        <div id="page-title" class="col-sm-12"><h1>{{page_title}}</h1></div>
+        <div id="page-title" class="col-sm-12">
+          <h1>{{page_title}}</h1>
+          <p>Filter by tag: {{partial 'tags' this}}</p>
+        </div>
         <div id="excerpt-list" class="col-sm-12"></div>
       </div>
       <div id="pagination" class="text-center">
@@ -27,7 +33,10 @@
 {{else}}
   <div class="col-sm-12">
     <div id="page" class="row">
-      <div id="page-title" class="col-sm-12"><h1>{{page_title}}</h1></div>
+      <div id="page-title" class="col-sm-12">
+        <h1>{{page_title}}</h1>
+        <p>Filter by tags: </p>{{partial 'tags' this}}
+      </div>
       <div id="excerpt-list"></div>
     </div>
     <div id="pagination" class="text-center">{{partial 'pagination' this}}</div>
