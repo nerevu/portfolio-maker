@@ -44,7 +44,8 @@ html, body, body #container {
 
 /* Other */
 .tag {margin-bottom: 10px;}
-.tag:hover {background-color: #428BCA;}
+.tag:hover {background-color: #2A6496;}
+.active {background-color: #428BCA;}
 .cushion {margin-bottom: 10px;}
 .caption .table {margin-bottom: 0;}
 .list-recent {margin-top: -10px;}

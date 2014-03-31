@@ -14,8 +14,7 @@ module.exports = class Collection extends Chaplin.Collection
   # Use the project base model per default, not Chaplin.Model
   model: Model
 
-  paginator: (perPage, page, filter=false) =>
-    console.log "paginator"
+  prefilter: (filter=false) =>
     if  _.isFunction filter
       console.log 'filter is function'
       collection = new Collection _(@models).filter filter
@@ -26,6 +25,11 @@ module.exports = class Collection extends Chaplin.Collection
       console.log 'no filter'
       collection = @
 
+    collection
+
+  paginator: (perPage, page, filter=false) =>
+    console.log "paginator"
+    collection = @prefilter filter
     pages = collection.length / perPage | 0
     pages = if collection.length % perPage then pages + 1 else pages
     collection = collection.rest perPage * (page - 1)
@@ -43,17 +47,7 @@ module.exports = class Collection extends Chaplin.Collection
 
   setPagers: (filter=false) =>
     console.log "setPagers"
-
-    if  _.isFunction filter
-      console.log 'filter is function'
-      collection = new Collection _(@models).filter filter
-    else if filter
-      console.log 'filter isnt function'
-      collection = new Collection @where filter
-    else
-      console.log 'no filter'
-      collection = @
-
+    collection = @prefilter filter
     len = collection.length + 1
     num = len
 

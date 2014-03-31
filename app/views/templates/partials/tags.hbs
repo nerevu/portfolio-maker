@@ -1,5 +1,5 @@
 {{#each tags}}
   <a href="/{{../type}}/items/tagged/{{this}}">
-    <span class="badge tag">{{this}}</span>
+    <span class="badge tag{{#ifCurrent ../tag this}} active{{/ifCurrent}}">{{this}}</span>
   </a>
 {{/each}}

@@ -39,17 +39,20 @@ module.exports = class SiteController extends Controller
 
     filterer = config[@type]?.filterer
 
-    if @tag
-      @filterer = (item, index=false) => @tag in item.get 'tags'
-      @pager_filter = @filterer
-    else if filterer
+    if filterer
       key = _.keys(filterer)[0]
       value = _.values(filterer)[0]
-      @filterer = (item, index) -> item.get(key) is value
-      @pager_filter = filterer
+      @filterer = (item, index=false) => item.get(key) is value
     else
       @filterer = null
-      @pager_filter = null
+
+    if @tag
+      @tagfilterer = (item, index=false) =>
+        returned = if filterer then (item.get(key) is value) else true
+        returned = returned and @tag in (item.get('tags') ? [])
+        returned
+    else
+      @tagfilterer = @filterer
 
     @recent = collection.getRecent @type
     @popular = collection.getPopular @type
@@ -64,7 +67,7 @@ module.exports = class SiteController extends Controller
   show: (params) =>
     utils.log "show #{@type} #{@id} site-controller"
     collection = new Collection @collection
-    collection.setPagers @pager_filter
+    collection.setPagers @filterer
     model = collection.findWhere @find_where
     title = model?.get 'title'
 
@@ -104,15 +107,15 @@ module.exports = class SiteController extends Controller
       title = "My #{@sub_title}#{@active}"
       num = parseInt params?.num ? 1
       per = config[@type]?.items_per_index ? 10
-      paginator = collection.paginator per, num, @pager_filter
+      paginator = collection.paginator per, num, @tagfilterer
       @adjustTitle title
-      tags = _(_.flatten(collection.pluck 'tags')).uniq()
+      tags = _(_.flatten(collection.prefilter(@filterer).pluck 'tags')).uniq()
       tags = _.filter tags, (tag) -> tag
 
       @view = new IndexView
         collection: paginator.collection
         pages: paginator.pages
-        filterer: @filterer
+        filterer: @tagfilterer
         first_page: paginator.first_page
         last_page: paginator.last_page
         only_page: paginator.only_page
