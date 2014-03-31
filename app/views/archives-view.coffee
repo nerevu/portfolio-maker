@@ -16,7 +16,7 @@ module.exports = class ArchivesView extends CollectionView
   initialize: (options) ->
     super
     utils.log 'initializing archives view'
-    @recent_posts = options.recent_posts
+    @recent = options.recent
     @title = options.title
     mediator.setActive options.active
 
@@ -30,6 +30,6 @@ module.exports = class ArchivesView extends CollectionView
     templateData.sidebar = config.blog.archives_sidebar
     templateData.collapsed = config.blog.archives_collapsed
     templateData.asides = config.blog.archives_asides
-    templateData.recent_posts = @recent_posts
+    templateData.recent_posts = @recent
     templateData.page_title = @title
     templateData

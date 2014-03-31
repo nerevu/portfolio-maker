@@ -103,7 +103,7 @@ config =
     archives_collapsed: false
     page_asides: ['related-posts', 'recent-posts', 'popular-posts']
     index_asides: ['recent-posts', 'popular-posts']
-    archives_asides: ['recent-posts']
+    archives_asides: []
     recent_count: 5
     popular_count: 5
     related_count: 5
