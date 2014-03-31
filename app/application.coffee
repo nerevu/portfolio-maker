@@ -15,16 +15,20 @@ module.exports = class Application extends Chaplin.Application
     keywords: config.keywords
     author: config.author
 
-  start: ->
+  start: =>
     # You can fetch some data here and start app
     # (by calling `super`) after that.
     mediator.pages.fetch()
     mediator.posts.fetch()
-    mediator.projects.fetch().done (response) ->
+    mediator.projects.fetch().done (response) =>
       if response.message then return
+      console.log 'done fetching projects'
+      @publishEvent 'projects:synced', response
       localStorage.setItem "#{config.title}:Projects:synced", true
-    mediator.photos.fetch().done (response) ->
+    mediator.photos.fetch().done (response) =>
       console.log 'done fetching photos'
+      @publishEvent 'photos:synced', response
+      console.log response
       localStorage.setItem "#{config.title}:Photos:synced", true
     super
 

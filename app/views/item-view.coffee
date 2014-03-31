@@ -37,6 +37,17 @@ module.exports = class ItemView extends View
     else
       utils.log "initializing 404 item-view"
 
+    @subscribeEvent 'photos:synced', (projects) =>
+      utils.log 'item-view heard photos synced event'
+      @popular_photos = projects.getPopular 'gallery'
+      @getTemplateData()
+      @render()
+
+    @subscribeEvent 'projects:synced', (projects) =>
+      utils.log 'item-view heard projects synced event'
+      @popular_projects = projects.getPopular 'portfolio'
+      @getTemplateData()
+      @render()
 
   render: =>
     super
