@@ -48,32 +48,40 @@ module.exports = class Collection extends Chaplin.Collection
         cur.set next_href: collection.at(real - 1).get 'href'
         cur.set prev_href: collection.at(real + 1).get 'href'
 
-  getRecent: (type, comparator, filter=false) =>
+  getRecent: (type) =>
     console.log "get recent #{type}"
-    collection = if filter then new Collection(@where(filter)) else @
-    collection.comparator = (model) -> - model.get comparator
-    collection.sort()
     recent = []
+    comparator = config[type]?.recent_comparator
 
-    _(collection.models).some (model) ->
-      href = model.get 'href'
-      title = model.get 'title'
-      recent.push({href: href, title: title})
-      recent.length is config[type].recent_count
+    if comparator
+      filter = config[type]?.filterer
+      collection = if filter then new Collection(@where(filter)) else @
+      collection.comparator = (model) -> - model.get comparator
+      collection.sort()
+
+      _(collection.models).some (model) ->
+        href = model.get 'href'
+        title = model.get 'title'
+        recent.push({href: href, title: title})
+        recent.length is config[type].recent_count
 
     recent
 
-  getPopular: (type, comparator, filter=false) =>
+  getPopular: (type) =>
     console.log "get popular #{type}"
-    collection = if filter then new Collection(@where(filter)) else @
-    collection.comparator = (model) -> - model.get comparator
-    collection.sort()
     popular = []
+    comparator = config[type]?.popular_comparator
 
-    _(collection.models).some (model) ->
-      href = model.get 'href'
-      title = model.get 'title'
-      popular.push({href: href, title: title})
-      popular.length is config[type].popular_count
+    if comparator
+      filter = config[type]?.filterer
+      collection = if filter then new Collection(@where(filter)) else @
+      collection.comparator = (model) -> - model.get comparator
+      collection.sort()
+
+      _(collection.models).some (model) ->
+        href = model.get 'href'
+        title = model.get 'title'
+        popular.push({href: href, title: title})
+        popular.length is config[type].popular_count
 
     popular

@@ -12,9 +12,6 @@ module.exports = class PageController extends Controller
     @type = params?.type ? 'home'
     @id = params.id
     recent_comparator = config[@type]?.recent_comparator
-    popular_comparator = config[@type]?.popular_comparator
-    console.log recent_comparator
-    console.log popular_comparator
     identifier = config[@type]?.identifier
 
     if identifier
@@ -51,12 +48,8 @@ module.exports = class PageController extends Controller
       @filterer = null
       @pager_filter = null
 
-    if recent_comparator
-      @recent = collection.getRecent @type, recent_comparator, @pager_filter
-
-    if popular_comparator
-      @popular = collection.getPopular @type, popular_comparator, @pager_filter
-
+    @recent = collection.getRecent @type
+    @popular = collection.getPopular @type
     @active = _.str.capitalize @type
 
     if recent_comparator
@@ -97,18 +90,11 @@ module.exports = class PageController extends Controller
         model: model
         active: title
         title: title
-        recent_posts: @posts.getRecent 'blog', config.blog.recent_comparator
-        recent_projects: @projects.getRecent(
-          'portfolio', config.portfolio.recent_comparator, {fork: false})
-
-        popular_projects: @projects.getPopular(
-          'portfolio', config.portfolio.popular_comparator, {fork: false})
-
-        recent_photos: @photos.getRecent(
-          'gallery', config.gallery.recent_comparator)
-
-        popular_photos: @photos.getPopular(
-          'gallery', config.gallery.popular_comparator)
+        recent_posts: @posts.getRecent 'blog'
+        recent_projects: @projects.getRecent 'portfolio'
+        popular_projects: @projects.getPopular 'portfolio'
+        recent_photos: @photos.getRecent'gallery'
+        popular_photos: @photos.getPopular 'gallery'
 
     else
       utils.log "#{@type} is a collection"
