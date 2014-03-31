@@ -17,16 +17,19 @@ module.exports = class Collection extends Chaplin.Collection
   paginator: (perPage, page, filter=false) =>
     console.log "paginator"
     collection = if filter then new Collection(@where(filter)) else @
-    pages = collection.length / perPage | 0 + 1
+    pages = collection.length / perPage | 0
+    pages = if collection.length % perPage then pages + 1 else pages
     collection = collection.rest perPage * (page - 1)
     collection = new Collection _(collection).first perPage
     first_page = page is 1
     last_page = page is pages
+    only_page = pages is 1
 
     return {
       collection: collection
       first_page: first_page
       last_page: last_page
+      only_page: only_page
       pages: pages}
 
   setPagers: (filter=false) =>

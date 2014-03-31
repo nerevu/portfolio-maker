@@ -1,5 +1,4 @@
-{{#if first_page}}{{#if last_page}}
-{{else}}
+{{#unless only_page}}
   <ul class="pagination pagination-lg">
     {{#if first_page}}
       <li class="disabled"><a>&laquo;</a></li>
@@ -23,4 +22,4 @@
       <li><a href="{{type}}/page/{{next_page}}">&raquo;</a></li>
     {{/if}}
   </ul>
-{{/if}}{{/if}}
+{{/unless}}

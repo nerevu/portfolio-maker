@@ -110,6 +110,7 @@ module.exports = class SiteController extends Controller
         filterer: @filterer
         first_page: paginator.first_page
         last_page: paginator.last_page
+        only_page: paginator.only_page
         cur_page: num
         next_page: num + 1
         prev_page: num - 1
