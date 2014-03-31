@@ -6,9 +6,9 @@ ArchivesView = require 'views/archives-view'
 config = require 'config'
 utils = require 'lib/utils'
 
-module.exports = class PageController extends Controller
+module.exports = class SiteController extends Controller
   initialize: (params) =>
-    utils.log 'initialize page-controller'
+    utils.log 'initialize site-controller'
     @type = params?.type ? 'home'
     @id = params.id
     recent_comparator = config[@type]?.recent_comparator
@@ -59,7 +59,7 @@ module.exports = class PageController extends Controller
     @collection = collection.toJSON()
 
   show: (params) =>
-    utils.log "show #{@type} #{@id} page-controller"
+    utils.log "show #{@type} #{@id} site-controller"
     collection = new Collection @collection
     collection.setPagers @pager_filter
     model = collection.findWhere @find_where
@@ -77,7 +77,7 @@ module.exports = class PageController extends Controller
       sub_type: @sub_type
 
   index: (params) =>
-    utils.log "index #{@type} page-controller"
+    utils.log "index #{@type} site-controller"
     collection = new Collection @collection
 
     if @type in @pages.pluck 'name'
@@ -122,7 +122,7 @@ module.exports = class PageController extends Controller
         class: config[@type].index_class
 
   archives: (params) =>
-    utils.log "archives #{@type} page-controller"
+    utils.log "archives #{@type} site-controller"
     collection = new Collection @collection
     active = 'Archives'
     title = "#{@active} Archives"
