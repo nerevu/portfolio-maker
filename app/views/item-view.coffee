@@ -9,32 +9,66 @@ module.exports = class ItemView extends View
   region: 'content'
 
   listen:
-#     'all': (event) => utils.log "heard #{event}"
+    # 'all': (event) => utils.log "item-view heard #{event}"
     'addedToParent': => utils.log "heard addedToParent"
 
   initialize: (options) =>
     super
-    @template = require "views/templates/#{@model.get 'template'}"
-    @recent_projects = options.recent_projects
+    if @model
+      @template = require "views/templates/#{@model.get 'template'}"
+    else
+      @template = require "views/templates/404"
+
+    @type = options.type
+    @sub_type = options.sub_type
     @recent_posts = options.recent_posts
+    @recent_projects = options.recent_projects
+    @popular_projects = options.popular_projects
     @recent_photos = options.recent_photos
+    @popular_photos = options.popular_photos
+    @recent = options.recent
+    @popular = options.popular
     @title = options.title
     @pager = options.pager
     mediator.setActive options.active
-    utils.log "initializing #{@model.get 'title'} item view"
+
+    if @model
+      utils.log "initializing #{@model.get 'title'} item-view"
+    else
+      utils.log "initializing 404 item-view"
+
+    @subscribeEvent 'photos:synced', (photos) =>
+      utils.log 'item-view heard photos synced event'
+      @popular_photos = photos.getPopular 'gallery'
+      @getTemplateData()
+      @render()
+
+    @subscribeEvent 'projects:synced', (projects) =>
+      utils.log 'item-view heard projects synced event'
+      @popular_projects = projects.getPopular 'portfolio'
+      @getTemplateData()
+      @render()
 
   render: =>
     super
-    utils.log "rendering item view"
+    utils.log "rendering item-view"
 
   getTemplateData: =>
-    utils.log 'get item view template data'
+    utils.log 'get item-view template data'
     templateData = super
     templateData.page_title = @title
     templateData.pager = @pager
-    templateData.recent_projects = @recent_projects
     templateData.recent_posts = @recent_posts
+    templateData.recent_projects = @recent_projects
+    templateData.popular_projects = @popular_projects
     templateData.recent_photos = @recent_photos
-    templateData.partial = @model.get 'partial'
+    templateData.popular_photos = @popular_photos
+    if @sub_type
+      templateData["recent_#{@sub_type}"] = @recent
+      templateData["popular_#{@sub_type}"] = @popular
+
+    if @model
+      templateData.partial = @model.get 'partial'
+
     templateData
 

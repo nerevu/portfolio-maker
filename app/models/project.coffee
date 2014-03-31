@@ -21,17 +21,19 @@ module.exports = class Project extends Model
     super
     name = @get 'name'
     utils.log "initialize #{name} project model"
-    console.log @
+    # console.log @
     language = @get('language')?.toLowerCase()
     type = 'project'
     created = moment @get 'created_at'
     updated = moment @get 'updated_at'
+    popularity = parseInt(@get 'stargazers_count') + parseInt(@get 'forks') * 2
 
     @set first: false
     @set last: false
     @set type: type
     @set title: name
-    @set href: "/portfolio/#{name}"
+    @set popularity: popularity
+    @set href: "/portfolio/item/#{name}"
     @set template: 'item'
     @set partial: type
     @set asides: config.portfolio.page_asides

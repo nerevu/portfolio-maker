@@ -77,14 +77,15 @@ module.exports = class Photos extends Collection
       @unSync
 
   _fetch: (options) =>
+    utils.log "_fetch photos collection"
     @beginSync()
     options = if options then _.clone(options) else {}
     success = options.success
 
     options.success = (resp) =>
-      console.log 'resp done!'
       method = if options.reset then 'reset' else 'set'
       setData = (data) =>
+        utils.log 'setting data'
         @[method] data, options
         success @, data, options if success
         @finishSync()

@@ -14,10 +14,11 @@ module.exports = class Collection extends Chaplin.Collection
   # Use the project base model per default, not Chaplin.Model
   model: Model
 
-  paginator: (perPage, page) =>
+  paginator: (perPage, page, filter=false) =>
     console.log "paginator"
-    pages = @length / perPage | 0 + 1
-    collection = @rest perPage * (page - 1)
+    collection = if filter then new Collection(@where(filter)) else @
+    pages = collection.length / perPage | 0 + 1
+    collection = collection.rest perPage * (page - 1)
     collection = new Collection _(collection).first perPage
     first_page = page is 1
     last_page = page is pages
@@ -47,15 +48,40 @@ module.exports = class Collection extends Chaplin.Collection
         cur.set next_href: collection.at(real - 1).get 'href'
         cur.set prev_href: collection.at(real + 1).get 'href'
 
-  getRecent: (type, filter=false) =>
-    console.log "#{type} getRecent"
-    collection = if filter then new Collection(@where(filter)) else @
+  getRecent: (type) =>
+    console.log "get recent #{type}"
     recent = []
+    comparator = config[type]?.recent_comparator
 
-    _(collection.models).some (model) ->
-      href = model.get 'href'
-      title = model.get 'title'
-      recent.push({href: href, title: title})
-      recent.length is config[type].recent_count
+    if comparator
+      filter = config[type]?.filterer
+      collection = if filter then new Collection(@where(filter)) else @
+      collection.comparator = (model) -> - model.get comparator
+      collection.sort()
+
+      _(collection.models).some (model) ->
+        href = model.get 'href'
+        title = model.get 'title'
+        recent.push({href: href, title: title})
+        recent.length is config[type].recent_count
 
     recent
+
+  getPopular: (type) =>
+    console.log "get popular #{type}"
+    popular = []
+    comparator = config[type]?.popular_comparator
+
+    if comparator
+      filter = config[type]?.filterer
+      collection = if filter then new Collection(@where(filter)) else @
+      collection.comparator = (model) -> - model.get comparator
+      collection.sort()
+
+      _(collection.models).some (model) ->
+        href = model.get 'href'
+        title = model.get 'title'
+        popular.push({href: href, title: title})
+        popular.length is config[type].popular_count
+
+    popular

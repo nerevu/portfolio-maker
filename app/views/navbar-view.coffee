@@ -35,4 +35,5 @@ module.exports = class NavbarView extends CollectionView
     templateData = super
     templateData.main = mediator.main
     templateData.links = @links
+    templateData.site = config.site
     templateData
