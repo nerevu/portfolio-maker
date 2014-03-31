@@ -19,6 +19,15 @@
 }
 
 /* Sticky Footer */
+html, body, body #container {
+    height: 100%;
+}
+
+#content {
+    height: auto;
+    min-height: 100%;
+}
+
 #wrap {
     height: auto;
     margin: 0 auto -60px;
