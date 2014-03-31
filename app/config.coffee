@@ -58,11 +58,12 @@ config =
     index_collapsed: false
     archives_collapsed: false
     page_asides: ['related-projects', 'recent-projects', 'popular-projects']
-    index_asides: ['recent-projects', 'popular-projects']
+    index_asides: ['recent-projects', 'popular-projects', 'random-projects']
     archives_asides: []
     recent_count: 5
     popular_count: 5
     related_count: 5
+    random_count: 5
     items_per_index: 10
     show_pager: true
     filterer: {fork: false}
@@ -80,11 +81,12 @@ config =
     index_collapsed: true
     archives_collapsed: false
     page_asides: ['related-photos', 'recent-photos', 'popular-photos']
-    index_asides: ['recent-photos', 'popular-photos']
+    index_asides: ['recent-photos', 'popular-photos', 'random-photos']
     archives_asides: []
     recent_count: 5
     popular_count: 5
     related_count: 5
+    random_count: 5
     items_per_index: 12
     index_class: 'col-sm-6 col-md-4'
     show_pager: true
@@ -102,11 +104,12 @@ config =
     index_collapsed: false
     archives_collapsed: false
     page_asides: ['related-posts', 'recent-posts', 'popular-posts']
-    index_asides: ['recent-posts', 'popular-posts']
+    index_asides: ['recent-posts', 'popular-posts', 'random-posts']
     archives_asides: []
     recent_count: 5
     popular_count: 5
     related_count: 5
+    random_count: 5
     items_per_index: 10
     show_pager: true
     identifier: 'slug'

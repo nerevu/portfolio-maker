@@ -56,6 +56,7 @@ module.exports = class SiteController extends Controller
 
     @recent = collection.getRecent @type
     @popular = collection.getPopular @type
+    @random = collection.getRandom @type
     @active = _.str.capitalize @type
 
     if recent_comparator
@@ -79,6 +80,7 @@ module.exports = class SiteController extends Controller
       pager: config[@type].show_pager
       recent: @recent
       popular: @popular
+      random: @random
       type: @type
       sub_type: @sub_type
 
@@ -126,6 +128,7 @@ module.exports = class SiteController extends Controller
         title: title
         recent: @recent
         popular: @popular
+        random: @random
         tags: tags
         tag: @tag
         type: @type

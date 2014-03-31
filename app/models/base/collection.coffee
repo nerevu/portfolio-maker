@@ -27,6 +27,16 @@ module.exports = class Collection extends Chaplin.Collection
 
     collection
 
+  getModels: (collection, length) =>
+    models = []
+    _(collection.models).some (model) ->
+      href = model.get 'href'
+      title = model.get 'title'
+      models.push({href: href, title: title})
+      models.length is length
+
+    models
+
   paginator: (perPage, page, filter=false) =>
     console.log "paginator"
     collection = @prefilter filter
@@ -74,18 +84,12 @@ module.exports = class Collection extends Chaplin.Collection
       collection = if filter then new Collection(@where(filter)) else @
       collection.comparator = (model) -> - model.get comparator
       collection.sort()
-
-      _(collection.models).some (model) ->
-        href = model.get 'href'
-        title = model.get 'title'
-        recent.push({href: href, title: title})
-        recent.length is config[type].recent_count
-
-    recent
+      @getModels collection, config[type].recent_count
+    else
+      []
 
   getPopular: (type) =>
     console.log "get popular #{type}"
-    popular = []
     comparator = config[type]?.popular_comparator
 
     if comparator
@@ -93,11 +97,19 @@ module.exports = class Collection extends Chaplin.Collection
       collection = if filter then new Collection(@where(filter)) else @
       collection.comparator = (model) -> - model.get comparator
       collection.sort()
+      @getModels collection, config[type].popular_count
+    else
+      []
 
-      _(collection.models).some (model) ->
-        href = model.get 'href'
-        title = model.get 'title'
-        popular.push({href: href, title: title})
-        popular.length is config[type].popular_count
+  getRandom: (type) =>
+    console.log "get random #{type}"
+    length = config[type]?.random_count
 
-    popular
+    if length
+      filter = config[type]?.filterer
+      collection = if filter then @where(filter) else @models
+      collection = new Collection _(collection).shuffle()
+      @getModels collection, length
+    else
+      []
+
