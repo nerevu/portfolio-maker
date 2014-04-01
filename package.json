@@ -25,7 +25,8 @@
     "uglify-js-brunch": ">= 1.0 < 1.8",
     "markdown-brunch": "git://github.com/reubano/markdown-brunch",
     "ls-brunch": "git://github.com/reubano/ls-brunch",
-    "yaml-front-matter": "~3.0.1"
+    "yaml-front-matter": "~3.0.1",
+    "sass-brunch": "~1.8.1"
   },
   "devDependencies": {}
 }
