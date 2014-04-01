@@ -1,10 +1,4 @@
 <h3>Popular Photos</h3>
 <div id="popular-photos" class="row gallery gallery-popular gallery-photos">
-  {{#each popular_photos}}
-  <div class="col-xs-6 col-sm-3 gallery-item">
-    <a href="{{href}}" class="thumbnail">
-      <img class="img-responsive" src="/images/thmb.png">
-    </a>
-  </div>
-  {{/each}}
+  {{#each popular_photos}}{{partial 'photo-aside-item' this}}{{/each}}
 </div>

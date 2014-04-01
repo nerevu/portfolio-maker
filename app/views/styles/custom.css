@@ -44,8 +44,11 @@ html, body, body #container {height: 100%;}
 #site-footer p {margin: 20px 0;}
 
 /* Other */
+.excerpt-photo .btn-default {border-color: #FFFFFF;}
+
 .tag {margin-bottom: 10px;}
-.tag:hover {background-color: #2A6496;}
+.tag:hover, .tag:focus {background-color: #2A6496;}
+.nounderline {text-decoration: none !important;}
 .active {background-color: #428BCA;}
 .cushion {margin-bottom: 10px;}
 .caption .table {margin-bottom: 0;}
@@ -67,7 +70,7 @@ html, body, body #container {height: 100%;}
 }
 .gallery .panel-heading {padding: 5px;}
 .gallery-item {padding: 0 2.5px}
-.gallery-projects .caption {padding: 5px 0 0 0;}
+.gallery-projects .caption, .excerpt-photo .caption {padding: 5px 0 0 0;}
 .gallery-projects .caption p {
 	margin-bottom: 0;
 	overflow-x: hidden;}

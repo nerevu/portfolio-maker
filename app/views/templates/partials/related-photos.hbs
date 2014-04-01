@@ -1,6 +1,4 @@
-<h3>Related Projects</h3>
-<ul id="related-projects" class="list-unstyled list-related list-projects">
-  {{#each related_projects}}
-    <li><a href="{{href}}">{{title}}</a></li>
-  {{/each}}
-</ul>
+<h3>Related Photos</h3>
+<div id="related-photos" class="row gallery gallery-related gallery-photos">
+  {{#each related_projects}}{{partial 'photo-aside-item' this}}{{/each}}
+</div>

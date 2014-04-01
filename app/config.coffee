@@ -83,12 +83,12 @@ config =
     page_asides: ['related-photos', 'recent-photos', 'popular-photos']
     index_asides: ['recent-photos', 'popular-photos', 'random-photos']
     archives_asides: []
-    recent_count: 5
-    popular_count: 12
-    related_count: 5
-    random_count: 5
+    recent_count: 6
+    popular_count: 6
+    related_count: 6
+    random_count: 6
     items_per_index: 12
-    index_class: 'col-sm-6 col-md-4'
+    index_class: 'col-sm-4 col-md-3'
     show_pager: true
     identifier: 'id'
     recent_comparator: 'created'
