@@ -1,16 +1,4 @@
 <h3>Popular Projects</h3>
 <div id="popular-projects" class="row gallery gallery-popular gallery-projects">
-  {{#each popular_projects}}
-  <div class="col-xs-6 col-sm-4 gallery-item">
-    <div class="thumbnail">
-      <a href="{{href}}"><img src="/images/thmb2.png" alt="..."></a>
-      <div class="caption">
-        <p><a href="{{href}}">{{title}}</a></p>
-      </div>
-    </div>
-  </div>
-  {{/each}}
+  {{#each popular_projects}}{{partial 'project-aside-item' this}}{{/each}}
 </div>
-
-
-

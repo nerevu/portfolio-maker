@@ -1,6 +1,4 @@
 <h3>Random Projects</h3>
-<ul id="random-projects" class="list-unstyled list-random list-projects">
-  {{#each random_projects}}
-    <li><a href="{{href}}">{{title}}</a></li>
-  {{/each}}
-</ul>
+<div id="random-projects" class="row gallery gallery-random gallery-projects">
+  {{#each random_projects}}{{partial 'project-aside-item' this}}{{/each}}
+</div>
