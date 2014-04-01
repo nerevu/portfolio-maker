@@ -1,14 +1,5 @@
 /* Bootstrap CSS */
 #page-title {margin-bottom: 20px;}
-#excerpt {
-  padding-bottom: 15px;
-  border-bottom: 2px dashed #eee;
-  margin-bottom: 20px;
-}
-
-#excerpt-title {margin-top: 10px;}
-#excerpt-content {margin-bottom: 10px;}
-#excerpt-thumbnail {margin-bottom: 10px;}
 /*#archives {padding: 27px 20px 18px 0;}*/
 #sidebar { margin-left: 0px;}
 /*.collapsing {width: 0;}*/
@@ -44,6 +35,14 @@ html, body, body #container {height: 100%;}
 #site-footer p {margin: 20px 0;}
 
 /* Other */
+.excerpt-project, .excerpt-post {
+  padding-bottom: 15px;
+  border-bottom: 2px dashed #eee;
+  margin-bottom: 20px;
+}
+
+.excerpt-project .excerpt-heading h2 {margin-top: 0;}
+.excerpt-post .excerpt-title, .excerpt-content {margin-top: 10px;}
 .excerpt-photo .btn-default {border-color: #FFFFFF;}
 
 .tag {margin-bottom: 10px;}

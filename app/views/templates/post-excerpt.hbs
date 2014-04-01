@@ -1,7 +1,9 @@
-<div id="excerpt" class="col-sm-12">
-  <p class="meta">{{date_str}}</p>
-  <h2 id="excerpt-title">
+<div id="post-excerpt-{{id}}" class="col-sm-12 excerpt excerpt-post">
+  <p class="excerpt-meta">{{date_str}}</p>
+  <h2 id="post-excerpt-title-{{id}}" class="excerpt-title">
     <a href="{{href}}">{{title}}</a>
   </h2>
-  <div id="excerpt-content">{{{excerpt}}}</div>
+  <div id="post-excerpt-content-{{id}}" class="excerpt-content">
+    {{{excerpt}}}
+  </div>
 </div>
