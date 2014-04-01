@@ -1,6 +1,16 @@
 <h3>Popular Projects</h3>
-<ul id="popular-projects" class="list-unstyled list-popular list-projects">
+<div id="popular-projects" class="row gallery gallery-popular gallery-projects">
   {{#each popular_projects}}
-    <li><a href="{{href}}">{{title}}</a></li>
+  <div class="col-xs-6 col-sm-4 gallery-item">
+    <div class="thumbnail">
+      <a href="{{href}}"><img src="/images/thmb2.png" alt="..."></a>
+      <div class="caption">
+        <p><a href="{{href}}">{{title}}</a></p>
+      </div>
+    </div>
+  </div>
   {{/each}}
-</ul>
+</div>
+
+
+

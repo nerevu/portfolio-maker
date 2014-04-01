@@ -1,6 +1,10 @@
 <h3>Popular Photos</h3>
-<ul id="popular-posts" class="list-unstyled list-popular list-photos">
+<div id="popular-photos" class="row gallery gallery-popular gallery-photos">
   {{#each popular_photos}}
-    <li><a href="{{href}}">{{title}}</a></li>
+  <div class="col-xs-6 col-sm-3 gallery-item">
+    <a href="{{href}}" class="thumbnail">
+      <img class="img-responsive" src="/images/thmb.png">
+    </a>
+  </div>
   {{/each}}
-</ul>
+</div>

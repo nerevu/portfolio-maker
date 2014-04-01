@@ -49,11 +49,28 @@ html, body, body #container {height: 100%;}
 .active {background-color: #428BCA;}
 .cushion {margin-bottom: 10px;}
 .caption .table {margin-bottom: 0;}
-.list-recent, .list-popular, .list-random {margin-top: -10px;}
-.list-recent li, .list-popular li, .list-random li {
+
+.list-posts {margin-top: -10px;}
+.list-posts li {
   padding: 7px 0;
   border-top: 1px solid #eee;
 }
+
+.gallery {
+	padding: 0;
+	margin: -10px 0 15px;
+}
+
+.gallery .thumbnail, .gallery .panel {
+  margin-bottom: 0;
+  margin-top: 5px;
+}
+.gallery .panel-heading {padding: 5px;}
+.gallery-item {padding: 0 2.5px}
+.gallery-projects .caption {padding: 5px 0 0 0;}
+.gallery-projects .caption p {
+	margin-bottom: 0;
+	overflow-x: hidden;}
 
 .navbar .navbar-form {
   padding: 0 15px;
@@ -79,7 +96,6 @@ html, body, body #container {height: 100%;}
   content: " ";
 }
 
-.gallery {padding-bottom: 1em;}
 .active-nav {color: #555555 !important;}
 .progress .bar-muted {opacity: 0.2 !important;}
 .progress .bar-transparent {opacity: 0 !important;}

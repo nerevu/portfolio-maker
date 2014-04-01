@@ -61,7 +61,7 @@ config =
     index_asides: ['recent-projects', 'popular-projects', 'random-projects']
     archives_asides: []
     recent_count: 5
-    popular_count: 5
+    popular_count: 6
     related_count: 5
     random_count: 5
     items_per_index: 10
@@ -84,7 +84,7 @@ config =
     index_asides: ['recent-photos', 'popular-photos', 'random-photos']
     archives_asides: []
     recent_count: 5
-    popular_count: 5
+    popular_count: 12
     related_count: 5
     random_count: 5
     items_per_index: 12
