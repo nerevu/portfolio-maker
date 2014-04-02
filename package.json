@@ -20,7 +20,6 @@
     "css-brunch": ">= 1.0 < 1.8",
     "handlebars-brunch": ">= 1.0 < 1.8",
     "javascript-brunch": ">= 1.0 < 1.8",
-    "less-brunch": ">= 1.0 < 1.8",
     "stylus-brunch": ">= 1.0 < 1.8",
     "uglify-js-brunch": ">= 1.0 < 1.8",
     "markdown-brunch": "git://github.com/reubano/markdown-brunch",
