@@ -1,7 +1,7 @@
 Controller = require 'controllers/base/controller'
 Collection = require 'models/base/collection'
 ItemView = require 'views/item-view'
-IndexView = require 'views/index-view'
+MainView = require 'views/main-view'
 config = require 'config'
 utils = require 'lib/utils'
 
@@ -113,7 +113,7 @@ module.exports = class SiteController extends Controller
       tags = _(_.flatten(collection.prefilter(@filterer).pluck 'tags')).uniq()
       tags = _.filter tags, (tag) -> tag
 
-      @view = new IndexView
+      @view = new MainView
         collection: paginator.collection
         pages: paginator.pages
         filterer: @tagfilterer
@@ -161,7 +161,7 @@ module.exports = class SiteController extends Controller
     _.each _.uniq(years), setShowYear, @
     _.each _.uniq(year_months), setShowMonth, @
 
-    @view = new IndexView
+    @view = new MainView
       collection: collection
       active: active
       title: title

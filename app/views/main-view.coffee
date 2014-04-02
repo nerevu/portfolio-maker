@@ -1,5 +1,5 @@
 CollectionView = require 'views/base/collection-view'
-View = require 'views/excerpt-view'
+View = require 'views/base/view'
 mediator = require 'mediator'
 config = require 'config'
 utils = require 'lib/utils'
@@ -12,7 +12,7 @@ module.exports = class IndexView extends CollectionView
 
   initialize: (options) ->
     super
-    utils.log 'initializing index view'
+    utils.log 'initializing main view'
     @template_name = options.template
     @template = require "views/templates/#{@template_name}"
     @listSelector = options.list_selector
@@ -42,13 +42,16 @@ module.exports = class IndexView extends CollectionView
       className: @item_class
       tagName: @item_tag
       template: require "views/templates/#{@item_template}"
+      # name: model.get 'name'
+      # type: model.get 'type'
+      # sub_type: model.get 'sub_type'
 
   render: =>
     super
-    utils.log 'rendering index view'
+    utils.log 'rendering main view'
 
   getTemplateData: =>
-    utils.log 'get index view template data'
+    utils.log 'get main view template data'
     templateData = super
     templateData.sidebar = config[@type]["#{@template_name}_sidebar"]
     templateData.collapsed = config[@type]["#{@template_name}_collapsed"]
