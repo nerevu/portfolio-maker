@@ -112,6 +112,8 @@ config =
     related_count: 5
     random_count: 5
     items_per_index: 10
+    index_class: 'row'
+    archive_tag: 'tr'
     show_pager: true
     identifier: 'slug'
     recent_comparator: 'date'

@@ -2,7 +2,6 @@ Controller = require 'controllers/base/controller'
 Collection = require 'models/base/collection'
 ItemView = require 'views/item-view'
 IndexView = require 'views/index-view'
-ArchivesView = require 'views/archives-view'
 config = require 'config'
 utils = require 'lib/utils'
 
@@ -133,7 +132,10 @@ module.exports = class SiteController extends Controller
         tag: @tag
         type: @type
         sub_type: @sub_type
-        class: config[@type].index_class
+        template: 'index'
+        list_selector: '#excerpt-list'
+        item_template: "#{@sub_type}-excerpt"
+        item_class: config[@type].index_class
 
   archives: (params) =>
     utils.log "archives #{@type} site-controller"
@@ -159,10 +161,15 @@ module.exports = class SiteController extends Controller
     _.each _.uniq(years), setShowYear, @
     _.each _.uniq(year_months), setShowMonth, @
 
-    @view = new ArchivesView
+    @view = new IndexView
       collection: collection
       active: active
       title: title
       recent: @recent
       type: @type
       sub_type: @sub_type
+      template: 'archives'
+      list_selector: '#archives-list'
+      item_template: "#{@type}-archive-entry"
+      item_class: config[@type].archive_class
+      item_tag: config[@type].archive_tag
