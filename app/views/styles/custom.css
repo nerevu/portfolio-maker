@@ -1,5 +1,6 @@
 /* Site CSS */
-#page-title {margin-bottom: 15px;}
+#page-title {margin-bottom: 20px;}
+#page-title .lead {margin-bottom: 0;}
 #sidebar { margin-left: 0px;}
 #sidebar h3 {
   padding-bottom: 9px;
@@ -65,10 +66,11 @@ html, body, body #container {height: 100%;}
 }
 
 /* Custom */
-.excerpt-project, .excerpt-post {
-/*  padding-bottom: 15px;*/
-/*  border-bottom: 2px dashed #eee;*/
-/*  margin-bottom: 20px;*/
+.excerpt-project, .excerpt-post { margin-bottom: 20px;}
+
+.excerpt-post {
+  padding-bottom: 15px;
+  border-bottom: 2px dashed #eee;
 }
 
 .excerpt-project .excerpt-sub-title,
@@ -78,7 +80,7 @@ html, body, body #container {height: 100%;}
 /*.excerpt-project .excerpt-heading {height: 160px;}*/
 
 .excerpt-project .excerpt-heading h2 {margin-top: 0;}
-.excerpt-post .excerpt-title, .excerpt-content {margin-top: 10px;}
+.excerpt-post .excerpt-title, .excerpt-content, .post-title {margin-top: 10px;}
 .excerpt-photo .btn-default {border-color: #FFFFFF;}
 .caption .table {margin-bottom: 0;}
 

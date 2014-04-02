@@ -33,7 +33,7 @@ module.exports = class IndexView extends CollectionView
     @tag = options.tag
     @item_template = options.item_template
     @item_class = options?.item_class
-    @item_tag = options?.item_tag
+    @item_tag = options?.item_tag ? 'div'
     mediator.setActive options.active
 
   initItemView: (model) =>
