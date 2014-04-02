@@ -37,15 +37,15 @@ module.exports = class ItemView extends View
     else
       utils.log "initializing 404 item-view"
 
-    @subscribeEvent 'photos:synced', (photos) =>
-      utils.log 'item-view heard photos synced event'
-      @popular_photos = photos.getPopular 'gallery'
+    @subscribeEvent 'gallery:synced', (gallery) =>
+      utils.log 'item-view heard gallery synced event'
+      @popular_photos = gallery.getPopular 'gallery'
       @getTemplateData()
       @render()
 
-    @subscribeEvent 'projects:synced', (projects) =>
-      utils.log 'item-view heard projects synced event'
-      @popular_projects = projects.getPopular 'portfolio'
+    @subscribeEvent 'portfolio:synced', (portfolio) =>
+      utils.log 'item-view heard portfolio synced event'
+      @popular_projects = portfolio.getPopular 'portfolio'
       @getTemplateData()
       @render()
 
@@ -64,8 +64,8 @@ module.exports = class ItemView extends View
     templateData.recent_photos = @recent_photos
     templateData.popular_photos = @popular_photos
     if @sub_type
-      templateData["recent_#{@sub_type}"] = @recent
-      templateData["popular_#{@sub_type}"] = @popular
+      templateData["recent_#{@sub_type}s"] = @recent
+      templateData["popular_#{@sub_type}s"] = @popular
 
     if @model
       templateData.partial = @model.get 'partial'

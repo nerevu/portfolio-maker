@@ -1,7 +1,7 @@
 ---
 title: Embu Demonstration
 comments: false
-tags: [outro, post]
+tags: [travel, ethiopia, kenya, gcs, demo]
 ---
 Upon returning from Ethiopia, I met up with Jodie and Daniel in Nairobi, Kenya to head to Embu (a city northwest of Nairobi) for a project demonstration. In Embu, we met with Mama Peter, the chairwoman of the Kenera Women's Water Project, and some members of the town youth group. <!-- more --> We came because we heard the community had maize ready for shelling and since dry maize is pretty scarce this time in Arusha, we were eager to get feedback on our sheller. After talking with the group about the Water Project and our maize sheller, we went to Mama Peter's farm where a pile of maize drying in the sun awaited us. We assembled the machine with a few of the group members and began shelling the corn. Unfortunately, the maize wasn't quite dry enough and we had a difficult time trying to shell it. Next, we demonstrated the cell phone charger but the group informed us that most of the villagers have access to electricity so the demand for a bicycle powered charger wouldn't be as high.
 

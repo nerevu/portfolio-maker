@@ -55,15 +55,17 @@ config =
     index_sidebar: true
     archives_sidebar: true
     page_collapsed: false
-    index_collapsed: false
+    index_collapsed: true
     archives_collapsed: false
     page_asides: ['related-projects', 'recent-projects', 'popular-projects']
-    index_asides: ['recent-projects', 'popular-projects']
+    index_asides: ['recent-projects', 'popular-projects', 'random-projects']
     archives_asides: []
-    recent_count: 5
-    popular_count: 5
-    related_count: 5
-    items_per_index: 10
+    recent_count: 6
+    popular_count: 6
+    related_count: 6
+    random_count: 6
+    items_per_index: 12
+    index_class: 'col-sm-6 col-md-6 col-lg-4'
     show_pager: true
     filterer: {fork: false}
     identifier: 'name'
@@ -80,13 +82,14 @@ config =
     index_collapsed: true
     archives_collapsed: false
     page_asides: ['related-photos', 'recent-photos', 'popular-photos']
-    index_asides: ['recent-photos', 'popular-photos']
+    index_asides: ['recent-photos', 'popular-photos', 'random-photos']
     archives_asides: []
-    recent_count: 5
-    popular_count: 5
-    related_count: 5
+    recent_count: 6
+    popular_count: 6
+    related_count: 6
+    random_count: 6
     items_per_index: 12
-    index_class: 'col-sm-6 col-md-4'
+    index_class: 'col-sm-4 col-md-3'
     show_pager: true
     identifier: 'id'
     recent_comparator: 'created'
@@ -97,17 +100,20 @@ config =
     archives: true
     page_sidebar: true
     index_sidebar: true
-    archives_sidebar: true
+    archives_sidebar: false
     page_collapsed: false
     index_collapsed: false
     archives_collapsed: false
     page_asides: ['related-posts', 'recent-posts', 'popular-posts']
-    index_asides: ['recent-posts', 'popular-posts']
-    archives_asides: ['recent-posts']
+    index_asides: ['recent-posts', 'popular-posts', 'random-posts']
+    archives_asides: []
     recent_count: 5
     popular_count: 5
     related_count: 5
+    random_count: 5
     items_per_index: 10
+    index_class: 'row'
+    archive_tag: 'tr'
     show_pager: true
     identifier: 'slug'
     recent_comparator: 'date'

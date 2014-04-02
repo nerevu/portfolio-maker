@@ -1,31 +1,20 @@
-<!-- <div id="excerpt" class="col-xs-12">
-  <div class="row">
-    <div class="hidden-xs col-sm-5 col-md-5">
-      {{partial 'project-image' this}}
-    </div>
-    <div class="col-xs-12 col-sm-7 col-md-7">
-      <h2 id="excerpt-title">
-        <br>
-      </h2>
-       {{partial 'tags' this}}
-    </div>
-    <div class="visible-xs col-xs-12 cushion">
-      {{partial 'project-image' this}}
-    </div>
-    <div id="excerpt-meta" class="hidden-xs col-xs-12">
-      {{partial 'photo-meta-table' this}}
-    </div>
-    <div id="excerpt-meta" class="visible-xs col-xs-12">
-      {{partial 'photo-meta-list' this}}
-    </div>
+<div id="photo-excerpt-{{id}}" class="excerpt excerpt-photo cushion">
+  <a href="{{href}}">{{partial 'project-image' this}}</a>
+  <button
+    type="button"
+    class="btn btn-default"
+    data-toggle="collapse"
+    data-target="#photo-excerpt-caption-{{id}}"
+  >
+    <span class="glyphicon glyphicon-info-sign"></span>
+  </button>
+  <div
+    id="photo-excerpt-caption-{{id}}"
+    class="caption collapse out"
+  >
+    <p id="photo-excerpt-desc-{{id}}">{{description}}</p>
+    {{partial 'tags' this}}
+    {{partial 'photo-meta-table' this}}
   </div>
-</div> -->
+</div>
 
-  <div class="thumbnail">
-    {{partial 'project-image' this}}
-    <div class="caption">
-      <p id="excerpt-title"><a href="{{href}}">{{title}}</a></p>
-      {{partial 'tags' this}}
-      {{partial 'photo-meta-table' this}}
-    </div>
-  </div>

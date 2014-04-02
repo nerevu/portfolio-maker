@@ -1,6 +1,4 @@
 <h3>Popular Photos</h3>
-<ul id="popular-posts" class="list-unstyled list-popular list-photos">
-  {{#each popular_photos}}
-    <li><a href="{{href}}">{{title}}</a></li>
-  {{/each}}
-</ul>
+<div id="popular-photos" class="row gallery gallery-popular gallery-photos">
+  {{#each popular_photos}}{{partial 'photo-aside-item' this}}{{/each}}
+</div>

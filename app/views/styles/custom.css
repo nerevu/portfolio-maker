@@ -1,63 +1,14 @@
-/* Bootstrap CSS */
+/* Site CSS */
 #page-title {margin-bottom: 20px;}
-#excerpt {
-  padding-bottom: 15px;
-  border-bottom: 1px dashed #eee;
-  margin-bottom: 20px;
-}
-
-#excerpt-title {margin-top: 10px;}
-#excerpt-content {margin-bottom: 10px;}
-#excerpt-thumbnail {margin-bottom: 10px;}
-/*#archives {padding: 27px 20px 18px 0;}*/
+#page-title .lead {margin-bottom: 0;}
 #sidebar { margin-left: 0px;}
-/*.collapsing {width: 0;}*/
-
 #sidebar h3 {
   padding-bottom: 9px;
   border-bottom: 1px solid #eee;
 }
 
-/* Sticky Footer */
-html, body, body #container {
-    height: 100%;
-}
-
-#content {
-    height: auto;
-    min-height: 100%;
-}
-
-#wrap {
-    height: auto;
-    margin: 0 auto -60px;
-    min-height: 100%;
-    padding: 0 0 60px;
-}
-
-#site-footer {
-    background-color: #F5F5F5;
-    height: 60px;
-}
-
-#site-footer p {margin: 20px 0;}
-
-/* Other */
-.tag {margin-bottom: 10px;}
-.tag:hover {background-color: #428BCA;}
-.cushion {margin-bottom: 10px;}
-.caption .table {margin-bottom: 0;}
-.list-recent {margin-top: -10px;}
-.list-recent li {
-  padding: 7px 0;
-  border-top: 1px solid #eee;
-}
-
-.list-popular {margin-top: -10px;}
-.list-popular li {
-  padding: 7px 0;
-  border-top: 1px solid #eee;
-}
+h1 {border-bottom: 2px solid #eee;}
+#home h1 {border-bottom: 0;}
 
 .navbar .navbar-form {
   padding: 0 15px;
@@ -66,13 +17,98 @@ html, body, body #container {
   box-shadow: none;
 }
 
-.numeric {
-  text-align: right;
+.numeric {text-align: right;}
+.nounderline {text-decoration: none !important;}
+.active {background-color: #428BCA;}
+.cushion {margin-bottom: 10px;}
+.tag {margin-bottom: 10px;}
+.tag:hover, .tag:focus {background-color: #2A6496;}
+
+/* Sticky Footer */
+html, body, body #container {height: 100%;}
+
+#content {
+  height: auto;
+  min-height: 100%;
 }
 
-.dl-excerpt {
-  margin-bottom: 0;
+#wrap {
+  height: auto;
+  margin: 0 auto -60px;
+  min-height: 100%;
+  padding: 0 0 60px;
 }
+
+#site-footer {
+  background-color: #F5F5F5;
+  height: 60px;
+}
+
+#site-footer p {margin: 20px 0;}
+
+/* Contact Page */
+#item-contact ul {
+  list-style: none outside none;
+  padding-left: 0;
+}
+
+#item-contact li {
+	display: inline;
+	float: left;
+  padding-right: 20px;
+}
+
+#item-contact li p {font-size: 7em;}
+#item-contact li a {text-decoration: none !important;}
+.glyphicon-earphone, .glyphicon-envelope {
+	margin-top: 25px;
+	font-size: .6em;
+}
+
+/* Custom */
+.excerpt-project, .excerpt-post { margin-bottom: 20px;}
+
+.excerpt-post {
+  padding-bottom: 15px;
+  border-bottom: 2px dashed #eee;
+}
+
+.excerpt-project .excerpt-sub-title,
+.excerpt-project .excerpt-title {
+	margin-top: 0;
+}
+
+.excerpt-project .excerpt-heading h2 {margin-top: 0;}
+.excerpt-post .excerpt-title, .excerpt-content, .post-title {margin-top: 10px;}
+.excerpt-photo .btn-default {border-color: #FFFFFF;}
+.excerpt-head .col-sm-6:nth-child(2n+1){clear: none !important;}
+
+.caption .table {margin-bottom: 0;}
+
+.list-posts {margin-top: -10px;}
+.list-posts li {
+  padding: 7px 0;
+  border-top: 1px solid #eee;
+}
+
+.gallery {
+	padding: 0;
+	margin: -10px 0 15px;
+}
+
+.gallery .thumbnail, .gallery .panel {
+  margin-bottom: 0;
+  margin-top: 5px;
+}
+.gallery .panel-heading {padding: 5px;}
+.gallery-item {padding: 0 2.5px}
+.gallery-projects .caption, .excerpt-photo .caption {padding: 5px 0 0 0;}
+.gallery-projects .caption p {
+	margin-bottom: 0;
+	overflow-x: hidden;}
+
+/* Data Lists */
+.dl-excerpt {margin-bottom: 0;}
 .dl-excerpt dt {
   float: left;
   width: 100px;
@@ -80,27 +116,15 @@ html, body, body #container {
   text-align: right;
   white-space: nowrap;
 }
-.dl-excerpt dd {
-  margin-left: 110px;
-}
-.dl-excerpt dd:before,
-.dl-excerpt dd:after {
+
+.dl-excerpt dd {margin-left: 110px;}
+.dl-excerpt dd:after {clear: both;}
+.dl-excerpt dd:before, .dl-excerpt dd:after {
   display: table;
   content: " ";
-}
-.dl-excerpt dd:after {
-  clear: both;
-}
-.dl-excerpt dd:before,
-.dl-excerpt dd:after {
-  display: table;
-  content: " ";
-}
-.dl-excerpt dd:after {
-  clear: both;
 }
 
-.gallery {padding-bottom: 1em;}
+/* Other */
 .active-nav {color: #555555 !important;}
 .progress .bar-muted {opacity: 0.2 !important;}
 .progress .bar-transparent {opacity: 0 !important;}
@@ -114,6 +138,7 @@ html, body, body #container {
   -o-transition: width 0.35s ease;
   transition: width 0.35s ease;
 }
+
 /*
 Chart CSS
 

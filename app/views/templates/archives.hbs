@@ -1,7 +1,7 @@
 {{#if sidebar}}
   {{#if collapsed}}
     <div id="archives" class="col-sm-12">
-      <h1>{{page_title}}</h1>
+      <h1 id="page-title">{{page_title}}</h1>
       {{partial 'blog-archive' this}}
     </div>
     <div id="sidebar" class="col-sm-12">
@@ -9,7 +9,7 @@
     </div>
   {{else}}
     <div id="archives" class="col-sm-8">
-      <h1 id="archives-title">{{page_title}}</h1>
+      <h1 id="page-title">{{page_title}}</h1>
       {{partial 'blog-archive' this}}
     </div>
     <div id="sidebar" class="col-sm-4">
@@ -17,8 +17,8 @@
     </div>
   {{/if}}
 {{else}}
-  <div id="archives-title" class="col-sm-12">
-    <h1>{{page_title}}</h1>
+  <div id="archives" class="col-sm-12">
+    <h1 id="page-title">{{page_title}}</h1>
     {{partial 'blog-archive' this}}
   </div>
 {{/if}}

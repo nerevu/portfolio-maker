@@ -41,8 +41,8 @@ register 'ifLoggedIn', (options) ->
 register 'ifActive', (title, options) ->
   if mediator.active is title then options.fn(this) else options.inverse(this)
 
-register 'ifCurrent', (page, cur_page, options) ->
-  if page is cur_page then options.fn(this) else options.inverse(this)
+register 'ifCurrent', (item, cur_item, options) ->
+  if item is cur_item then options.fn(this) else options.inverse(this)
 
 # Other helpers
 # -----------
