@@ -3,8 +3,11 @@
     <div class="col-xs-12">
       <h2 class="excerpt-title"><a href="{{href}}">{{title}}</a></h2>
     </div>
-    <div class="col-xs-12 col-sm-6 excerpt-image">
-      {{partial 'project-image' this}}
+    <div class="hidden-xs col-sm-6 excerpt-image">
+      <a href="{{href}}">{{partial 'project-image' this}}</a>
+    </div>
+    <div class="visible-xs col-xs-12 excerpt-image cushion">
+      <a href="{{href}}">{{partial 'project-image' this}}</a>
     </div>
     <div class="col-xs-12 col-sm-6 excerpt-meta">
       {{partial 'project-meta-list' this}}

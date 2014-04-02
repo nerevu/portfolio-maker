@@ -77,11 +77,12 @@ html, body, body #container {height: 100%;}
 .excerpt-project .excerpt-title {
 	margin-top: 0;
 }
-/*.excerpt-project .excerpt-heading {height: 160px;}*/
 
 .excerpt-project .excerpt-heading h2 {margin-top: 0;}
 .excerpt-post .excerpt-title, .excerpt-content, .post-title {margin-top: 10px;}
 .excerpt-photo .btn-default {border-color: #FFFFFF;}
+.excerpt-head .col-sm-6:nth-child(2n+1){clear: none !important;}
+
 .caption .table {margin-bottom: 0;}
 
 .list-posts {margin-top: -10px;}

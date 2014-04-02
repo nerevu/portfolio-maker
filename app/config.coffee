@@ -64,8 +64,8 @@ config =
     popular_count: 6
     related_count: 6
     random_count: 6
-    items_per_index: 10
-    index_class: 'col-sm-12 col-md-6 col-lg-4'
+    items_per_index: 12
+    index_class: 'col-sm-6 col-md-6 col-lg-4'
     show_pager: true
     filterer: {fork: false}
     identifier: 'name'

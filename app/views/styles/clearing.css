@@ -1,4 +1,4 @@
-/*  Tablet  */
+/*  Small  */
 @media (min-width:767px){
   /* Column clear fix */
   .col-lg-1:nth-child(12n+1),
@@ -22,7 +22,7 @@
   }
 }
 
-/*  Medium Desktop  */
+/*  Medium  */
 @media (min-width:992px){
   /* Column clear fix */
   .col-lg-1:nth-child(12n+1),
@@ -46,7 +46,7 @@
   }
 }
 
-/*  Large Desktop  */
+/*  Large  */
 @media (min-width:1200px){
   /* Column clear fix */
   .col-md-1:nth-child(12n+1),
