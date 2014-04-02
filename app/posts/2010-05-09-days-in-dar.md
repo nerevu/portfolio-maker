@@ -1,7 +1,7 @@
 ---
 title: Days in Dar
 comments: false
-tags: [outro, post]
+tags: [gcs, dar es salaam, gcs]
 ---
 Last week I concluded my trip to Dar es Salaam with Philemon for the CNFA Agrodealers Convention. Wanting to make the most out of my time there, I arrived a few days early so that I could meet with some organizations headquartered there. I arrived late Wednesday evening (4/28) and made arrangements to stay with fellow MIT alum Jamie, CEO of [EGG-energy](http://egg-energy.com). <!-- more --> Since I was discouraged from taking the dala-dalas at night in Arusha, I was pretty excited to take one to Jamie's place in Msasani. A helpful passenger on the bus made sure I got off at the right stop where Jamie came to pick me up.
 

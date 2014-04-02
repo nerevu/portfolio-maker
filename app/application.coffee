@@ -1,8 +1,8 @@
-# Posts = require 'models/posts'
 mediator = require 'mediator'
 Pages = require 'models/pages'
-Posts = require 'models/posts'
-Projects = require 'models/projects'
+Blog = require 'models/blog'
+Portfolio = require 'models/portfolio'
+Gallery = require 'models/gallery'
 config= require 'config'
 utils = require 'lib/utils'
 
@@ -14,14 +14,20 @@ module.exports = class Application extends Chaplin.Application
     keywords: config.keywords
     author: config.author
 
-  start: ->
+  start: =>
     # You can fetch some data here and start app
     # (by calling `super`) after that.
     mediator.pages.fetch()
-    mediator.posts.fetch()
-    mediator.projects.cltnFetch().done (response) ->
+    mediator.blog.fetch()
+    mediator.portfolio.fetch().done (response) =>
       if response.message then return
-      localStorage.setItem "#{config.title}:synced", true
+      console.log 'done fetching portfolio'
+      @publishEvent 'portfolio:synced', response
+      localStorage.setItem "#{config.title}:Portfolio:synced", true
+    mediator.gallery.fetch().done (response) =>
+      console.log 'done fetching gallery'
+      @publishEvent 'gallery:synced', response
+      localStorage.setItem "#{config.title}:Gallery:synced", true
     super
 
   # Create additional mediator properties.
@@ -29,8 +35,9 @@ module.exports = class Application extends Chaplin.Application
     # Add additional application-specific properties and methods
     utils.log 'initializing mediator'
     mediator.pages = new Pages()
-    mediator.posts = new Posts()
-    mediator.projects = new Projects()
+    mediator.blog = new Blog()
+    mediator.portfolio = new Portfolio()
+    mediator.gallery = new Gallery()
 
     mediator.active = null
     mediator.googleLoaded = null

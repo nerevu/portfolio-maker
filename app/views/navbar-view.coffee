@@ -31,7 +31,9 @@ module.exports = class NavbarView extends CollectionView
     utils.log 'rendering navbar view'
 
   getTemplateData: =>
+    utils.log 'get navbar view template data'
     templateData = super
     templateData.main = mediator.main
     templateData.links = @links
+    templateData.site = config.site
     templateData

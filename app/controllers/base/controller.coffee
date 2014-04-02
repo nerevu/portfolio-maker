@@ -6,9 +6,10 @@ utils = require 'lib/utils'
 mediator = require 'mediator'
 
 module.exports = class Controller extends Chaplin.Controller
-  posts: mediator.posts
-  projects: mediator.projects
+  blog: mediator.blog
+  portfolio: mediator.portfolio
   pages: mediator.pages
+  gallery: mediator.gallery
 
   # Compositions persist stuff between controllers.
   # You may also persist models etc.

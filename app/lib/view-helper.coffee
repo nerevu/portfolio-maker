@@ -41,6 +41,9 @@ register 'ifLoggedIn', (options) ->
 register 'ifActive', (title, options) ->
   if mediator.active is title then options.fn(this) else options.inverse(this)
 
+register 'ifCurrent', (item, cur_item, options) ->
+  if item is cur_item then options.fn(this) else options.inverse(this)
+
 # Other helpers
 # -----------
 # Convert date to day
@@ -51,8 +54,8 @@ register 'getDay', (date) ->
 # Loop n times
 register 'times', (n, block) ->
   accum = ''
-  i = 0
-  x = Math.round n
+  i = 1
+  x = n + 1
 
   while i < x
     accum += block.fn(i)

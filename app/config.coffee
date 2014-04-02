@@ -12,6 +12,7 @@ config =
   ################
   author: 'Reuben Cummings'
   email: 'reubano@gmail.com'
+  site: 'reubano.github.io'
 
   # The default title of this website
   title: "reubano"
@@ -33,9 +34,9 @@ config =
   # Pages other than the blog and markdown files you want menu items for
   generated_pages: [
     {href: '/portfolio', title: 'Portfolio'}
-    # {href: '/gallery', title: 'Gallery'}
+    {href: '/gallery', title: 'Gallery'}
     {href: '/blog', title: 'Blog'}
-    {href: '/archives', title: 'Archives'}
+    {href: '/blog/archives', title: 'Archives'}
   ]
 
   ###########
@@ -45,7 +46,7 @@ config =
 
   pages:
     # asides: ['popular-projects', 'popular-photos', 'popular-posts']
-    asides: ['recent-projects', 'recent-photos', 'recent-posts']
+    asides: ['popular-projects', 'popular-photos', 'recent-posts']
 
   portfolio:
     index: true
@@ -54,15 +55,22 @@ config =
     index_sidebar: true
     archives_sidebar: true
     page_collapsed: false
-    index_collapsed: false
+    index_collapsed: true
     archives_collapsed: false
     page_asides: ['related-projects', 'recent-projects', 'popular-projects']
-    index_asides: ['recent-projects', 'popular-projects']
+    index_asides: ['recent-projects', 'popular-projects', 'random-projects']
     archives_asides: []
-    recent_count: 5
-    popular_count: 5
-    related_count: 5
-    items_per_index: 10
+    recent_count: 6
+    popular_count: 6
+    related_count: 6
+    random_count: 6
+    items_per_index: 12
+    index_class: 'col-sm-6 col-md-6 col-lg-4'
+    show_pager: true
+    filterer: {fork: false}
+    identifier: 'name'
+    recent_comparator: 'created_at'
+    popular_comparator: 'popularity'
 
   gallery:
     index: true
@@ -71,32 +79,45 @@ config =
     index_sidebar: true
     archives_sidebar: true
     page_collapsed: false
-    index_collapsed: false
+    index_collapsed: true
     archives_collapsed: false
     page_asides: ['related-photos', 'recent-photos', 'popular-photos']
-    index_asides: ['recent-photos', 'popular-photos']
+    index_asides: ['recent-photos', 'popular-photos', 'random-photos']
     archives_asides: []
-    recent_count: 5
-    popular_count: 5
-    related_count: 5
-    items_per_index: 10
+    recent_count: 6
+    popular_count: 6
+    related_count: 6
+    random_count: 6
+    items_per_index: 12
+    index_class: 'col-sm-4 col-md-3'
+    show_pager: true
+    identifier: 'id'
+    recent_comparator: 'created'
+    popular_comparator: 'views'
 
   blog:
     index: true
     archives: true
     page_sidebar: true
     index_sidebar: true
-    archives_sidebar: true
+    archives_sidebar: false
     page_collapsed: false
     index_collapsed: false
     archives_collapsed: false
     page_asides: ['related-posts', 'recent-posts', 'popular-posts']
-    index_asides: ['recent-posts', 'popular-posts']
+    index_asides: ['recent-posts', 'popular-posts', 'random-posts']
     archives_asides: []
     recent_count: 5
     popular_count: 5
     related_count: 5
+    random_count: 5
     items_per_index: 10
+    index_class: 'row'
+    archive_tag: 'tr'
+    show_pager: true
+    identifier: 'slug'
+    recent_comparator: 'date'
+    popular_comparator: 'comments'
 
   ######################
   # 3rd Party Settings #
@@ -110,7 +131,9 @@ config =
 
   flickr:
     user: 'reubano'
-    api_token: 'cdac348c97dbdf5252d530103e0bfb2b9275d126'
+    api_token: '76ca8dd185de46fdd0d24c24f6e4d0ea'
+    secret: '7e8d94900e2a23c0'
+    collection_id: '72157642990278515'
     show_follow_badge: true
     show_follower_count: false
 

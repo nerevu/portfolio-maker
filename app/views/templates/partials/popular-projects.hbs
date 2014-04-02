@@ -1,6 +1,4 @@
 <h3>Popular Projects</h3>
-<ul id="popular-projects" class="list-unstyled list-popular list-projects">
-  {{#each popular_projects}}
-    <li><a href="{{href}}">{{title}}</a></li>
-  {{/each}}
-</ul>
+<div id="popular-projects" class="row gallery gallery-popular gallery-projects">
+  {{#each popular_projects}}{{partial 'project-aside-item' this}}{{/each}}
+</div>

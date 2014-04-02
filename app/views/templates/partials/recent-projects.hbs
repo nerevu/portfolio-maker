@@ -1,6 +1,4 @@
 <h3>Recent Projects</h3>
-<ul id="recent-projects" class="list-unstyled list-recent list-projects">
-  {{#each recent_projects}}
-    <li><a href="{{href}}">{{title}}</a></li>
-  {{/each}}
-</ul>
+<div id="recent-projects" class="row gallery gallery-recent gallery-projects">
+  {{#each recent_projects}}{{partial 'project-aside-item' this}}{{/each}}
+</div>

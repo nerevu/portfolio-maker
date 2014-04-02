@@ -2,7 +2,7 @@
   "author": "Reuben Cummings",
   "name": "gh-viewer",
   "description": "View GitHub user information",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "homepage": "",
   "repository": {
     "type": "git",
@@ -25,7 +25,8 @@
     "uglify-js-brunch": ">= 1.0 < 1.8",
     "markdown-brunch": "git://github.com/reubano/markdown-brunch",
     "ls-brunch": "git://github.com/reubano/ls-brunch",
-    "yaml-front-matter": "~3.0.1"
+    "yaml-front-matter": "~3.0.1",
+    "sass-brunch": "~1.8.1"
   },
   "devDependencies": {}
 }

@@ -1,0 +1,20 @@
+<div class="">
+  <h2 id="photo-title">{{name}} <br><small>{{description}}</small></h2>
+  {{partial 'tags' this}}
+</div>
+<div class="visible-xs cushion">
+  {{partial 'photo-meta-list' this}}
+</div>
+<div class="visible-sm cushion">
+  {{partial 'photo-meta-table' this}}
+</div>
+<div class="hidden-sm hidden-xs cushion">
+  {{partial 'photo-meta-btng' this}}
+</div>
+<div class="cushion">
+  {{partial 'photo-image' this}}
+</div>
+<div class="cushion">
+  {{partial 'photo-updated' this}}
+</div>
+

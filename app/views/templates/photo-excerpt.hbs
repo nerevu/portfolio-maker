@@ -1,0 +1,20 @@
+<div id="photo-excerpt-{{id}}" class="excerpt excerpt-photo cushion">
+  <a href="{{href}}">{{partial 'project-image' this}}</a>
+  <button
+    type="button"
+    class="btn btn-default"
+    data-toggle="collapse"
+    data-target="#photo-excerpt-caption-{{id}}"
+  >
+    <span class="glyphicon glyphicon-info-sign"></span>
+  </button>
+  <div
+    id="photo-excerpt-caption-{{id}}"
+    class="caption collapse out"
+  >
+    <p id="photo-excerpt-desc-{{id}}">{{description}}</p>
+    {{partial 'tags' this}}
+    {{partial 'photo-meta-table' this}}
+  </div>
+</div>
+

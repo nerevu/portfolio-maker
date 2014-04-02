@@ -1,24 +1,24 @@
-<div id="page-title" class="col-sm-12"><h1>{{page_title}}</h1></div>
 {{#if sidebar}}
-  <div id="archives" class="col-sm-8">
-    <table class="table table-default">
-      <thead>
-        <tr>
-          <th>Year</th>
-          <th>Month</th>
-          <th class="numeric">Day</th>
-          <th>Title</th>
-        </tr>
-      </thead>
-      <tbody id="title-list"></tbody>
-    </table>
-  </div>
-  <div id="sidebar" class="col-sm-4">{{partial 'sidebar-vert' this}}</div>
+  {{#if collapsed}}
+    <div id="archives" class="col-sm-12">
+      <h1 id="page-title">{{page_title}}</h1>
+      {{partial 'blog-archive' this}}
+    </div>
+    <div id="sidebar" class="col-sm-12">
+      <div class="row">{{partial 'sidebar-horz' this}}</div>
+    </div>
+  {{else}}
+    <div id="archives" class="col-sm-8">
+      <h1 id="page-title">{{page_title}}</h1>
+      {{partial 'blog-archive' this}}
+    </div>
+    <div id="sidebar" class="col-sm-4">
+      {{partial 'sidebar-vert' this}}
+    </div>
+  {{/if}}
 {{else}}
-  <div class="col-sm-12">
-    <table class="table table-bordered">
-      <tbody id="title-list"></tbody>
-    </table>
-    {{#if collapsed}}{{partial 'sidebar-horz' this}}{{/if}}
+  <div id="archives" class="col-sm-12">
+    <h1 id="page-title">{{page_title}}</h1>
+    {{partial 'blog-archive' this}}
   </div>
 {{/if}}
