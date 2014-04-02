@@ -1,9 +1,6 @@
-/* Bootstrap CSS */
-#page-title {margin-bottom: 20px;}
-/*#archives {padding: 27px 20px 18px 0;}*/
+/* Site CSS */
+#page-title {margin-bottom: 15px;}
 #sidebar { margin-left: 0px;}
-/*.collapsing {width: 0;}*/
-
 #sidebar h3 {
   padding-bottom: 9px;
   border-bottom: 1px solid #eee;
@@ -11,6 +8,20 @@
 
 h1 {border-bottom: 2px solid #eee;}
 #home h1 {border-bottom: 0;}
+
+.navbar .navbar-form {
+  padding: 0 15px;
+  border: 0;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+
+.numeric {text-align: right;}
+.nounderline {text-decoration: none !important;}
+.active {background-color: #428BCA;}
+.cushion {margin-bottom: 10px;}
+.tag {margin-bottom: 10px;}
+.tag:hover, .tag:focus {background-color: #2A6496;}
 
 /* Sticky Footer */
 html, body, body #container {height: 100%;}
@@ -34,22 +45,41 @@ html, body, body #container {height: 100%;}
 
 #site-footer p {margin: 20px 0;}
 
-/* Other */
-.excerpt-project, .excerpt-post {
-  padding-bottom: 15px;
-  border-bottom: 2px dashed #eee;
-  margin-bottom: 20px;
+/* Contact Page */
+#item-contact ul {
+  list-style: none outside none;
+  padding-left: 0;
 }
+
+#item-contact li {
+	display: inline;
+	float: left;
+  padding-right: 20px;
+}
+
+#item-contact li p {font-size: 7em;}
+#item-contact li a {text-decoration: none !important;}
+.glyphicon-earphone, .glyphicon-envelope {
+	margin-top: 25px;
+	font-size: .6em;
+}
+
+/* Custom */
+.excerpt-project, .excerpt-post {
+/*  padding-bottom: 15px;*/
+/*  border-bottom: 2px dashed #eee;*/
+/*  margin-bottom: 20px;*/
+}
+
+.excerpt-project .excerpt-sub-title,
+.excerpt-project .excerpt-title {
+	margin-top: 0;
+}
+/*.excerpt-project .excerpt-heading {height: 160px;}*/
 
 .excerpt-project .excerpt-heading h2 {margin-top: 0;}
 .excerpt-post .excerpt-title, .excerpt-content {margin-top: 10px;}
 .excerpt-photo .btn-default {border-color: #FFFFFF;}
-
-.tag {margin-bottom: 10px;}
-.tag:hover, .tag:focus {background-color: #2A6496;}
-.nounderline {text-decoration: none !important;}
-.active {background-color: #428BCA;}
-.cushion {margin-bottom: 10px;}
 .caption .table {margin-bottom: 0;}
 
 .list-posts {margin-top: -10px;}
@@ -74,14 +104,7 @@ html, body, body #container {height: 100%;}
 	margin-bottom: 0;
 	overflow-x: hidden;}
 
-.navbar .navbar-form {
-  padding: 0 15px;
-  border: 0;
-  -webkit-box-shadow: none;
-  box-shadow: none;
-}
-
-.numeric {text-align: right;}
+/* Data Lists */
 .dl-excerpt {margin-bottom: 0;}
 .dl-excerpt dt {
   float: left;
@@ -98,6 +121,7 @@ html, body, body #container {height: 100%;}
   content: " ";
 }
 
+/* Other */
 .active-nav {color: #555555 !important;}
 .progress .bar-muted {opacity: 0.2 !important;}
 .progress .bar-transparent {opacity: 0 !important;}
@@ -110,24 +134,6 @@ html, body, body #container {height: 100%;}
   -moz-transition: width 0.35s ease;
   -o-transition: width 0.35s ease;
   transition: width 0.35s ease;
-}
-
-#item-contact ul {
-  list-style: none outside none;
-  padding-left: 0;
-}
-
-#item-contact li {
-	display: inline;
-	float: left;
-  padding-right: 20px;
-}
-
-#item-contact li p {font-size: 7em;}
-#item-contact li a {text-decoration: none !important;}
-.glyphicon-earphone, .glyphicon-envelope {
-	margin-top: 25px;
-	font-size: .6em;
 }
 
 /*

@@ -1,41 +1,19 @@
 <div id="project-excerpt-{{id}}" class="col-xs-12 excerpt excerpt-project">
-  <div class="row">
-    <div class="hidden-xs col-sm-5 col-md-5">
+  <div class="row excerpt-head cushion">
+    <div class="col-xs-12">
+      <h2 class="excerpt-title"><a href="{{href}}">{{title}}</a></h2>
+    </div>
+    <div class="col-xs-12 col-sm-6 excerpt-image">
       {{partial 'project-image' this}}
     </div>
-    <div
-      id="project-excerpt-heading-{{id}}"
-      class="col-xs-12 col-sm-7 col-md-7 excerpt-heading"
-    >
-      <h2 class="hidden-sm">
-        <a href="{{href}}">{{title}}</a><br><small>{{description}}</small>
-      </h2>
-      <h2 class="visible-sm">
-        <a href="{{href}}">{{title}}</a><br>
-      </h2>
-     	{{partial 'tags' this}}
-    </div>
-    <div class="visible-xs col-xs-12 cushion">
-      {{partial 'project-image' this}}
-    </div>
-    <div
-      id="project-excerpt-heading-{{id}}"
-      class="visible-sm col-sm-12 excerpt-heading"
-    >
-      <h2><small>{{description}}</small></h2>
-    </div>
-    <div
-      id="project-excerpt-meta-{{id}}"
-      class="hidden-xs col-xs-12 excerpt-meta"
-    >
-      {{partial 'project-meta-table' this}}
-    </div>
-    <div
-      id="project-excerpt-meta-{{id}}"
-      class="visible-xs col-xs-12 excerpt-meta"
-    >
+    <div class="col-xs-12 col-sm-6 excerpt-meta">
       {{partial 'project-meta-list' this}}
     </div>
   </div>
+  <div class="excerpt-body clearfix">
+   	{{partial 'tags' this}}
+    <h2 class="excerpt-sub-title"><small>{{description}}</small></h2>
+  </div>
 </div>
+
 

@@ -55,7 +55,7 @@ config =
     index_sidebar: true
     archives_sidebar: true
     page_collapsed: false
-    index_collapsed: false
+    index_collapsed: true
     archives_collapsed: false
     page_asides: ['related-projects', 'recent-projects', 'popular-projects']
     index_asides: ['recent-projects', 'popular-projects', 'random-projects']
@@ -65,6 +65,7 @@ config =
     related_count: 6
     random_count: 6
     items_per_index: 10
+    index_class: 'col-sm-12 col-md-6 col-lg-4'
     show_pager: true
     filterer: {fork: false}
     identifier: 'name'
