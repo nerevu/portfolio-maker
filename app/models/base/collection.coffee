@@ -30,9 +30,15 @@ module.exports = class Collection extends Chaplin.Collection
   getModels: (collection, length) =>
     models = []
     _(collection.models).some (model) ->
-      href = model.get 'href'
-      title = model.get 'title'
-      models.push({href: href, title: title})
+      data =
+        href: model.get 'href'
+        title: model.get 'title'
+        url_s: model.get 'url_s'
+        url_m: model.get 'url_m'
+        url_t: model.get 'url_t'
+        url_sq: model.get 'url_sq'
+
+      models.push(data)
       models.length is length
 
     models

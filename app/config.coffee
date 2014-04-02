@@ -89,7 +89,7 @@ config =
     related_count: 6
     random_count: 6
     items_per_index: 12
-    index_class: 'col-sm-4 col-md-3'
+    index_class: 'col-sm-4 col-md-3 col-lg-3'
     show_pager: true
     identifier: 'id'
     recent_comparator: 'created'

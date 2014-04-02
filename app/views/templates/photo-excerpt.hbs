@@ -1,5 +1,5 @@
-<div id="photo-excerpt-{{id}}" class="excerpt excerpt-photo cushion">
-  <a href="{{href}}">{{partial 'project-image' this}}</a>
+<div id="photo-excerpt-{{id}}" class="excerpt excerpt-photo cushion clearfix">
+  <a href="{{href}}">{{partial 'photo-image' url_s}}</a>
   <button
     type="button"
     class="btn btn-default"
@@ -10,7 +10,7 @@
   </button>
   <div
     id="photo-excerpt-caption-{{id}}"
-    class="caption collapse out"
+    class="caption collapse out clearfix"
   >
     <p id="photo-excerpt-desc-{{id}}">{{description}}</p>
     {{partial 'tags' this}}
