@@ -8,7 +8,7 @@ module.exports = class Portfolio extends Collection
 
   model: Model
   url: "https://api.github.com/users/#{config.github.user}/repos?#{token}"
-  storeName: 'Projects'
+  storeName: 'Portfolio'
   local: -> localStorage.getItem "#{config.title}:#{@storeName}:synced"
 
   sync: (method, collection, options) =>
