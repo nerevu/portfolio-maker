@@ -43,6 +43,21 @@ module.exports = class Collection extends Chaplin.Collection
 
     models
 
+  mergeModels: (other, attrs, tag, filter=false) =>
+    console.log "mergeModels"
+    collection = @prefilter filter
+    other = _(other.models).filter (model) -> tag in (model.get('tags') ? [])
+
+    _(collection.models).each (model) ->
+      name = model.get 'name'
+      filtered = _(other).filter (model) -> name in (model.get('tags') ? [])
+      if filtered
+        _(attrs).each (attr) -> model.set attr, _.first(filtered)?.get attr
+      else
+        utils.log "#{name} has no matching screenshots"
+
+    collection
+
   paginator: (perPage, page, filter=false) =>
     console.log "paginator"
     collection = @prefilter filter
