@@ -31,16 +31,16 @@ module.exports = class Photo extends Model
     @set type: type
     @set sub_type: sub_type
     @set tags: tags
-    @set href: "/gallery/item/#{id}"
+    @set href: "/#{type}/item/#{id}"
     @set dms: dms
     @set dms_str: dms_str
     @set name: name
     @set title: title
     @set template: 'item'
     @set partial: sub_type
-    @set asides: config.gallery.page_asides
-    @set sidebar: config.gallery.page_sidebar
-    @set collapsed: config.gallery.page_collapsed
+    @set asides: config[type]?.page_asides
+    @set sidebar: config[type]?.page_sidebar
+    @set collapsed: config[type]?.page_collapsed
     @set created: created
     @set updated: updated
     @set created_str: created.format("MMMM Do, YYYY")
