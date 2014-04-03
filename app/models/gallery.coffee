@@ -84,8 +84,8 @@ module.exports = class Gallery extends Collection
 
     options.success = (resp) =>
       method = if options.reset then 'reset' else 'set'
-      setData = (data, collection) ->
-        utils.log "setting #{collection.type} data"
+      setData = (data, collection, method) ->
+        utils.log "setting gallery data"
         collection[method] data, options
         console.log collection
         success collection, data, options if success
@@ -93,9 +93,10 @@ module.exports = class Gallery extends Collection
 
       if resp?.done
         collection = @
-        do (collection) -> resp.done (data) -> setData data, collection
+        do (collection, method) -> resp.done (data) ->
+          setData data, collection, method
       else
-        setData resp, @
+        setData resp, @, method
 
     @wrapError @, options
     @sync 'read', @, options
