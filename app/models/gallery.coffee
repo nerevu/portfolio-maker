@@ -84,16 +84,18 @@ module.exports = class Gallery extends Collection
 
     options.success = (resp) =>
       method = if options.reset then 'reset' else 'set'
-      setData = (data) =>
-        utils.log 'setting data'
-        @[method] data, options
-        success @, data, options if success
-        @finishSync()
+      setData = (data, collection) ->
+        utils.log "setting #{collection.type} data"
+        collection[method] data, options
+        console.log collection
+        success collection, data, options if success
+        collection.finishSync()
 
-      try
-        resp.done (data) => setData data
-      catch TypeError
-        setData resp
+      if resp?.done
+        collection = @
+        do (collection) -> resp.done (data) -> setData data, collection
+      else
+        setData resp, @
 
     @wrapError @, options
     @sync 'read', @, options
