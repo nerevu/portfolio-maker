@@ -5,7 +5,9 @@ utils = require 'lib/utils'
 
 module.exports = class Portfolio extends Collection
   token = "access_token=#{config.github.api_token}"
+  type = 'portfolio'
 
+  type: type
   model: Model
   url: "https://api.github.com/users/#{config.github.user}/repos?#{token}"
   storeName: 'Portfolio'
@@ -18,10 +20,10 @@ module.exports = class Portfolio extends Collection
 
   initialize: =>
     super
-    utils.log "initialize portfolio collection"
+    utils.log "initialize #{@type} collection"
 
   fetch: =>
-    utils.log "fetch portfolio collection"
+    utils.log "fetch #{@type} collection"
     $.Deferred((deferred) => super
       success: deferred.resolve
       error: deferred.reject).promise()
