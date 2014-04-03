@@ -66,9 +66,7 @@ module.exports = class Gallery extends Collection
   parseBeforeLocalSave: (resp) =>
     return if @disposed
     console.log 'parseBeforeLocalSave'
-    result = @getCollection(resp).then(@getSets).then(@applySets).then(@getData)
-    result.done (data) => console.log 'parseBeforeLocalSave done!'
-    result
+    @getCollection(resp).then(@getSets).then(@applySets).then(@getData)
 
   wrapError: (model, options) =>
     error = options.error
