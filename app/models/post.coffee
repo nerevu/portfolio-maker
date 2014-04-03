@@ -4,12 +4,12 @@ utils = require 'lib/utils'
 
 module.exports = class Post extends Model
   # load md file as a model
-  initialize: (file) ->
+  initialize: (attrs, options) ->
     super
     name = @get 'name'
-    # utils.log "initialize #{name} post model"
-    type = 'blog'
+    type = options.type
     sub_type = 'post'
+    utils.log "initialize #{name} #{sub_type} model"
     slug = name.split('-')[3..].join('-')
     date_arr = _.str.words(name, '-')[0..2]
     year = date_arr[0]
@@ -34,8 +34,8 @@ module.exports = class Post extends Model
     @set template: @get('template') ? 'item'
     @set partial: @get('partial') ? sub_type
     @set comments: @get('comments') ? true
-    @set asides: @get('asides') ? config.blog.page_asides
-    @set sidebar: @get('sidebar') ? config.pages.page_sidebar
-    @set collapsed: @get('collapsed') ? config.pages.page_collapsed
+    @set asides: @get('asides') ? config[type].page_asides
+    @set sidebar: @get('sidebar') ? config[type].page_sidebar
+    @set collapsed: @get('collapsed') ? config[type].page_collapsed
     @set tags: @get('tags') ? []
 

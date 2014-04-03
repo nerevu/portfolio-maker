@@ -4,14 +4,15 @@ config = require 'config'
 utils = require 'lib/utils'
 
 module.exports = class Pages extends Collection
+  type: 'pages'
   model: Model
 
   initialize: =>
     super
-    utils.log "initialize pages collection"
+    utils.log "initialize #{@type} collection"
 
   fetch: =>
-    utils.log "fetch pages collection"
+    utils.log "fetch #{@type} collection"
     data = []
     files = require 'paths'
 
@@ -22,4 +23,4 @@ module.exports = class Pages extends Collection
       model.id = md5 JSON.stringify model
       data.push model
 
-    @set data
+    @set data, type: @type
