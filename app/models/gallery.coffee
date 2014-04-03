@@ -71,11 +71,11 @@ module.exports = class Gallery extends Collection
     console.log 'parseBeforeLocalSave'
     @getCollection(resp).then(@getSets).then(@applySets).then(@getData)
 
-  wrapError: (model, options) =>
+  wrapError: (collection, options) =>
     error = options.error
-    options.error = (resp) =>
-      error model, resp, options if error
-      @unSync
+    options.error = (resp) ->
+      error collection, resp, options if error
+      collection.unSync()
 
   _fetch: (options) =>
     utils.log "_fetch #{@type} collection"
