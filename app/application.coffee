@@ -28,6 +28,7 @@ module.exports = class Application extends Chaplin.Application
       console.log 'done fetching gallery'
       @publishEvent 'gallery:synced', response
       localStorage.setItem "#{config.title}:Gallery:synced", true
+
     super
 
   # Create additional mediator properties.

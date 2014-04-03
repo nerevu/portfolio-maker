@@ -3,17 +3,11 @@ config = require 'config'
 utils = require 'lib/utils'
 
 module.exports = class Photo extends Model
-# sizes/t/
-# sizes/s/
-# sizes/m/
-# sizes/l/
-
   sync: (method, model, options) =>
-    # if model?.collection?
     model.local = -> method isnt 'read'
     Backbone.sync(method, model, options)
 
-  initialize: (options) ->
+  initialize: (attrs, options) =>
     super
     id = @get 'id'
     title = @get('title') or 'Untitled'

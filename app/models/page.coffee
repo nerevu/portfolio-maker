@@ -4,7 +4,7 @@ utils = require 'lib/utils'
 
 module.exports = class Page extends Model
 	# load md file as a model
-  initialize: ->
+  initialize: =>
     super
     name = @get 'name'
     slug = _.str.slugify name
