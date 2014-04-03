@@ -41,14 +41,14 @@ module.exports = class SiteController extends Controller
     if filterer
       key = _.keys(filterer)[0]
       value = _.values(filterer)[0]
-      @filterer = (item, index=false) => item.get(key) is value
+      @filterer = (model, index=false) => model.get(key) is value
     else
       @filterer = null
 
     if @tag
-      @tagfilterer = (item, index=false) =>
-        returned = if filterer then (item.get(key) is value) else true
-        returned = returned and @tag in (item.get('tags') ? [])
+      @tagfilterer = (model, index=false) =>
+        returned = if filterer then (model.get(key) is value) else true
+        returned = returned and @tag in (model.get('tags') ? [])
         returned
     else
       @tagfilterer = @filterer
@@ -89,7 +89,7 @@ module.exports = class SiteController extends Controller
 
     if @type in @pages.pluck 'name'
       utils.log "#{@type} is a model"
-      model = collection.findWhere({name: @type})
+      model = collection.findWhere name: @type
       title = model?.get 'title'
       @adjustTitle title
 
