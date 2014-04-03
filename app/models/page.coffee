@@ -8,7 +8,7 @@ module.exports = class Page extends Model
     super
     name = @get 'name'
     slug = _.str.slugify name
-    utils.log "initialize #{name} page model"
+    # utils.log "initialize #{name} page model"
     type = 'page'
     @set type: type
     @set slug: slug

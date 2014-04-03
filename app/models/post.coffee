@@ -7,7 +7,7 @@ module.exports = class Post extends Model
   initialize: (file) ->
     super
     name = @get 'name'
-    utils.log "initialize #{name} post model"
+    # utils.log "initialize #{name} post model"
     type = 'blog'
     sub_type = 'post'
     slug = name.split('-')[3..].join('-')

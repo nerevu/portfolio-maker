@@ -8,13 +8,9 @@ module.exports = class Project extends Model
   url: => "#{github_api}/#{@get 'full_name'}?#{token}"
 
   sync: (method, model, options) =>
-    # if model?.collection?
     model.local = -> method isnt 'read'
     # utils.log "#{model.get 'name'}'s method is #{method}"
     # utils.log "#{model.get 'name'}'s local is #{model.local()}"
-    # https://github.com/nilbus/Backbone.dualStorage/issues/78
-    # options.add = method is 'read'
-    # utils.log options
     Backbone.sync(method, model, options)
 
   initialize: (options) ->

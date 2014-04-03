@@ -32,7 +32,7 @@ module.exports = class Gallery extends Collection
     @syncStateChange => console.debug 'gallery state changed'
 
   getCollection: (response) =>
-    utils.log "get collection"
+    utils.log "get flickr collection"
     data =
       method: 'flickr.collections.getTree'
       collection_id: config.flickr.collection_id
