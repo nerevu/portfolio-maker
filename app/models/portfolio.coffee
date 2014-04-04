@@ -14,6 +14,7 @@ module.exports = class Portfolio extends Collection
   local: -> localStorage.getItem "#{config.title}:#{@storeName}:synced"
 
   sync: (method, collection, options) =>
+    _(options).extend type: @type
     utils.log "#{@storeName} collection's sync method is #{method}"
     utils.log "read #{@storeName} collection from server: #{not @local()}"
     Backbone.sync(method, collection, options)

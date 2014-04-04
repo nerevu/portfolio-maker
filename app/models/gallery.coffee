@@ -86,6 +86,7 @@ module.exports = class Gallery extends Collection
       method = if options.reset then 'reset' else 'set'
       setData = (data, collection, method) ->
         utils.log "setting gallery data"
+        _(options).extend type: @type
         collection[method] data, options
         console.log collection
         success collection, data, options if success
