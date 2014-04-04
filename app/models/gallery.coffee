@@ -21,7 +21,7 @@ module.exports = class Gallery extends Collection
   model: Model
   url: "#{base_url}?#{$.param _(url_data).extend base_data}"
   storeName: 'Gallery'
-  local: -> localStorage.getItem "#{config.title}:#{@storeName}:synced"
+  local: => localStorage.getItem "#{config.title}:#{@storeName}:synced"
 
   sync: (method, collection, options) =>
     _(options).extend collection_type: @type
