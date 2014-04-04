@@ -13,6 +13,7 @@
     "nvd3": "~1.1.14-beta",
     "Backbone.dualStorage": "git://github.com/nilbus/Backbone.dualStorage",
     "blueimp-md5": "~1.1.0",
+    "js-base64": "~2.1.2",
     "lodash": "~2.4.1",
     "underscore.string": "~2.3.3"
   },
