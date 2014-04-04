@@ -32,6 +32,12 @@ module.exports = class IndexView extends CollectionView
     @tag = options.tag
     mediator.setActive options.active
 
+    @subscribeEvent "change:tags", =>
+      utils.log 'main-view heard change:tags event'
+      @tags = @collection.getTags @tagfilter
+      @getTemplateData()
+      @render()
+
     @subscribeEvent 'screenshots:synced', (screenshots) =>
       utils.log 'main-view heard screenshots synced event'
       collection = mediator.portfolio.mergeModels(
