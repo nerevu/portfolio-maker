@@ -155,27 +155,4 @@ config =
     user: 'reubano'
     show_comment_count: true
 
-  # Geolookup
-  srch_providers:
-    google: L.GeoSearch.Provider.Google
-    osm: L.GeoSearch.Provider.OpenStreetMap
-    esri: L.GeoSearch.Provider.Esri
-
-  # Maps
-  tile_providers:
-    mapbox: {name: 'MapBox.reubano.ghdp3e73', key: null}
-    osm: {name: 'OpenStreetMap', key: null}
-    esri: {name: 'Esri.WorldTopoMap', key: null}
-    cloudmade: {name: 'CloudMade', key: '82e495a4e43045118b51a94617d211c0'}
-
-  mapping:
-    icon: 'home'
-    markerColor: 'green'
-    markers: false
-    tile_provider: 'esri'
-    tp_options: {maxZoom: 5, styleID: 1}
-    srch_provider: 'openstreetmap'
-    zoomLevel: 3
-    setView: true
-
 module.exports = config
