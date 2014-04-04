@@ -1,5 +1,5 @@
 CollectionView = require 'views/base/collection-view'
-View = require 'views/excerpt-view'
+View = require 'views/item-view'
 mediator = require 'mediator'
 config = require 'config'
 utils = require 'lib/utils'

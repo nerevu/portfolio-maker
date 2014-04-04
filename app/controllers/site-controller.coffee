@@ -1,6 +1,6 @@
 Controller = require 'controllers/base/controller'
 Collection = require 'models/base/collection'
-ItemView = require 'views/item-view'
+DetailView = require 'views/detail-view'
 MainView = require 'views/main-view'
 config = require 'config'
 utils = require 'lib/utils'
@@ -78,7 +78,7 @@ module.exports = class SiteController extends Controller
     title = model?.get 'title'
 
     @adjustTitle title
-    @view = new ItemView
+    @view = new DetailView
       model: model
       active: @active
       title: title
@@ -99,7 +99,7 @@ module.exports = class SiteController extends Controller
       title = model?.get 'title'
       @adjustTitle title
 
-      @view = new ItemView
+      @view = new DetailView
         model: model
         active: title
         title: title
