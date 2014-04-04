@@ -2,7 +2,7 @@
   "author": "Reuben Cummings",
   "name": "gh-viewer",
   "description": "View GitHub user information",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "homepage": "",
   "repository": {
     "type": "git",
