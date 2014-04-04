@@ -161,6 +161,7 @@ module.exports = class SiteController extends Controller
 
     @view = new MainView
       collection: collection
+      paginator: @paginator
       active: active
       title: title
       recent: @recent
@@ -168,6 +169,3 @@ module.exports = class SiteController extends Controller
       sub_type: @sub_type
       template: 'archives'
       list_selector: '#archives-list'
-      item_template: "#{@type}-archive-entry"
-      item_class: config[@type].archive_class
-      item_tag: config[@type].archive_tag

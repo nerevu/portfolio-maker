@@ -53,10 +53,12 @@ module.exports = class IndexView extends CollectionView
       @setTemplateData collection
 
   initItemView: (model) =>
+    template_name = config[@type]["#{@template_name}_template"]
     new @itemView
       model: model
-      className: config[@type].index_class
-      tagName: config[@type]?.index_tag ? 'div'
+      template: require "views/templates/#{template_name}"
+      className: config[@type]["#{@template_name}_class"]
+      tagName: config[@type]?["#{@template_name}_tag"] ? 'div'
 
   render: =>
     super

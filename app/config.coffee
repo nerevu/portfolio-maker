@@ -69,7 +69,7 @@ config =
     items_per_index: 12
     sub_type: 'project'
     index_class: 'col-sm-6 col-md-6 col-lg-4'
-    index_template: "project-excerpt"
+    index_template: 'project-excerpt'
     show_pager: true
     filterer: {fork: false}
     identifier: 'name'
@@ -98,6 +98,7 @@ config =
     random_count: 6
     items_per_index: 12
     index_class: 'col-sm-4 col-md-3 col-lg-3'
+    index_template: 'photo-excerpt'
     show_pager: true
     identifier: 'id'
     recent_comparator: 'created'
@@ -122,7 +123,9 @@ config =
     items_per_index: 10
     sub_type: 'post'
     index_class: 'row'
-    archive_tag: 'tr'
+    index_template: 'post-excerpt'
+    archives_tag: 'tr'
+    archives_template: 'blog-archive-entry'
     show_pager: true
     identifier: 'slug'
     recent_comparator: 'date'

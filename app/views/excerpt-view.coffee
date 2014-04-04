@@ -9,7 +9,5 @@ module.exports = class ExcerptView extends View
   initialize: (options) =>
     super
     utils.log 'initializing excerpt-view'
-    @type = @model.get 'type'
-    @template = require "views/templates/#{config[@type].index_template}"
     @listenTo @model, 'change', @render
     @listenTo @model, 'change:tags', => @publishEvent "change:tags"
