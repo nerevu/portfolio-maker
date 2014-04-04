@@ -16,11 +16,12 @@ module.exports = class Project extends Model
   initialize: (options) ->
     super
     name = @get 'name'
-    utils.log "initialize #{name} project model"
-    # console.log @
-    language = @get('language')?.toLowerCase()
+    # type = options.collection_type
     type = 'portfolio'
     sub_type = 'project'
+    utils.log "initialize #{name} #{sub_type} model"
+    # console.log @
+    language = @get('language')?.toLowerCase()
     created = moment @get 'created_at'
     updated = moment @get 'updated_at'
     popularity = parseInt(@get 'stargazers_count') + parseInt(@get 'forks') * 2

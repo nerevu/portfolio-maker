@@ -8,8 +8,10 @@ module.exports = class Photo extends Model
     id = @get 'id'
     title = @get('title') or 'Untitled'
     name = title
+    # type = options.collection_type
     type = 'gallery'
     sub_type = @get 'media'
+    utils.log "initialize #{name} #{sub_type} model"
     # console.log @
 
     try
@@ -22,7 +24,6 @@ module.exports = class Photo extends Model
     dms_str = "#{dms.lat.deg}° #{dms.lat.min}' #{dms.lat.sec}\" #{dms.lat.dir}"
     dms_str += "<br>"
     dms_str += "#{dms.lon.deg}° #{dms.lon.min}' #{dms.lon.sec}\" #{dms.lon.dir}"
-    utils.log "initialize #{name} photo model"
     created = moment @get 'datetaken'
     updated = created
 
