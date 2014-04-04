@@ -182,10 +182,10 @@ module.exports = class Project extends Model
     #   meta.package_manager = @package_managers[0]
 
   setMeta: (meta) =>
-    tags = meta?.tags ? []
+    tags = _.union meta?.tags, []
     for key, value of meta
       @set(key, value) if key isnt 'tags'
-      tags.push value if not key in ['tags', 'version']
+      tags.push value if key not in ['tags', 'version']
 
     @addTags tags
     @save patch: true
