@@ -13,10 +13,11 @@ module.exports = class Project extends Model
     # utils.log "#{model.get 'name'}'s local is #{model.local()}"
     Backbone.sync(method, model, options)
 
-  initialize: (options) ->
+  initialize: (attrs, options) ->
     super
     name = @get 'name'
     # type = options.collection_type
+    console.log options
     type = 'portfolio'
     sub_type = 'project'
     utils.log "initialize #{name} #{sub_type} model"

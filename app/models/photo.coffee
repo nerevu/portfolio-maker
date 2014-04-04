@@ -3,12 +3,13 @@ config = require 'config'
 utils = require 'lib/utils'
 
 module.exports = class Photo extends Model
-  initialize: (options) ->
+  initialize: (attrs, options) ->
     super
     id = @get 'id'
     title = @get('title') or 'Untitled'
     name = title
     # type = options.collection_type
+    console.log options
     type = 'gallery'
     sub_type = @get 'media'
     utils.log "initialize #{name} #{sub_type} model"
