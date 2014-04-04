@@ -8,9 +8,7 @@ module.exports = class Photo extends Model
     id = @get 'id'
     title = @get('title') or 'Untitled'
     name = title
-    # type = options.collection_type
-    console.log options
-    type = 'gallery'
+    type = options?.collection_type
     sub_type = @get 'media'
     utils.log "initialize #{name} #{sub_type} model"
     # console.log @
