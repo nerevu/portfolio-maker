@@ -17,7 +17,7 @@ module.exports = class Project extends Model
     super
     name = @get 'name'
     type = options?.collection_type
-    sub_type = 'project'
+    sub_type = config[type]?.sub_type
     # utils.log "initialize #{name} #{sub_type} model"
     # console.log @
     language = @get('language')?.toLowerCase()

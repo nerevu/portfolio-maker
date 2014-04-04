@@ -47,6 +47,7 @@ config =
   pages:
     # asides: ['popular-projects', 'popular-photos', 'popular-posts']
     asides: ['popular-projects', 'popular-photos', 'recent-posts']
+    sub_type: 'page'
 
   portfolio:
     index: true
@@ -66,7 +67,9 @@ config =
     related_count: 6
     random_count: 6
     items_per_index: 12
+    sub_type: 'project'
     index_class: 'col-sm-6 col-md-6 col-lg-4'
+    index_template: "project-excerpt"
     show_pager: true
     filterer: {fork: false}
     identifier: 'name'
@@ -117,6 +120,7 @@ config =
     related_count: 5
     random_count: 5
     items_per_index: 10
+    sub_type: 'post'
     index_class: 'row'
     archive_tag: 'tr'
     show_pager: true

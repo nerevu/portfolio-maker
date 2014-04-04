@@ -134,8 +134,6 @@ module.exports = class SiteController extends Controller
         sub_type: @sub_type
         template: 'index'
         list_selector: '#excerpt-list'
-        item_template: "#{@sub_type}-excerpt"
-        item_class: config[@type].index_class
 
   archives: (params) =>
     utils.log "archives #{@type} site-controller"

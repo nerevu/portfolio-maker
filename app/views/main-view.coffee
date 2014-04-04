@@ -1,5 +1,5 @@
 CollectionView = require 'views/base/collection-view'
-View = require 'views/base/view'
+View = require 'views/excerpt-view'
 mediator = require 'mediator'
 config = require 'config'
 utils = require 'lib/utils'
@@ -10,7 +10,7 @@ module.exports = class IndexView extends CollectionView
   className: 'row'
   region: 'content'
 
-  initialize: (options) ->
+  initialize: (options) =>
     super
     utils.log 'initializing main view'
     @paginator = options.paginator
@@ -30,9 +30,6 @@ module.exports = class IndexView extends CollectionView
     @title = options.title
     @tags = options.tags
     @tag = options.tag
-    @item_template = options.item_template
-    @item_class = options?.item_class
-    @item_tag = options?.item_tag ? 'div'
     mediator.setActive options.active
 
     @subscribeEvent 'screenshots:synced', (screenshots) =>
@@ -52,9 +49,8 @@ module.exports = class IndexView extends CollectionView
   initItemView: (model) =>
     new @itemView
       model: model
-      className: @item_class
-      tagName: @item_tag
-      template: require "views/templates/#{@item_template}"
+      className: config[@type].index_class
+      tagName: config[@type]?.index_tag ? 'div'
 
   render: =>
     super

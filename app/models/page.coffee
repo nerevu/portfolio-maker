@@ -8,7 +8,7 @@ module.exports = class Page extends Model
     super
     name = @get 'name'
     type = options.type
-    sub_type = 'page'
+    sub_type = config[type].sub_type
     # utils.log "initialize #{name} #{sub_type} model"
     slug = _.str.slugify name
 
