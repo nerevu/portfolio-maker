@@ -34,9 +34,9 @@ module.exports = class Project extends Model
     @set href: "/portfolio/item/#{name}"
     @set template: 'item'
     @set partial: sub_type
-    @set asides: config.portfolio.page_asides
-    @set sidebar: config.portfolio.page_sidebar
-    @set collapsed: config.portfolio.page_collapsed
+    @set asides: config[type].page_asides
+    @set sidebar: config[type].page_sidebar
+    @set collapsed: config[type].page_collapsed
     @set created: created
     @set updated: updated
     @set created_str: created.format("MMMM Do, YYYY")
