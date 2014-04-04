@@ -18,7 +18,7 @@ module.exports = class Project extends Model
     name = @get 'name'
     type = options?.collection_type
     sub_type = 'project'
-    utils.log "initialize #{name} #{sub_type} model"
+    # utils.log "initialize #{name} #{sub_type} model"
     # console.log @
     language = @get('language')?.toLowerCase()
     created = moment @get 'created_at'

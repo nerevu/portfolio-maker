@@ -9,7 +9,7 @@ module.exports = class Post extends Model
     name = @get 'name'
     type = options.type
     sub_type = 'post'
-    utils.log "initialize #{name} #{sub_type} model"
+    # utils.log "initialize #{name} #{sub_type} model"
     slug = name.split('-')[3..].join('-')
     date_arr = _.str.words(name, '-')[0..2]
     year = date_arr[0]
