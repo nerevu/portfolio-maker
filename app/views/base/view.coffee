@@ -1,6 +1,6 @@
-config = require 'config'
-mediator = require 'mediator'
 require 'lib/view-helper' # Just load the view helpers, no return value
+mediator = require 'mediator'
+config = require 'config'
 
 module.exports = class View extends Chaplin.View
   # Auto-save `template` option passed to any view as `@template`.
