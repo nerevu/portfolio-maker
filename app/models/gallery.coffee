@@ -24,6 +24,7 @@ module.exports = class Gallery extends Collection
   local: -> localStorage.getItem "#{config.title}:#{@storeName}:synced"
 
   sync: (method, collection, options) =>
+    _(options).extend collection_type: @type
     utils.log "#{@storeName} collection's sync method is #{method}"
     utils.log "read #{@storeName} collection from server: #{not @local()}"
     Backbone.sync(method, collection, options)
@@ -86,7 +87,6 @@ module.exports = class Gallery extends Collection
       method = if options.reset then 'reset' else 'set'
       setData = (data, collection, method) ->
         utils.log "setting gallery data"
-        _(options).extend type: @type
         collection[method] data, options
         console.log collection
         success collection, data, options if success
