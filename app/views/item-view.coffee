@@ -40,12 +40,14 @@ module.exports = class ItemView extends View
     @subscribeEvent 'gallery:synced', (gallery) =>
       utils.log 'item-view heard gallery synced event'
       @popular_photos = gallery.getPopular 'gallery'
+      @recent_photos = gallery.getRecent 'gallery'
       @getTemplateData()
       @render()
 
     @subscribeEvent 'portfolio:synced', (portfolio) =>
       utils.log 'item-view heard portfolio synced event'
       @popular_projects = portfolio.getPopular 'portfolio'
+      @recent_projects = portfolio.getRecent 'portfolio'
       @getTemplateData()
       @render()
 

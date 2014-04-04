@@ -23,11 +23,14 @@ module.exports = class Application extends Chaplin.Application
       if response.message then return
       console.log 'done fetching portfolio'
       @publishEvent 'portfolio:synced', response
-      localStorage.setItem "#{config.title}:Portfolio:synced", true
+      store = "#{config.title}:#{mediator.portfolio.storeName}"
+      localStorage.setItem "#{store}:synced", true
     mediator.gallery.fetch().done (response) =>
       console.log 'done fetching gallery'
       @publishEvent 'gallery:synced', response
-      localStorage.setItem "#{config.title}:Gallery:synced", true
+      store = "#{config.title}:#{mediator.gallery.storeName}"
+      localStorage.setItem "#{store}:synced", true
+
     super
 
   # Create additional mediator properties.

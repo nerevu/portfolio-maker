@@ -8,23 +8,19 @@ module.exports = class Project extends Model
   url: => "#{github_api}/#{@get 'full_name'}?#{token}"
 
   sync: (method, model, options) =>
-    # if model?.collection?
     model.local = -> method isnt 'read'
     # utils.log "#{model.get 'name'}'s method is #{method}"
     # utils.log "#{model.get 'name'}'s local is #{model.local()}"
-    # https://github.com/nilbus/Backbone.dualStorage/issues/78
-    # options.add = method is 'read'
-    # utils.log options
     Backbone.sync(method, model, options)
 
-  initialize: (options) ->
+  initialize: (attrs, options) =>
     super
     name = @get 'name'
-    utils.log "initialize #{name} project model"
+    type = options?.collection_type
+    sub_type = 'project'
+    utils.log "initialize #{name} #{sub_type} model"
     # console.log @
     language = @get('language')?.toLowerCase()
-    type = 'portfolio'
-    sub_type = 'project'
     created = moment @get 'created_at'
     updated = moment @get 'updated_at'
     popularity = parseInt(@get 'stargazers_count') + parseInt(@get 'forks') * 2
@@ -38,9 +34,9 @@ module.exports = class Project extends Model
     @set href: "/portfolio/item/#{name}"
     @set template: 'item'
     @set partial: sub_type
-    @set asides: config.portfolio.page_asides
-    @set sidebar: config.portfolio.page_sidebar
-    @set collapsed: config.portfolio.page_collapsed
+    @set asides: config[type]?.page_asides
+    @set sidebar: config[type]?.page_sidebar
+    @set collapsed: config[type]?.page_collapsed
     @set created: created
     @set updated: updated
     @set created_str: created.format("MMMM Do, YYYY")
