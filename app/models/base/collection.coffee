@@ -16,16 +16,18 @@ module.exports = class Collection extends Chaplin.Collection
 
   prefilter: (filter=false) =>
     if  _.isFunction filter
-      console.log 'filter is function'
       collection = new Collection _(@models).filter filter
-    else if filter
-      console.log 'filter isnt function'
+    else if filter? and filter
       collection = new Collection @where filter
     else
-      console.log 'no filter'
       collection = @
 
     collection
+
+  getTags: (filter=false) =>
+    collection = @prefilter filter
+    tags = _(_.flatten(collection.pluck 'tags')).uniq()
+    tags = _.filter tags, (tag) -> tag
 
   getModels: (collection, length) =>
     models = []
@@ -58,13 +60,14 @@ module.exports = class Collection extends Chaplin.Collection
 
     collection
 
-  paginator: (perPage, page, filter=false) =>
+  paginator: (page=1, filter=false) =>
     console.log "paginator"
     collection = @prefilter filter
-    pages = collection.length / perPage | 0
-    pages = if collection.length % perPage then pages + 1 else pages
-    collection = collection.rest perPage * (page - 1)
-    collection = new Collection _(collection).first perPage
+    per_page = config[@type]?.items_per_index ? 10
+    pages = collection.length / per_page | 0
+    pages = if collection.length % per_page then pages + 1 else pages
+    collection = collection.rest per_page * (page - 1)
+    collection = new Collection _(collection).first per_page
     first_page = page is 1
     last_page = page is pages
     only_page = pages is 1
@@ -95,7 +98,8 @@ module.exports = class Collection extends Chaplin.Collection
         cur.set prev_href: collection.at(real - 1).get 'href'
         cur.set next_href: collection.at(real + 1).get 'href'
 
-  getRecent: (type) =>
+  getRecent: (type=false) =>
+    type = type or @type
     console.log "get recent #{type}"
     recent = []
     comparator = config[type]?.recent_comparator
@@ -109,7 +113,8 @@ module.exports = class Collection extends Chaplin.Collection
     else
       []
 
-  getPopular: (type) =>
+  getPopular: (type=false) =>
+    type = type or @type
     console.log "get popular #{type}"
     comparator = config[type]?.popular_comparator
 
@@ -122,7 +127,8 @@ module.exports = class Collection extends Chaplin.Collection
     else
       []
 
-  getRandom: (type) =>
+  getRandom: (type=false) =>
+    type = type or @type
     console.log "get random #{type}"
     length = config[type]?.random_count
 

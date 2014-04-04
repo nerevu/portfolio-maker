@@ -2,6 +2,7 @@ mediator = require 'mediator'
 Pages = require 'models/pages'
 Blog = require 'models/blog'
 Portfolio = require 'models/portfolio'
+Screenshots = require 'models/screenshots'
 Gallery = require 'models/gallery'
 config= require 'config'
 utils = require 'lib/utils'
@@ -19,17 +20,13 @@ module.exports = class Application extends Chaplin.Application
     # (by calling `super`) after that.
     mediator.pages.fetch()
     mediator.blog.fetch()
-    mediator.portfolio.fetch().done (response) =>
-      if response.message then return
-      console.log 'done fetching portfolio'
-      @publishEvent 'portfolio:synced', response
-      store = "#{config.title}:#{mediator.portfolio.storeName}"
-      localStorage.setItem "#{store}:synced", true
-    mediator.gallery.fetch().done (response) =>
-      console.log 'done fetching gallery'
-      @publishEvent 'gallery:synced', response
-      store = "#{config.title}:#{mediator.gallery.storeName}"
-      localStorage.setItem "#{store}:synced", true
+    for collection in ['portfolio', 'screenshots', 'gallery']
+      do (collection) => mediator[collection].fetch().done (response) =>
+        if response.message then return
+        console.log "done fetching #{collection}"
+        @publishEvent "#{collection}:synced", response
+        store = "#{config.title}:#{mediator[collection].storeName}"
+        localStorage.setItem "#{store}:synced", true
 
     super
 
@@ -40,6 +37,7 @@ module.exports = class Application extends Chaplin.Application
     mediator.pages = new Pages()
     mediator.blog = new Blog()
     mediator.portfolio = new Portfolio()
+    mediator.screenshots = new Screenshots()
     mediator.gallery = new Gallery()
 
     mediator.active = null

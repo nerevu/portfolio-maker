@@ -126,6 +126,17 @@ html, body, body #container {height: 100%;}
   content: " ";
 }
 
+.dl-dates dt {
+  float: left;
+  width: 60px;
+  clear: left;
+  text-align: left;
+  white-space: nowrap;
+}
+.dl-dates dd {
+  margin-left: 70px;
+}
+
 /* Other */
 .active-nav {color: #555555 !important;}
 .progress .bar-muted {opacity: 0.2 !important;}

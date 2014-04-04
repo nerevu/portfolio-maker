@@ -1,6 +1,6 @@
 Controller = require 'controllers/base/controller'
 Collection = require 'models/base/collection'
-ItemView = require 'views/item-view'
+DetailView = require 'views/detail-view'
 MainView = require 'views/main-view'
 config = require 'config'
 utils = require 'lib/utils'
@@ -8,6 +8,7 @@ utils = require 'lib/utils'
 module.exports = class SiteController extends Controller
   initialize: (params) =>
     utils.log 'initialize site-controller'
+    @num = parseInt params?.num ? 1
     @type = params?.type ? 'home'
     @tag = params?.tag
     @id = params?.id
@@ -24,7 +25,12 @@ module.exports = class SiteController extends Controller
         @sub_title = 'Photo '
         @sub_type = 'photo'
       when 'portfolio'
-        collection = @portfolio
+        collection = @portfolio.mergeModels(
+          @screenshots, ['url_s', 'url_m'], 'main')
+
+        collection = collection.mergeModels(
+          @screenshots, ['url_sq'], 'thumb')
+
         @sub_title = 'Project '
         @sub_type = 'project'
       when 'blog'
@@ -53,26 +59,26 @@ module.exports = class SiteController extends Controller
     else
       @tagfilterer = @filterer
 
-    @recent = collection.getRecent @type
-    @popular = collection.getPopular @type
-    @random = collection.getRandom @type
+    @recent = collection.getRecent()
+    @popular = collection.getPopular()
+    @random = collection.getRandom()
     @active = _.str.capitalize @type
 
     if recent_comparator
       collection.comparator = (model) -> - model.get recent_comparator
       collection.sort()
 
-    @collection = collection.toJSON()
+    @paginator = collection.paginator @num, @tagfilterer
 
   show: (params) =>
     utils.log "show #{@type} #{@id} site-controller"
-    collection = new Collection @collection
+    collection = @paginator.collection
     collection.setPagers @filterer
     model = collection.findWhere @find_where
     title = model?.get 'title'
 
     @adjustTitle title
-    @view = new ItemView
+    @view = new DetailView
       model: model
       active: @active
       title: title
@@ -85,7 +91,7 @@ module.exports = class SiteController extends Controller
 
   index: (params) =>
     utils.log "index #{@type} site-controller"
-    collection = new Collection @collection
+    collection = @paginator.collection
 
     if @type in @pages.pluck 'name'
       utils.log "#{@type} is a model"
@@ -93,36 +99,30 @@ module.exports = class SiteController extends Controller
       title = model?.get 'title'
       @adjustTitle title
 
-      @view = new ItemView
+      @view = new DetailView
         model: model
         active: title
         title: title
-        recent_posts: @blog.getRecent 'blog'
-        recent_projects: @portfolio.getRecent 'portfolio'
-        popular_projects: @portfolio.getPopular 'portfolio'
-        recent_photos: @gallery.getRecent 'gallery'
-        popular_photos: @gallery.getPopular 'gallery'
+        recent_posts: @blog.getRecent()
+        recent_projects: @portfolio.getRecent()
+        popular_projects: @portfolio.getPopular()
+        recent_photos: @gallery.getRecent()
+        popular_photos: @gallery.getPopular()
 
     else
       utils.log "#{@type} is a collection"
       title = "My #{@sub_title}#{@active}"
-      num = parseInt params?.num ? 1
-      per = config[@type]?.items_per_index ? 10
-      paginator = collection.paginator per, num, @tagfilterer
       @adjustTitle title
-      tags = _(_.flatten(collection.prefilter(@filterer).pluck 'tags')).uniq()
-      tags = _.filter tags, (tag) -> tag
+      tags = collection.getTags @filterer
 
       @view = new MainView
-        collection: paginator.collection
-        pages: paginator.pages
+        collection: collection
+        paginator: @paginator
         filterer: @tagfilterer
-        first_page: paginator.first_page
-        last_page: paginator.last_page
-        only_page: paginator.only_page
-        cur_page: num
-        next_page: num + 1
-        prev_page: num - 1
+        tagfilter: @filterer
+        cur_page: @num
+        next_page: @num + 1
+        prev_page: @num - 1
         active: @active
         title: title
         recent: @recent
@@ -134,12 +134,10 @@ module.exports = class SiteController extends Controller
         sub_type: @sub_type
         template: 'index'
         list_selector: '#excerpt-list'
-        item_template: "#{@sub_type}-excerpt"
-        item_class: config[@type].index_class
 
   archives: (params) =>
     utils.log "archives #{@type} site-controller"
-    collection = new Collection @collection
+    collection = @paginator.collection
     active = 'Archives'
     title = "#{@active} Archives"
     @adjustTitle title
@@ -163,6 +161,7 @@ module.exports = class SiteController extends Controller
 
     @view = new MainView
       collection: collection
+      paginator: @paginator
       active: active
       title: title
       recent: @recent
@@ -170,6 +169,3 @@ module.exports = class SiteController extends Controller
       sub_type: @sub_type
       template: 'archives'
       list_selector: '#archives-list'
-      item_template: "#{@type}-archive-entry"
-      item_class: config[@type].archive_class
-      item_tag: config[@type].archive_tag

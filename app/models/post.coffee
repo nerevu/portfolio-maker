@@ -8,8 +8,8 @@ module.exports = class Post extends Model
     super
     name = @get 'name'
     type = options.type
-    sub_type = 'post'
-    utils.log "initialize #{name} #{sub_type} model"
+    sub_type = config[type]?.sub_type
+    # utils.log "initialize #{name} #{sub_type} model"
     slug = name.split('-')[3..].join('-')
     date_arr = _.str.words(name, '-')[0..2]
     year = date_arr[0]

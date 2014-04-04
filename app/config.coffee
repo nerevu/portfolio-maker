@@ -47,6 +47,7 @@ config =
   pages:
     # asides: ['popular-projects', 'popular-photos', 'popular-posts']
     asides: ['popular-projects', 'popular-photos', 'recent-posts']
+    sub_type: 'page'
 
   portfolio:
     index: true
@@ -57,6 +58,7 @@ config =
     page_collapsed: false
     index_collapsed: true
     archives_collapsed: false
+    collection_id: '72157642990278515'
     page_asides: ['related-projects', 'recent-projects', 'popular-projects']
     index_asides: ['recent-projects', 'popular-projects', 'random-projects']
     archives_asides: []
@@ -65,12 +67,17 @@ config =
     related_count: 6
     random_count: 6
     items_per_index: 12
+    sub_type: 'project'
     index_class: 'col-sm-6 col-md-6 col-lg-4'
+    index_template: 'project-excerpt'
     show_pager: true
     filterer: {fork: false}
     identifier: 'name'
     recent_comparator: 'created_at'
     popular_comparator: 'popularity'
+
+  screenshots:
+    collection_id: '72157640467647725'
 
   gallery:
     index: true
@@ -81,6 +88,7 @@ config =
     page_collapsed: false
     index_collapsed: true
     archives_collapsed: false
+    collection_id: '72157642990278515'
     page_asides: ['related-photos', 'recent-photos', 'popular-photos']
     index_asides: ['recent-photos', 'popular-photos', 'random-photos']
     archives_asides: []
@@ -90,6 +98,7 @@ config =
     random_count: 6
     items_per_index: 12
     index_class: 'col-sm-4 col-md-3 col-lg-3'
+    index_template: 'photo-excerpt'
     show_pager: true
     identifier: 'id'
     recent_comparator: 'created'
@@ -112,8 +121,11 @@ config =
     related_count: 5
     random_count: 5
     items_per_index: 10
+    sub_type: 'post'
     index_class: 'row'
-    archive_tag: 'tr'
+    index_template: 'post-excerpt'
+    archives_tag: 'tr'
+    archives_template: 'blog-archive-entry'
     show_pager: true
     identifier: 'slug'
     recent_comparator: 'date'
@@ -133,7 +145,6 @@ config =
     user: 'reubano'
     api_token: '76ca8dd185de46fdd0d24c24f6e4d0ea'
     secret: '7e8d94900e2a23c0'
-    collection_id: '72157642990278515'
     show_follow_badge: true
     show_follower_count: false
 
@@ -150,28 +161,5 @@ config =
   disqus:
     user: 'reubano'
     show_comment_count: true
-
-  # Geolookup
-  srch_providers:
-    google: L.GeoSearch.Provider.Google
-    osm: L.GeoSearch.Provider.OpenStreetMap
-    esri: L.GeoSearch.Provider.Esri
-
-  # Maps
-  tile_providers:
-    mapbox: {name: 'MapBox.reubano.ghdp3e73', key: null}
-    osm: {name: 'OpenStreetMap', key: null}
-    esri: {name: 'Esri.WorldTopoMap', key: null}
-    cloudmade: {name: 'CloudMade', key: '82e495a4e43045118b51a94617d211c0'}
-
-  mapping:
-    icon: 'home'
-    markerColor: 'green'
-    markers: false
-    tile_provider: 'esri'
-    tp_options: {maxZoom: 5, styleID: 1}
-    srch_provider: 'openstreetmap'
-    zoomLevel: 3
-    setView: true
 
 module.exports = config
