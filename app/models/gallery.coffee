@@ -6,6 +6,7 @@ utils = require 'lib/utils'
 module.exports = class Gallery extends Collection
   _(@prototype).extend Chaplin.SyncMachine
 
+  type = 'gallery'
   base_url = "https://api.flickr.com/services/rest/"
   base_data =
     api_key: config.flickr.api_token
@@ -16,23 +17,25 @@ module.exports = class Gallery extends Collection
     method: 'flickr.urls.lookupUser'
     url: "https://www.flickr.com/photos/#{config.flickr.user}/"
 
+  type: type
   model: Model
   url: "#{base_url}?#{$.param _(url_data).extend base_data}"
-  storeName: 'Photos'
+  storeName: 'Gallery'
   local: -> localStorage.getItem "#{config.title}:#{@storeName}:synced"
 
   sync: (method, collection, options) =>
+    _(options).extend collection_type: @type
     utils.log "#{@storeName} collection's sync method is #{method}"
     utils.log "read #{@storeName} collection from server: #{not @local()}"
     Backbone.sync(method, collection, options)
 
   initialize: =>
     super
-    utils.log "initialize gallery collection"
-    @syncStateChange => console.debug 'gallery state changed'
+    utils.log "initialize #{@type} collection"
+    @syncStateChange => console.debug "#{@type} state changed"
 
   getCollection: (response) =>
-    utils.log "get flickr collection"
+    utils.log "get #{@type}'s flickr collection"
     data =
       method: 'flickr.collections.getTree'
       collection_id: config.flickr.collection_id
@@ -60,7 +63,7 @@ module.exports = class Gallery extends Collection
   applySets: (deferreds) => $.when.apply($, deferreds)
 
   getData: (results...) =>
-    utils.log "get gallery data"
+    utils.log "get #{@type} data"
     _.flatten (r[0].photoset.photo for r in results)
 
   parseBeforeLocalSave: (resp) =>
@@ -75,7 +78,7 @@ module.exports = class Gallery extends Collection
       @unSync
 
   _fetch: (options) =>
-    utils.log "_fetch gallery collection"
+    utils.log "_fetch #{@type} collection"
     @beginSync()
     options = if options then _.clone(options) else {}
     success = options.success
@@ -100,7 +103,7 @@ module.exports = class Gallery extends Collection
     @sync 'read', @, options
 
   fetch: =>
-    utils.log "fetch gallery collection"
+    utils.log "fetch #{@type} collection"
     $.Deferred((deferred) => @_fetch
       success: deferred.resolve
       error: deferred.reject).promise()
