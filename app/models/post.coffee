@@ -4,7 +4,7 @@ utils = require 'lib/utils'
 
 module.exports = class Post extends Model
   # load md file as a model
-  initialize: (attrs, options) ->
+  initialize: (attrs, options) =>
     super
     name = @get 'name'
     type = options.type

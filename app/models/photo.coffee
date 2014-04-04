@@ -3,7 +3,7 @@ config = require 'config'
 utils = require 'lib/utils'
 
 module.exports = class Photo extends Model
-  initialize: (attrs, options) ->
+  initialize: (attrs, options) =>
     super
     id = @get 'id'
     title = @get('title') or 'Untitled'
