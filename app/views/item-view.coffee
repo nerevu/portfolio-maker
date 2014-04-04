@@ -37,6 +37,16 @@ module.exports = class ItemView extends View
     else
       utils.log "initializing 404 item-view"
 
+    @subscribeEvent 'screenshots:synced', (screenshots) =>
+      utils.log 'item-view heard screenshots synced event'
+      collection = mediator.portfolio.mergeModels(
+        screenshots, ['url_s', 'url_m'], 'main')
+
+      collection = collection.mergeModels(
+        screenshots, ['url_sq'], 'thumb')
+
+      @setTemplateData collection, 'portfolio'
+
     @subscribeEvent 'gallery:synced', (gallery) =>
       utils.log 'item-view heard gallery synced event'
       @setTemplateData gallery

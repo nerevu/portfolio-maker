@@ -57,6 +57,7 @@ config =
     page_collapsed: false
     index_collapsed: true
     archives_collapsed: false
+    collection_id: '72157642990278515'
     page_asides: ['related-projects', 'recent-projects', 'popular-projects']
     index_asides: ['recent-projects', 'popular-projects', 'random-projects']
     archives_asides: []
@@ -72,6 +73,9 @@ config =
     recent_comparator: 'created_at'
     popular_comparator: 'popularity'
 
+  screenshots:
+    collection_id: '72157640467647725'
+
   gallery:
     index: true
     archives: true
@@ -81,6 +85,7 @@ config =
     page_collapsed: false
     index_collapsed: true
     archives_collapsed: false
+    collection_id: '72157642990278515'
     page_asides: ['related-photos', 'recent-photos', 'popular-photos']
     index_asides: ['recent-photos', 'popular-photos', 'random-photos']
     archives_asides: []
@@ -133,7 +138,6 @@ config =
     user: 'reubano'
     api_token: '76ca8dd185de46fdd0d24c24f6e4d0ea'
     secret: '7e8d94900e2a23c0'
-    collection_id: '72157642990278515'
     show_follow_badge: true
     show_follower_count: false
 

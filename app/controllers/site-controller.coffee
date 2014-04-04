@@ -25,7 +25,12 @@ module.exports = class SiteController extends Controller
         @sub_title = 'Photo '
         @sub_type = 'photo'
       when 'portfolio'
-        collection = @portfolio
+        collection = @portfolio.mergeModels(
+          @screenshots, ['url_s', 'url_m'], 'main')
+
+        collection = collection.mergeModels(
+          @screenshots, ['url_sq'], 'thumb')
+
         @sub_title = 'Project '
         @sub_type = 'project'
       when 'blog'

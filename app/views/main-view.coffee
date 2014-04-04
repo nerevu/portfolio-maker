@@ -35,6 +35,16 @@ module.exports = class IndexView extends CollectionView
     @item_tag = options?.item_tag ? 'div'
     mediator.setActive options.active
 
+    @subscribeEvent 'screenshots:synced', (screenshots) =>
+      utils.log 'main-view heard screenshots synced event'
+      collection = mediator.portfolio.mergeModels(
+        screenshots, ['url_s', 'url_m'], 'main')
+
+      collection = collection.mergeModels(
+        screenshots, ['url_sq'], 'thumb')
+
+      @setTemplateData collection, 'portfolio'
+
     @subscribeEvent "#{@type}:synced", (collection) =>
       utils.log "main-view heard #{@type} synced event"
       @setTemplateData collection
