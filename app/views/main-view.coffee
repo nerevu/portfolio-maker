@@ -13,18 +13,17 @@ module.exports = class IndexView extends CollectionView
   initialize: (options) ->
     super
     utils.log 'initializing main view'
+    @paginator = options.paginator
     @template_name = options.template
     @template = require "views/templates/#{@template_name}"
     @listSelector = options.list_selector
     @type = options.type
     @sub_type = options.sub_type
+    @filterer = options.filterer
+    @tagfilter = options.tagfilter
     @recent = options.recent
     @popular = options.popular
     @random = options.random
-    @pages = options.pages
-    @first_page = options.first_page
-    @last_page = options.last_page
-    @only_page = options.only_page
     @cur_page = options.cur_page
     @next_page = options.next_page
     @prev_page = options.prev_page
@@ -36,19 +35,33 @@ module.exports = class IndexView extends CollectionView
     @item_tag = options?.item_tag ? 'div'
     mediator.setActive options.active
 
+    @subscribeEvent "#{@type}:synced", (collection) =>
+      utils.log "main-view heard #{@type} synced event"
+      @setTemplateData collection
+
   initItemView: (model) =>
     new @itemView
       model: model
       className: @item_class
       tagName: @item_tag
       template: require "views/templates/#{@item_template}"
-      # name: model.get 'name'
-      # type: model.get 'type'
-      # sub_type: model.get 'sub_type'
 
   render: =>
     super
     utils.log 'rendering main view'
+    console.log @collection
+
+  setTemplateData: (collection, type=false) =>
+    utils.log 'set main-view template data'
+    console.log collection.type
+    @paginator = collection.paginator @cur_page, @filterer
+    @collection = @paginator.collection
+    @recent = collection.getRecent type
+    @popular = collection.getPopular type
+    @random = collection.getRandom type
+    @tags = collection.getTags @tagfilter
+    @getTemplateData()
+    @render()
 
   getTemplateData: =>
     utils.log 'get main view template data'
@@ -60,10 +73,10 @@ module.exports = class IndexView extends CollectionView
     templateData["popular_#{@sub_type}s"] = @popular
     templateData["random_#{@sub_type}s"] = @random
     templateData.page_title = @title
-    templateData.pages = @pages
-    templateData.first_page = @first_page
-    templateData.last_page = @last_page
-    templateData.only_page = @only_page
+    templateData.pages = @paginator.pages
+    templateData.first_page = @paginator.first_page
+    templateData.last_page = @paginator.last_page
+    templateData.only_page = @paginator.only_page
     templateData.cur_page = @cur_page
     templateData.next_page = @next_page
     templateData.prev_page = @prev_page

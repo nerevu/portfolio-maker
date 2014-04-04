@@ -11,6 +11,7 @@ module.exports = class Page extends Model
     sub_type = 'page'
     utils.log "initialize #{name} #{sub_type} model"
     slug = _.str.slugify name
+
     @set type: type
     @set sub_type: sub_type
     @set slug: slug

@@ -7,5 +7,4 @@ module.exports = class View extends Chaplin.View
   optionNames: Chaplin.View::optionNames.concat ['template']
 
   # Precompiled templates function initializer.
-  getTemplateFunction: ->
-    @template
+  getTemplateFunction: -> @template
