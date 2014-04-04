@@ -72,7 +72,8 @@ module.exports = class Project extends Model
 
   addTags: (newTags) =>
     curTags = @get 'tags'
-    tags = _.filter _.union(curTags, newTags), (tag) -> tag
+    combo = _(curTags).union(newTags)
+    tags = _(combo).filter (tag) -> tag
     @set tags: (_.str.slugify(tag) for tag in tags)
     @save patch: true
 
