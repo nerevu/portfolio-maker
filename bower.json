@@ -1,6 +1,6 @@
 {
-  "name": "gh-viewer",
-  "version": "0.0.1",
+  "name": "portfolio-maker",
+  "version": "0.4.0",
   "main": "public/javascripts/app.js",
   "dependencies": {
     "chaplin": "~0.11.3",

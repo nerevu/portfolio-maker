@@ -1,9 +1,10 @@
 {
   "author": "Reuben Cummings",
-  "name": "gh-viewer",
-  "description": "View GitHub user information",
+  "name": "portfolio-maker",
+  "description": "Automatically generates a project portfolio via github and flickr APIs",
   "version": "0.4.0",
   "homepage": "",
+  "keywords": ["application", "github-api", "flickr-api", "blog"],
   "repository": {
     "type": "git",
     "url": ""
