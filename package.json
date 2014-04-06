@@ -26,7 +26,8 @@
     "markdown-brunch": "git://github.com/reubano/markdown-brunch",
     "ls-brunch": "git://github.com/reubano/ls-brunch",
     "yaml-front-matter": "~3.0.1",
-    "sass-brunch": "~1.8.1"
+    "sass-brunch": "~1.8.1",
+    "process-env-brunch": "~1.4.4-d"
   },
   "devDependencies": {}
 }
