@@ -10,7 +10,6 @@
     "bootstrap": "~3.0.3",
     "minilog": "*",
     "moment": "~2.4.0",
-    "nvd3": "~1.1.14-beta",
     "Backbone.dualStorage": "git://github.com/nilbus/Backbone.dualStorage",
     "blueimp-md5": "~1.1.0",
     "js-base64": "~2.1.2",
@@ -32,15 +31,6 @@
         "jquery": "*"
       },
       "main": "backbone.js"
-    },
-    "nvd3": {
-      "dependencies": {
-        "d3": "3.3.5"
-      },
-      "main": [
-        "nv.d3.js",
-        "nv.d3.css"
-      ]
     }
   }
 }
