@@ -136,21 +136,21 @@ config =
   ######################
   github:
     user: 'reubano'
-    api_token: 'cdac348c97dbdf5252d530103e0bfb2b9275d126'
+    api_token: $PROCESS_ENV_GITHUB_ACCOUNT_KEY
     skip_forks: true
     show_follow_badge: true
     show_follower_count: false
 
   flickr:
     user: 'reubano'
-    api_token: '76ca8dd185de46fdd0d24c24f6e4d0ea'
-    secret: '7e8d94900e2a23c0'
+    api_token: $PROCESS_ENV_FLICKR_ACCOUNT_KEY
+    secret: $PROCESS_ENV_FLICKR_ACCOUNT_SECRET
     show_follow_badge: true
     show_follower_count: false
 
   twitter:
     user: 'reubano'
-    api_token: 'cdac348c97dbdf5252d530103e0bfb2b9275d126'
+    api_token: $PROCESS_ENV_TWITTER_ACCOUNT_KEY
     show_follow_badge: true
     show_follower_count: false
     show_replies: false

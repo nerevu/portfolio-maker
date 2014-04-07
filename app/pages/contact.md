@@ -4,7 +4,7 @@ sidebar: false
 sharing: false
 footer: true
 ---
-## You can contact me via the following:
+## You can contact or connect with me via the following:
 
 * [<p><span class='glyphicon glyphicon-envelope'></span></p>](mailto:reubano@gmail.com)
 * [<p><span class='symbol'>skype</span></p>](skype:reubano)

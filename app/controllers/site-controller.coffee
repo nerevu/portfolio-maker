@@ -24,19 +24,19 @@ module.exports = class SiteController extends Controller
         collection = @gallery
         @sub_title = 'Photo '
         @sub_type = 'photo'
+
       when 'portfolio'
-        collection = @portfolio.mergeModels(
-          @screenshots, ['url_s', 'url_m'], 'main')
-
-        collection = collection.mergeModels(
-          @screenshots, ['url_sq'], 'thumb')
-
+        collection = @portfolio.mergeModels @screenshots, ['url_s'], 'small'
+        collection = collection.mergeModels @screenshots, ['url_m'], 'main'
+        collection = collection.mergeModels @screenshots, ['url_sq'], 'square'
         @sub_title = 'Project '
         @sub_type = 'project'
+
       when 'blog'
         collection = @blog
         @sub_title = ''
         @sub_type = 'post'
+
       else
         collection = @pages
         @sub_title = ''
@@ -59,9 +59,16 @@ module.exports = class SiteController extends Controller
     else
       @tagfilterer = @filterer
 
+    if @type in @pages.pluck 'name'
+      @model = collection.findWhere name: @type
+    else if @id and identifier
+      @model = collection.findWhere @find_where
+      @related = collection.getRelated @model
+
     @recent = collection.getRecent()
     @popular = collection.getPopular()
     @random = collection.getRandom()
+    @tags = collection.getTags @filterer
     @active = _.str.capitalize @type
 
     if recent_comparator
@@ -74,19 +81,18 @@ module.exports = class SiteController extends Controller
     utils.log "show #{@type} #{@id} site-controller"
     collection = @paginator.collection
     collection.setPagers @filterer
-    model = collection.findWhere @find_where
     title = model?.get 'title'
 
     @adjustTitle title
     @view = new DetailView
-      model: model
+      model: @model
       active: @active
       title: title
       pager: config[@type].show_pager
       recent: @recent
       popular: @popular
       random: @random
-      type: @type
+      related: @related
       sub_type: @sub_type
 
   index: (params) =>
@@ -95,31 +101,24 @@ module.exports = class SiteController extends Controller
 
     if @type in @pages.pluck 'name'
       utils.log "#{@type} is a model"
-      model = collection.findWhere name: @type
-      title = model?.get 'title'
+      title = @model?.get 'title'
       @adjustTitle title
 
       @view = new DetailView
-        model: model
+        model: @model
         active: title
         title: title
-        recent_posts: @blog.getRecent()
-        recent_projects: @portfolio.getRecent()
-        popular_projects: @portfolio.getPopular()
-        recent_photos: @gallery.getRecent()
-        popular_photos: @gallery.getPopular()
 
     else
       utils.log "#{@type} is a collection"
       title = "My #{@sub_title}#{@active}"
       @adjustTitle title
-      tags = collection.getTags @filterer
 
       @view = new MainView
         collection: collection
         paginator: @paginator
-        filterer: @tagfilterer
-        tagfilter: @filterer
+        filterer: @tagfilterer  # only show tagged items
+        tagfilter: @filterer  # show tags for all site items
         cur_page: @num
         next_page: @num + 1
         prev_page: @num - 1
@@ -128,7 +127,7 @@ module.exports = class SiteController extends Controller
         recent: @recent
         popular: @popular
         random: @random
-        tags: tags
+        tags: @tags
         tag: @tag
         type: @type
         sub_type: @sub_type

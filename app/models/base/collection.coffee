@@ -27,7 +27,9 @@ module.exports = class Collection extends Chaplin.Collection
   getTags: (filter=false) =>
     collection = @prefilter filter
     tags = _(_.flatten(collection.pluck 'tags')).uniq()
-    tags = _.filter tags, (tag) -> tag
+    filterd = _.filter tags, (tag) -> tag
+    filterd.sort()
+    filterd
 
   getModels: (collection, length) =>
     models = []
@@ -51,12 +53,14 @@ module.exports = class Collection extends Chaplin.Collection
     other = _(other.models).filter (model) -> tag in (model.get('tags') ? [])
 
     _(collection.models).each (model) ->
-      name = model.get 'name'
+      name = model.get('name').replace '-', ''
       filtered = _(other).filter (model) -> name in (model.get('tags') ? [])
-      if filtered
+      if filtered.length > 0
         _(attrs).each (attr) -> model.set attr, _.first(filtered)?.get attr
       else
-        utils.log "#{name} has no matching screenshots"
+        # utils.log "#{name} has no matching screenshots... setting default img"
+        _(attrs).each (attr) ->
+          model.set attr, "/images/placeholder_#{attr}-or8.png"
 
     collection
 
@@ -98,42 +102,58 @@ module.exports = class Collection extends Chaplin.Collection
         cur.set prev_href: collection.at(real - 1).get 'href'
         cur.set next_href: collection.at(real + 1).get 'href'
 
-  getRecent: (type=false) =>
-    type = type or @type
-    console.log "get recent #{type}"
-    recent = []
-    comparator = config[type]?.recent_comparator
+  getRelated: (model) =>
+    console.log "get related #{@sub_type}'s"
+    tags = _(model.get 'tags').union model.get 'language', model.get 'audience'
 
-    if comparator
-      filter = config[type]?.filterer
+    if tags
+      filter = config[@type]?.filterer
       collection = if filter then new Collection(@where(filter)) else @
-      collection.comparator = (model) -> - model.get comparator
+      collection.comparator = (other) ->
+        language = other.get 'language'
+        audience = other.get 'audience'
+        other_tags = _(other.get 'tags').union language, audience
+        common = _(tags).intersection other_tags
+        - common.length
+
       collection.sort()
-      @getModels collection, config[type].recent_count
+      models = @getModels collection, config[@type].related_count + 1
+      _(models).filter (related) -> related.title isnt model.get 'title'
     else
       []
 
-  getPopular: (type=false) =>
-    type = type or @type
-    console.log "get popular #{type}"
-    comparator = config[type]?.popular_comparator
+  getRecent: =>
+    console.log "get recent #{@type}"
+    comparator = config[@type]?.recent_comparator
 
     if comparator
-      filter = config[type]?.filterer
+      filter = config[@type]?.filterer
       collection = if filter then new Collection(@where(filter)) else @
       collection.comparator = (model) -> - model.get comparator
       collection.sort()
-      @getModels collection, config[type].popular_count
+      @getModels collection, config[@type].recent_count
     else
       []
 
-  getRandom: (type=false) =>
-    type = type or @type
-    console.log "get random #{type}"
-    length = config[type]?.random_count
+  getPopular: =>
+    console.log "get popular #{@type}"
+    comparator = config[@type]?.popular_comparator
+
+    if comparator
+      filter = config[@type]?.filterer
+      collection = if filter then new Collection(@where(filter)) else @
+      collection.comparator = (model) -> - model.get comparator
+      collection.sort()
+      @getModels collection, config[@type].popular_count
+    else
+      []
+
+  getRandom: =>
+    console.log "get random #{@type}"
+    length = config[@type]?.random_count
 
     if length
-      filter = config[type]?.filterer
+      filter = config[@type]?.filterer
       collection = if filter then @where(filter) else @models
       collection = new Collection _(collection).shuffle()
       @getModels collection, length

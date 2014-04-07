@@ -32,21 +32,19 @@ module.exports = class IndexView extends CollectionView
     @tag = options.tag
     mediator.setActive options.active
 
-    @subscribeEvent "change:tags", =>
+    @subscribeEvent "change:tags", (tags) =>
       utils.log 'main-view heard change:tags event'
-      @tags = @collection.getTags @tagfilter
+      @tags = _(@tags).union tags
       @getTemplateData()
       @render()
 
     @subscribeEvent 'screenshots:synced', (screenshots) =>
       utils.log 'main-view heard screenshots synced event'
-      collection = mediator.portfolio.mergeModels(
-        screenshots, ['url_s', 'url_m'], 'main')
-
-      collection = collection.mergeModels(
-        screenshots, ['url_sq'], 'thumb')
-
-      @setTemplateData collection, 'portfolio'
+      portfolio = mediator.portfolio
+      portfolio = portfolio.mergeModels screenshots, ['url_s'], 'small'
+      portfolio = portfolio.mergeModels screenshots, ['url_m'], 'main'
+      portfolio = portfolio.mergeModels screenshots, ['url_sq'], 'square'
+      @setTemplateData portfolio
 
     @subscribeEvent "#{@type}:synced", (collection) =>
       utils.log "main-view heard #{@type} synced event"
@@ -65,14 +63,14 @@ module.exports = class IndexView extends CollectionView
     utils.log 'rendering main view'
     # console.log @collection
 
-  setTemplateData: (collection, type=false) =>
+  setTemplateData: (collection) =>
     utils.log 'set main-view template data'
     console.log collection.type
     @paginator = collection.paginator @cur_page, @filterer
     @collection = @paginator.collection
-    @recent = collection.getRecent type
-    @popular = collection.getPopular type
-    @random = collection.getRandom type
+    @recent = collection.getRecent()
+    @popular = collection.getPopular()
+    @random = collection.getRandom()
     @tags = collection.getTags @tagfilter
     @getTemplateData()
     @render()

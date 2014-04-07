@@ -9,7 +9,7 @@ module.exports = class ItemView extends View
   region: 'content'
 
   listen:
-    # 'all': (event) => utils.log "item-view heard #{event}"
+    # 'all': (event) => utils.log "detail-view heard #{event}"
     'addedToParent': => utils.log "heard addedToParent"
 
   initialize: (options) =>
@@ -19,70 +19,77 @@ module.exports = class ItemView extends View
     else
       @template = require "views/templates/404"
 
-    @type = options.type
     @sub_type = options.sub_type
-    @recent_posts = options.recent_posts
-    @recent_projects = options.recent_projects
-    @popular_projects = options.popular_projects
-    @recent_photos = options.recent_photos
-    @popular_photos = options.popular_photos
-    @recent = options.recent
-    @popular = options.popular
+
+    if @sub_type
+      @recent = options.recent
+      @popular = options.popular
+      @related = options.related
+    else
+      @blog = mediator.blog
+      @portfolio = mediator.portfolio
+      @gallery = mediator.gallery
+
     @title = options.title
     @pager = options.pager
     mediator.setActive options.active
 
     if @model
-      utils.log "initializing #{@model.get 'title'} item-view"
+      utils.log "initializing #{@model.get 'title'} detail-view"
     else
-      utils.log "initializing 404 item-view"
+      utils.log "initializing 404 detail-view"
 
     @subscribeEvent 'screenshots:synced', (screenshots) =>
-      utils.log 'item-view heard screenshots synced event'
-      collection = mediator.portfolio.mergeModels(
-        screenshots, ['url_s', 'url_m'], 'main')
-
-      collection = collection.mergeModels(
-        screenshots, ['url_sq'], 'thumb')
-
-      @setTemplateData collection, 'portfolio'
+      utils.log 'detail-view heard screenshots synced event'
+      portfolio = mediator.portfolio
+      portfolio = portfolio.mergeModels screenshots, ['url_s'], 'small'
+      portfolio = portfolio.mergeModels screenshots, ['url_m'], 'main'
+      portfolio = portfolio.mergeModels screenshots, ['url_sq'], 'square'
+      @setTemplateData portfolio
 
     @subscribeEvent 'gallery:synced', (gallery) =>
-      utils.log 'item-view heard gallery synced event'
+      utils.log 'detail-view heard gallery synced event'
       @setTemplateData gallery
 
     @subscribeEvent 'portfolio:synced', (portfolio) =>
-      utils.log 'item-view heard portfolio synced event'
+      utils.log 'detail-view heard portfolio synced event'
       @setTemplateData portfolio
 
   render: =>
     super
-    utils.log "rendering item-view"
+    utils.log "rendering detail-view"
     console.log @model
 
-  setTemplateData: (collection, type=false) =>
-    utils.log 'set item-view template data'
-    @["recent_#{@sub_type}s"] = collection.getRecent type
-    @["popular_#{@sub_type}s"] = collection.getPopular type
+  setTemplateData: (collection) =>
+    utils.log 'set detail-view template data'
+
+    if @sub_type
+      @recent = collection.getRecent()
+      @popular = collection.getPopular()
+      @related = collection.getRelated @model
+    else
+      @[collection.type] = collection
+
     @getTemplateData()
     @render()
 
   getTemplateData: =>
-    utils.log 'get item-view template data'
+    utils.log 'get detail-view template data'
     templateData = super
     templateData.page_title = @title
     templateData.pager = @pager
-    templateData.recent_posts = @recent_posts
-    templateData.recent_projects = @recent_projects
-    templateData.popular_projects = @popular_projects
-    templateData.recent_photos = @recent_photos
-    templateData.popular_photos = @popular_photos
+    templateData.partial = @model.get 'partial' if @model
+
     if @sub_type
       templateData["recent_#{@sub_type}s"] = @recent
       templateData["popular_#{@sub_type}s"] = @popular
-
-    if @model
-      templateData.partial = @model.get 'partial'
+      templateData["related_#{@sub_type}s"] = @related
+    else
+      templateData.recent_posts = @blog.getRecent()
+      templateData.recent_projects = @portfolio.getRecent()
+      templateData.recent_photos = @gallery.getRecent()
+      templateData.popular_projects = @portfolio.getPopular()
+      templateData.popular_photos = @gallery.getPopular()
 
     templateData
 

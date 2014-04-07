@@ -1,7 +1,6 @@
 /* Site CSS */
 #page-title {margin-bottom: 20px;}
 #page-title .lead {margin-bottom: 0;}
-#sidebar { margin-left: 0px;}
 #sidebar h3 {
   padding-bottom: 9px;
   border-bottom: 1px solid #eee;
@@ -97,11 +96,18 @@ html, body, body #container {height: 100%;}
 	margin: -10px 0 15px;
 }
 
+.gallery-projects, .gallery-photos {border-top: 1px solid #eee;}
 .gallery-photos .gallery-item {margin-top: 5px;}
-.gallery .thumbnail, .gallery .panel {
-  margin-bottom: 0;
-  margin-top: 5px;
+.gallery .thumbnail {
+  padding: 4px;
+  border: none;
 }
+
+.gallery .thumbnail img {
+  height: 50px;
+}
+
+.gallery .thumbnail, .gallery .panel {margin: 5px 0 0 0;}
 .gallery .panel-heading {padding: 5px;}
 .gallery-item {padding: 0 2.5px}
 .gallery-projects .caption, .excerpt-photo .caption {padding: 5px 0 0 0;}
@@ -113,13 +119,13 @@ html, body, body #container {height: 100%;}
 .dl-excerpt {margin-bottom: 0;}
 .dl-excerpt dt {
   float: left;
-  width: 100px;
+  width: 75px;
   clear: left;
   text-align: right;
   white-space: nowrap;
 }
 
-.dl-excerpt dd {margin-left: 110px;}
+.dl-excerpt dd {margin-left: 85px;}
 .dl-excerpt dd:after {clear: both;}
 .dl-excerpt dd:before, .dl-excerpt dd:after {
   display: table;
