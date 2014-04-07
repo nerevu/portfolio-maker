@@ -82,22 +82,28 @@ module.exports = class Project extends Model
       @save patch: true
 
   getMeta: =>
+    console.log "getMeta for #{@get 'name'}"
     @set fetching_meta: true
     promise = $.get "#{@get('meta_base_url')}?#{token}"
-    do (model = @) ->
-      promise.then(model.getFileList).then(model.fetchFiles)
-      promise.fail(model.failWhale)
+
+    do (model = @) -> promise
+      .then(model.getFileList)
+      .then(model.fetchFiles)
+      .fail(model.failWhale)
 
   getFileList: (data) =>
     names = _(data).pluck('name')
-    _(names).intersection(@meta_files)
+    _(@meta_files).intersection(names)
 
   fetchFiles: (files) =>
-    for file in files
+    file = _.first(files)
+    if file
       promise = $.get "#{@get 'meta_base_url'}/#{file}?#{token}"
-      do (model = @) ->
-        promise.then(model.parseMeta).then(model.setMeta)
-        promise.fail(model.failWhale)
+
+      do (model = @) -> promise
+        .then(model.parseMeta)
+        .then(model.setMeta)
+        .fail(model.failWhale)
 
   standardizeTags: (tags) =>
     if tags? and tags
