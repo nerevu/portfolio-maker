@@ -47,8 +47,8 @@ module.exports = class Project extends Model
     @addTags language
     @meta_files = @getOptions language, 'meta_files'
     @package_managers = @getOptions language, 'package_managers'
-    @getMeta()
     # @meta_files.push 'meta.yml'
+    @getMeta() if not (@get('meta') or @get('fetching_meta'))
 
   getOptions: (language, option) =>
     switch language
@@ -78,6 +78,7 @@ module.exports = class Project extends Model
     @save patch: true
 
   getMeta: =>
+    @set fetching_meta: true
     promise = $.get "#{@get('meta_base_url')}?#{token}"
     do (model = @) ->
       promise.then(model.getFileList).then(model.fetchFiles)
@@ -189,6 +190,8 @@ module.exports = class Project extends Model
       tags.push value if key not in ['tags', 'version']
 
     @addTags tags
+    @set meta: true
+    @set fetching_meta: false
     @save patch: true
 
   failWhale: (res, textStatus, err) =>
