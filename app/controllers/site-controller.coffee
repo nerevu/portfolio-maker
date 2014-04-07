@@ -62,6 +62,7 @@ module.exports = class SiteController extends Controller
     @recent = collection.getRecent()
     @popular = collection.getPopular()
     @random = collection.getRandom()
+    @tags = collection.getTags @filterer
     @active = _.str.capitalize @type
 
     if recent_comparator
@@ -113,7 +114,6 @@ module.exports = class SiteController extends Controller
       utils.log "#{@type} is a collection"
       title = "My #{@sub_title}#{@active}"
       @adjustTitle title
-      tags = collection.getTags @filterer
 
       @view = new MainView
         collection: collection
@@ -128,7 +128,7 @@ module.exports = class SiteController extends Controller
         recent: @recent
         popular: @popular
         random: @random
-        tags: tags
+        tags: @tags
         tag: @tag
         type: @type
         sub_type: @sub_type

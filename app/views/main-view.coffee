@@ -32,9 +32,9 @@ module.exports = class IndexView extends CollectionView
     @tag = options.tag
     mediator.setActive options.active
 
-    @subscribeEvent "change:tags", =>
+    @subscribeEvent "change:tags", (tags) =>
       utils.log 'main-view heard change:tags event'
-      @tags = @collection.getTags @tagfilter
+      @tags = _(@tags).union tags
       @getTemplateData()
       @render()
 
