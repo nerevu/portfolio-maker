@@ -159,6 +159,8 @@ module.exports = class Project extends Model
     meta = {}
     temp = {}
     content = Base64.decode data.content
+    # console.log @get 'name'
+    # console.log data.name
 
     switch data.name
       when 'package.json'
@@ -262,11 +264,6 @@ module.exports = class Project extends Model
     meta.license = @standardizeLicense meta.license
     meta
 
-    # console.log @get 'name'
-    # console.log data.name
-    # console.log parsed
-    # console.log temp
-    # console.log meta
     # if @package_managers
     #   meta.package_manager = @package_managers[0]
 

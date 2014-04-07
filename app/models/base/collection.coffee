@@ -58,7 +58,7 @@ module.exports = class Collection extends Chaplin.Collection
       if filtered.length > 0
         _(attrs).each (attr) -> model.set attr, _.first(filtered)?.get attr
       else
-        utils.log "#{name} has no matching screenshots... setting default img"
+        # utils.log "#{name} has no matching screenshots... setting default img"
         _(attrs).each (attr) ->
           model.set attr, "/images/placeholder_#{attr}-or8.png"
 
