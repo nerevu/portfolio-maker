@@ -44,7 +44,7 @@ module.exports = class IndexView extends CollectionView
       portfolio = portfolio.mergeModels screenshots, ['url_s'], 'small'
       portfolio = portfolio.mergeModels screenshots, ['url_m'], 'main'
       portfolio = portfolio.mergeModels screenshots, ['url_sq'], 'square'
-      @setTemplateData portfolio, 'portfolio'
+      @setTemplateData portfolio
 
     @subscribeEvent "#{@type}:synced", (collection) =>
       utils.log "main-view heard #{@type} synced event"
@@ -63,14 +63,14 @@ module.exports = class IndexView extends CollectionView
     utils.log 'rendering main view'
     # console.log @collection
 
-  setTemplateData: (collection, type=false) =>
+  setTemplateData: (collection) =>
     utils.log 'set main-view template data'
     console.log collection.type
     @paginator = collection.paginator @cur_page, @filterer
     @collection = @paginator.collection
-    @recent = collection.getRecent type
-    @popular = collection.getPopular type
-    @random = collection.getRandom type
+    @recent = collection.getRecent()
+    @popular = collection.getPopular()
+    @random = collection.getRandom()
     @tags = collection.getTags @tagfilter
     @getTemplateData()
     @render()

@@ -102,42 +102,38 @@ module.exports = class Collection extends Chaplin.Collection
         cur.set prev_href: collection.at(real - 1).get 'href'
         cur.set next_href: collection.at(real + 1).get 'href'
 
-  getRecent: (type=false) =>
-    type = type or @type
-    console.log "get recent #{type}"
-    recent = []
-    comparator = config[type]?.recent_comparator
+  getRecent: =>
+    console.log "get recent #{@type}"
+    comparator = config[@type]?.recent_comparator
 
     if comparator
-      filter = config[type]?.filterer
+      filter = config[@type]?.filterer
       collection = if filter then new Collection(@where(filter)) else @
       collection.comparator = (model) -> - model.get comparator
       collection.sort()
-      @getModels collection, config[type].recent_count
+      @getModels collection, config[@type].recent_count
     else
       []
 
-  getPopular: (type=false) =>
-    type = type or @type
-    console.log "get popular #{type}"
-    comparator = config[type]?.popular_comparator
+  getPopular: =>
+    console.log "get popular #{@type}"
+    comparator = config[@type]?.popular_comparator
 
     if comparator
-      filter = config[type]?.filterer
+      filter = config[@type]?.filterer
       collection = if filter then new Collection(@where(filter)) else @
       collection.comparator = (model) -> - model.get comparator
       collection.sort()
-      @getModels collection, config[type].popular_count
+      @getModels collection, config[@type].popular_count
     else
       []
 
-  getRandom: (type=false) =>
-    type = type or @type
-    console.log "get random #{type}"
-    length = config[type]?.random_count
+  getRandom: =>
+    console.log "get random #{@type}"
+    length = config[@type]?.random_count
 
     if length
-      filter = config[type]?.filterer
+      filter = config[@type]?.filterer
       collection = if filter then @where(filter) else @models
       collection = new Collection _(collection).shuffle()
       @getModels collection, length

@@ -39,13 +39,11 @@ module.exports = class ItemView extends View
 
     @subscribeEvent 'screenshots:synced', (screenshots) =>
       utils.log 'item-view heard screenshots synced event'
-      collection = mediator.portfolio.mergeModels(
-        screenshots, ['url_s', 'url_m'], 'main')
-
-      collection = collection.mergeModels(
-        screenshots, ['url_sq'], 'thumb')
-
-      @setTemplateData collection, 'portfolio'
+      portfolio = mediator.portfolio
+      portfolio = portfolio.mergeModels screenshots, ['url_s'], 'small'
+      portfolio = portfolio.mergeModels screenshots, ['url_m'], 'main'
+      portfolio = portfolio.mergeModels screenshots, ['url_sq'], 'square'
+      @setTemplateData portfolio
 
     @subscribeEvent 'gallery:synced', (gallery) =>
       utils.log 'item-view heard gallery synced event'
@@ -60,10 +58,11 @@ module.exports = class ItemView extends View
     utils.log "rendering item-view"
     console.log @model
 
-  setTemplateData: (collection, type=false) =>
+  setTemplateData: (collection) =>
     utils.log 'set item-view template data'
-    @["recent_#{@sub_type}s"] = collection.getRecent type
-    @["popular_#{@sub_type}s"] = collection.getPopular type
+    @recent = collection.getRecent()
+    @popular = collection.getPopular()
+    @related = collection.getRelated @model
     @getTemplateData()
     @render()
 
