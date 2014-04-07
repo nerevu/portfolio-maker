@@ -113,13 +113,13 @@ html, body, body #container {height: 100%;}
 .dl-excerpt {margin-bottom: 0;}
 .dl-excerpt dt {
   float: left;
-  width: 100px;
+  width: 75px;
   clear: left;
   text-align: right;
   white-space: nowrap;
 }
 
-.dl-excerpt dd {margin-left: 110px;}
+.dl-excerpt dd {margin-left: 85px;}
 .dl-excerpt dd:after {clear: both;}
 .dl-excerpt dd:before, .dl-excerpt dd:after {
   display: table;
