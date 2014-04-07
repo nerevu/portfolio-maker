@@ -93,7 +93,6 @@ module.exports = class SiteController extends Controller
       popular: @popular
       random: @random
       related: @related
-      type: @type
       sub_type: @sub_type
 
   index: (params) =>
@@ -109,11 +108,6 @@ module.exports = class SiteController extends Controller
         model: @model
         active: title
         title: title
-        recent_posts: @blog.getRecent()
-        recent_projects: @portfolio.getRecent()
-        popular_projects: @portfolio.getPopular()
-        recent_photos: @gallery.getRecent()
-        popular_photos: @gallery.getPopular()
 
     else
       utils.log "#{@type} is a collection"
