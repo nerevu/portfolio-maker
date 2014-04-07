@@ -118,8 +118,8 @@ module.exports = class SiteController extends Controller
       @view = new MainView
         collection: collection
         paginator: @paginator
-        filterer: @tagfilterer
-        tagfilter: @filterer
+        filterer: @tagfilterer  # only show tagged items
+        tagfilter: @filterer  # show tags for all site items
         cur_page: @num
         next_page: @num + 1
         prev_page: @num - 1
