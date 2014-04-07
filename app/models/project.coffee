@@ -181,22 +181,48 @@ module.exports = class Project extends Model
       when 'setup.py'
         parsed = _.str.lines content
         parsed = (_.str.clean(line) for line in parsed)
+        parsed = (_.str.trim(line, "'") for line in parsed)
+        parsed = (_.str.trim(line, '"') for line in parsed)
+        keywords = _(parsed).filter (line) -> _.str.startsWith line, 'keywords'
+        version = _(parsed).filter (line) -> _.str.startsWith line, 'version'
         parsed = _(parsed).filter (line) -> _.str.count line, '::'
-        parsed = (_.str.ltrim(line, '\'') for line in parsed)
-        parsed = (_.str.rtrim(line, ',\'') for line in parsed)
+        parsed = (_.str.trim(line, ',\'') for line in parsed)
+
+        if keywords.length > 0
+          keywords = _.first keywords
+          splitby = if _.str.count(keywords, '=') then '=' else ':'
+          keywords = keywords.split splitby
+          keywords = _.last(keywords).trim()
+          keywords = _.str.trim keywords, '('
+          keywords = _.str.trim keywords, ')'
+          keywords = _.str.trim keywords, ','
+          keywords = _.str.trim keywords, "'"
+        else
+          keywords = ''
+
+        if version.length > 0
+          version = _.first version
+          splitby = if _.str.count(version, '=') then '=' else ':'
+          version = version.split splitby
+          version = _.last(version).trim()
+          version = _.str.trim version, ","
+          version = _.str.trim version, "'"
 
         for line in parsed
           words = _.str.words line, '::'
           key = _.first(words).trim().replace ' ', '_'
-          values = (_.str.clean(word) for word in _.rest(words))
-          long = values.length > 1
-          temp[key] = if long then values else values.toString()
+          value = _.last(words).trim()
+          if temp?[key]
+            temp[key] = _(temp[key]).union value
+          else
+            temp[key] = value
 
         meta.audience = temp?.Intended_Audience
         meta.environment = temp?.Environment
         meta.os = temp?.Operating_System
-        meta.license = _.first _.rest (temp?.License ? [])
-        meta.tags = temp?.Topic
+        meta.license = temp?.License
+        meta.tags = _.union keywords.split(','), temp?.Topic
+        meta.version = version
 
       when 'package.xml'
         meta = $.parseXML content
