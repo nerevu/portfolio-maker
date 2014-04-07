@@ -102,6 +102,26 @@ module.exports = class Collection extends Chaplin.Collection
         cur.set prev_href: collection.at(real - 1).get 'href'
         cur.set next_href: collection.at(real + 1).get 'href'
 
+  getRelated: (model) =>
+    console.log "get related #{@sub_type}'s"
+    tags = _(model.get 'tags').union model.get 'language', model.get 'audience'
+
+    if tags
+      filter = config[@type]?.filterer
+      collection = if filter then new Collection(@where(filter)) else @
+      collection.comparator = (other) ->
+        language = other.get 'language'
+        audience = other.get 'audience'
+        other_tags = _(other.get 'tags').union language, audience
+        common = _(tags).intersection other_tags
+        - common.length
+
+      collection.sort()
+      models = @getModels collection, config[@type].related_count + 1
+      _(models).filter (related) -> related.title isnt model.get 'title'
+    else
+      []
+
   getRecent: =>
     console.log "get recent #{@type}"
     comparator = config[@type]?.recent_comparator

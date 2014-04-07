@@ -28,6 +28,7 @@ module.exports = class ItemView extends View
     @popular_photos = options.popular_photos
     @recent = options.recent
     @popular = options.popular
+    @related = options.related
     @title = options.title
     @pager = options.pager
     mediator.setActive options.active
@@ -79,6 +80,7 @@ module.exports = class ItemView extends View
     if @sub_type
       templateData["recent_#{@sub_type}s"] = @recent
       templateData["popular_#{@sub_type}s"] = @popular
+      templateData["related_#{@sub_type}s"] = @related
 
     if @model
       templateData.partial = @model.get 'partial'

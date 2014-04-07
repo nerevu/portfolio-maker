@@ -59,6 +59,12 @@ module.exports = class SiteController extends Controller
     else
       @tagfilterer = @filterer
 
+    if @type in @pages.pluck 'name'
+      @model = collection.findWhere name: @type
+    else if @id and identifier
+      @model = collection.findWhere @find_where
+      @related = collection.getRelated @model
+
     @recent = collection.getRecent()
     @popular = collection.getPopular()
     @random = collection.getRandom()
@@ -75,18 +81,18 @@ module.exports = class SiteController extends Controller
     utils.log "show #{@type} #{@id} site-controller"
     collection = @paginator.collection
     collection.setPagers @filterer
-    model = collection.findWhere @find_where
     title = model?.get 'title'
 
     @adjustTitle title
     @view = new DetailView
-      model: model
+      model: @model
       active: @active
       title: title
       pager: config[@type].show_pager
       recent: @recent
       popular: @popular
       random: @random
+      related: @related
       type: @type
       sub_type: @sub_type
 
@@ -96,12 +102,11 @@ module.exports = class SiteController extends Controller
 
     if @type in @pages.pluck 'name'
       utils.log "#{@type} is a model"
-      model = collection.findWhere name: @type
-      title = model?.get 'title'
+      title = @model?.get 'title'
       @adjustTitle title
 
       @view = new DetailView
-        model: model
+        model: @model
         active: title
         title: title
         recent_posts: @blog.getRecent()
