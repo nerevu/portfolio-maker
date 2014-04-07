@@ -52,9 +52,9 @@ module.exports = class Project extends Model
 
   getOptions: (language, option) =>
     switch language
-      when 'javascript', 'coffeescript'
+      when 'javascript', 'coffeescript', 'css'
         switch option
-          when 'meta_files' then ['bower.json', 'package.json']
+          when 'meta_files' then ['package.json', 'bower.json']
           when 'package_managers' then ['npm', 'bower']
       when 'python'
         switch option
@@ -62,7 +62,8 @@ module.exports = class Project extends Model
           when 'package_managers' then ['pypi']
       when 'php'
         switch option
-          when 'meta_files' then ['package.xml', 'pearfarm.spec']
+          when 'meta_files' then [
+            'composer.json', 'pearfarm.spec', 'package.xml']
           when 'package_managers' then ['pear']
       when 'shell'
         switch option
@@ -165,6 +166,14 @@ module.exports = class Project extends Model
       when 'bower.json'
         parsed = JSON.parse content
         meta.environment = parsed?.environment
+        meta.version = parsed?.version
+        meta.license = parsed?.license
+        meta.tags = parsed?.keywords
+
+      when 'composer.json'
+        parsed = JSON.parse content
+        meta.environment = parsed?.environment
+        meta.type = parsed?.type ? 'library'
         meta.version = parsed?.version
         meta.license = parsed?.license
         meta.tags = parsed?.keywords
