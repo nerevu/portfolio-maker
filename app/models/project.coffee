@@ -155,6 +155,20 @@ module.exports = class Project extends Model
 
       ls
 
+  parseEntry: (list, trimby) ->
+    if list.length > 0
+      item = _.first list
+      splitby = if _.str.count(item, '=') then '=' else ':'
+      item = item.split splitby
+      item = _.last(item).trim()
+
+      for char in trimby
+        item = _.str.trim item, char
+    else
+      item = false
+
+    item
+
   parseMeta: (data) =>
     meta = {}
     temp = {}
@@ -196,26 +210,6 @@ module.exports = class Project extends Model
         parsed = _(parsed).filter (line) -> _.str.count line, '::'
         parsed = (_.str.trim(line, ',\'') for line in parsed)
 
-        if keywords.length > 0
-          keywords = _.first keywords
-          splitby = if _.str.count(keywords, '=') then '=' else ':'
-          keywords = keywords.split splitby
-          keywords = _.last(keywords).trim()
-          keywords = _.str.trim keywords, '('
-          keywords = _.str.trim keywords, ')'
-          keywords = _.str.trim keywords, ','
-          keywords = _.str.trim keywords, "'"
-        else
-          keywords = ''
-
-        if version.length > 0
-          version = _.first version
-          splitby = if _.str.count(version, '=') then '=' else ':'
-          version = version.split splitby
-          version = _.last(version).trim()
-          version = _.str.trim version, ","
-          version = _.str.trim version, "'"
-
         for line in parsed
           words = _.str.words line, '::'
           key = _.first(words).trim().replace ' ', '_'
@@ -225,12 +219,13 @@ module.exports = class Project extends Model
           else
             temp[key] = value
 
-        meta.audience = temp?.Intended_Audience
         meta.environment = temp?.Environment
-        meta.os = temp?.Operating_System
+        meta.version = parseEntry version, [",", "'"]
         meta.license = temp?.License
-        meta.tags = _.union keywords.split(','), temp?.Topic
-        meta.version = version
+        keywords = parseEntry keywords, ['(', ')', ',', "'"]
+        meta.keywords = _.union keywords.split(','), temp?.Topic
+        meta.os = temp?.Operating_System
+        meta.audience = temp?.Intended_Audience
 
       when 'package.xml'
         meta = $.parseXML content
