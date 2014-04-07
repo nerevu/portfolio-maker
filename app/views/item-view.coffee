@@ -3,11 +3,11 @@ mediator = require 'mediator'
 config = require 'config'
 utils = require 'lib/utils'
 
-module.exports = class ExcerptView extends View
+module.exports = class ItemView extends View
   region: 'content'
 
   initialize: (options) =>
     super
-    utils.log 'initializing excerpt-view'
+    # utils.log 'initializing item-view'
     @listenTo @model, 'change', @render
     @listenTo @model, 'change:tags', => @publishEvent "change:tags"
