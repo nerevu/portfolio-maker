@@ -44,7 +44,7 @@ module.exports = class Project extends Model
     @set created_str: created.format("MMMM Do, YYYY")
     @set updated_str: updated.format("MMMM Do, YYYY")
 
-    @addTags language
+    # @addTags [language]
     @meta_files = @getOptions language, 'meta_files'
     @package_managers = @getOptions language, 'package_managers'
     # @meta_files.push 'meta.yml'
@@ -71,11 +71,14 @@ module.exports = class Project extends Model
       else []
 
   addTags: (newTags) =>
-    curTags = @get 'tags'
-    combo = _(curTags).union(newTags)
-    tags = _(combo).filter (tag) -> tag
-    @set tags: (_.str.slugify(tag) for tag in tags)
-    @save patch: true
+    if newTags
+      curTags = @get 'tags'
+      tags = (_.str.slugify(tag) for tag in newTags)
+      combo = _(curTags).union(tags)
+      filtered = _(combo).filter (tag) -> tag
+      filtered.sort()
+      @set tags: filtered
+      @save patch: true
 
   getMeta: =>
     @set fetching_meta: true
@@ -95,16 +98,55 @@ module.exports = class Project extends Model
         promise.then(model.parseMeta).then(model.setMeta)
         promise.fail(model.failWhale)
 
+  standardizeTags: (tags) =>
+    if tags? and tags
+      members = []
+      tags = _.union tags
+
+      for member in tags
+        switch member
+          when 'Investment' then members.push 'finance'
+          else members.push member
+
+      members
+
+  standardizeAudience: (audience) =>
+    if audience? and audience
+      members = []
+      audience = _.union audience
+
+      for member in audience
+        switch member
+          when 'Financial and Insurance Industry' then members.push 'finance'
+          when 'Science/Research' then members.push 'science'
+          when 'End Users/Desktop' then members.push 'end-users'
+
+      members
+
+  standardizeEnvironment: (environment) =>
+    if environment? and environment
+      members = []
+      environment = _.union environment
+
+      for member in environment
+        member = member.toLowerCase().replace 'environment', ''
+        members.push _.str.clean member
+
+      members
+
   standardizeLicense: (license) =>
     if license? and license
+      ls = []
+      license = _.union license
       licenses = ['MIT', 'BSD', 'AGPL', 'LGPL', 'GPL', 'Apache', 'MPL']
 
-      _(licenses).some (lic) ->
-        match = _.str.count(license.toUpperCase(), lic)
-        license = lic if match
-        match
+      for l in license
+        _(licenses).some (lic) ->
+          match = _.str.count(l.toUpperCase(), lic)
+          ls.push(lic) if match
+          match
 
-    license
+      ls
 
   parseMeta: (data) =>
     meta = {}
@@ -118,6 +160,7 @@ module.exports = class Project extends Model
         meta.version = parsed?.version
         meta.status = parsed?.status
         meta.license = parsed?.license
+        meta.tags = parsed?.keywords
 
       when 'bower.json'
         parsed = JSON.parse content
@@ -172,6 +215,9 @@ module.exports = class Project extends Model
         meta.version = temp?.setReleaseVersion
         meta.license = license
 
+    meta.tags = @standardizeTags meta.tags
+    meta.audience = @standardizeAudience meta.audience
+    meta.environment = @standardizeEnvironment meta.environment
     meta.license = @standardizeLicense meta.license
     meta
 
@@ -187,7 +233,8 @@ module.exports = class Project extends Model
     tags = _.union meta?.tags, []
     for key, value of meta
       @set(key, value) if key isnt 'tags'
-      tags.push value if key not in ['tags', 'version']
+      tags = _(tags).union value if key not in [
+        'tags', 'version', 'os', 'license', 'type']
 
     @addTags tags
     @set meta: true

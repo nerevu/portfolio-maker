@@ -27,7 +27,9 @@ module.exports = class Collection extends Chaplin.Collection
   getTags: (filter=false) =>
     collection = @prefilter filter
     tags = _(_.flatten(collection.pluck 'tags')).uniq()
-    tags = _.filter tags, (tag) -> tag
+    filterd = _.filter tags, (tag) -> tag
+    filterd.sort()
+    filterd
 
   getModels: (collection, length) =>
     models = []
