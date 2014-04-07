@@ -51,12 +51,14 @@ module.exports = class Collection extends Chaplin.Collection
     other = _(other.models).filter (model) -> tag in (model.get('tags') ? [])
 
     _(collection.models).each (model) ->
-      name = model.get 'name'
+      name = model.get('name').replace '-', ''
       filtered = _(other).filter (model) -> name in (model.get('tags') ? [])
-      if filtered
+      if filtered.length > 0
         _(attrs).each (attr) -> model.set attr, _.first(filtered)?.get attr
       else
-        utils.log "#{name} has no matching screenshots"
+        utils.log "#{name} has no matching screenshots... setting default img"
+        _(attrs).each (attr) ->
+          model.set attr, "/images/placeholder_#{attr}-or8.png"
 
     collection
 
