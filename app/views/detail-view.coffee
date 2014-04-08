@@ -42,20 +42,23 @@ module.exports = class ItemView extends View
       utils.log "initializing 404 detail-view"
 
     @subscribeEvent 'screenshots:synced', (screenshots) =>
-      utils.log 'detail-view heard screenshots synced event'
-      portfolio = mediator.portfolio
-      portfolio = portfolio.mergeModels screenshots, ['url_s'], 'small'
-      portfolio = portfolio.mergeModels screenshots, ['url_m'], 'main'
-      portfolio = portfolio.mergeModels screenshots, ['url_sq'], 'square'
-      @setTemplateData portfolio
+      if @type isnt 'gallery'
+        utils.log 'detail-view heard screenshots synced event'
+        portfolio = mediator.portfolio
+        portfolio = portfolio.mergeModels screenshots, ['url_s'], 'small'
+        portfolio = portfolio.mergeModels screenshots, ['url_m'], 'main'
+        portfolio = portfolio.mergeModels screenshots, ['url_sq'], 'square'
+        @setTemplateData portfolio
 
     @subscribeEvent 'gallery:synced', (gallery) =>
-      utils.log 'detail-view heard gallery synced event'
-      @setTemplateData gallery
+      if @type isnt 'portfolio'
+        utils.log 'detail-view heard gallery synced event'
+        @setTemplateData gallery
 
     @subscribeEvent 'portfolio:synced', (portfolio) =>
-      utils.log 'detail-view heard portfolio synced event'
-      @setTemplateData portfolio
+      if @type isnt 'gallery'
+        utils.log 'detail-view heard portfolio synced event'
+        @setTemplateData portfolio
 
   render: =>
     super
@@ -64,6 +67,17 @@ module.exports = class ItemView extends View
 
   setTemplateData: (collection) =>
     utils.log 'set detail-view template data'
+
+    if not @model
+      identifier = config[collection.type]?.identifier
+      find_where = {}
+      find_where[identifier] = @id
+      @model = collection.findWhere find_where
+
+    if @model
+      @template = require "views/templates/#{@model.get 'template'}"
+    else
+      @template = require "views/templates/404"
 
     if @sub_type
       @recent = collection.getRecent()
