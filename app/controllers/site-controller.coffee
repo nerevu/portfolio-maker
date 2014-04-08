@@ -86,6 +86,7 @@ module.exports = class SiteController extends Controller
     @adjustTitle title
     @view = new DetailView
       model: model
+      id: @id
       active: @active
       title: title
       pager: config[@type].show_pager
@@ -93,6 +94,7 @@ module.exports = class SiteController extends Controller
       popular: @popular
       random: @random
       related: collection.getRelated model
+      type: @type
       sub_type: @sub_type
 
   index: (params) =>

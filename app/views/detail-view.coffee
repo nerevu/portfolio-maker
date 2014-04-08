@@ -19,6 +19,8 @@ module.exports = class ItemView extends View
     else
       @template = require "views/templates/404"
 
+    @id = options.id
+    @type = options.type
     @sub_type = options.sub_type
 
     if @sub_type
