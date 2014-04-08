@@ -92,6 +92,7 @@ module.exports = class SiteController extends Controller
       recent: @recent
       popular: @popular
       random: @random
+      related: collection.getRelated model
       type: @type
       sub_type: @sub_type
 
