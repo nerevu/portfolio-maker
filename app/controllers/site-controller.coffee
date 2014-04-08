@@ -81,7 +81,9 @@ module.exports = class SiteController extends Controller
     collection = @paginator.collection
     model = collection.findWhere @find_where
     collection.setPagers @filterer
+    collection.type = @type
     title = model?.get 'title'
+    console.log collection
 
     @adjustTitle title
     @view = new DetailView
