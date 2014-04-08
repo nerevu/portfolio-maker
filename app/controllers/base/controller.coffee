@@ -18,5 +18,4 @@ module.exports = class Controller extends Chaplin.Controller
     utils.log "controller beforeAction"
     @compose 'site', SiteView
     @compose 'footer', FooterView
-    @compose 'navbar', =>
-      @view = new NavbarView {collection: @pages}
+    @compose 'navbar', => @view = new NavbarView {collection: @pages}
