@@ -105,55 +105,49 @@ module.exports = class Project extends Model
         .then(model.setMeta)
         .fail(model.failWhale)
 
-  standardizeTags: (tags) =>
-    if tags? and tags
+  standardizer: (func, value) ->
+    if value? and value
       members = []
-      tags = _.union tags
-
-      for member in tags
-        switch member
-          when 'Investment' then members.push 'finance'
-          else members.push member
-
+      values = _.union value
+      members.push func(member) for member in values
       members
+
+  standardizeTags: (tags) =>
+    func = (member) -> switch member
+      when 'Investment' then 'finance'
+      else member
+
+    @standardizer func, tags
+
+  standardizeType: (type) =>
+    func = (member) -> switch member
+      when 'project' then 'application'
+      else member
+
+    @standardizer func, type
 
   standardizeAudience: (audience) =>
-    if audience? and audience
-      members = []
-      audience = _.union audience
+    func = (member) -> switch member
+      when 'Financial and Insurance Industry' then 'finance'
+      when 'Science/Research' then 'science'
+      when 'End Users/Desktop' then 'end-users'
 
-      for member in audience
-        switch member
-          when 'Financial and Insurance Industry' then members.push 'finance'
-          when 'Science/Research' then members.push 'science'
-          when 'End Users/Desktop' then members.push 'end-users'
-
-      members
+    @standardizer func, audience
 
   standardizeEnvironment: (environment) =>
-    if environment? and environment
-      members = []
-      environment = _.union environment
+    func = (member) ->
+      member = member.toLowerCase().replace 'environment', ''
+      _.str.clean member
 
-      for member in environment
-        member = member.toLowerCase().replace 'environment', ''
-        members.push _.str.clean member
-
-      members
+    @standardizer func, environment
 
   standardizeLicense: (license) =>
-    if license? and license
-      ls = []
-      license = _.union license
+    func = (member) ->
       licenses = ['MIT', 'BSD', 'AGPL', 'LGPL', 'GPL', 'Apache', 'MPL']
+      _(licenses).some (lic) ->
+        if _.str.count(member.toUpperCase(), lic) then lic else false
 
-      for l in license
-        _(licenses).some (lic) ->
-          match = _.str.count(l.toUpperCase(), lic)
-          ls.push(lic) if match
-          match
-
-      ls
+    @standardizer func, license
 
   parseEntry: (list, trimby) ->
     if list.length > 0
@@ -267,6 +261,7 @@ module.exports = class Project extends Model
     meta.license = @standardizeLicense meta.license
     meta.keywords = @standardizeTags meta.keywords
     meta.audience = @standardizeAudience meta.audience
+    meta.project_type = @standardizeType meta.project_type
     meta
 
     # if @package_managers
