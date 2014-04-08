@@ -103,8 +103,14 @@ module.exports = class Collection extends Chaplin.Collection
         cur.set next_href: collection.at(real + 1).get 'href'
 
   getRelated: (model) =>
-    console.log "get related #{@sub_type}'s"
-    tags = _(model.get 'tags').union model.get 'language', model.get 'audience'
+    if model
+      console.log model
+      console.log "get related #{model.get 'sub_type'}'s"
+      language = model.get 'language'
+      audience = model.get 'audience'
+      tags = _(model.get 'tags').union language, audience
+    else
+      tags = false
 
     if tags
       filter = config[@type]?.filterer

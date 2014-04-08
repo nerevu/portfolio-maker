@@ -10,4 +10,5 @@ module.exports = class ItemView extends View
     super
     # utils.log 'initializing item-view'
     @listenTo @model, 'change', @render
-    @listenTo @model, 'change:tags', => @publishEvent "change:tags", @get 'tags'
+    @listenTo @model, 'change:tags', =>
+      @publishEvent "change:tags", @model.get 'tags'

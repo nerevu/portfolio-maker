@@ -81,11 +81,14 @@ module.exports = class SiteController extends Controller
     collection = @paginator.collection
     model = collection.findWhere @find_where
     collection.setPagers @filterer
+    collection.type = @type
     title = model?.get 'title'
+    console.log collection
 
     @adjustTitle title
     @view = new DetailView
       model: model
+      id: @id
       active: @active
       title: title
       pager: config[@type].show_pager
@@ -93,6 +96,7 @@ module.exports = class SiteController extends Controller
       popular: @popular
       random: @random
       related: collection.getRelated model
+      type: @type
       sub_type: @sub_type
 
   index: (params) =>
