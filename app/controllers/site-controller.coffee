@@ -16,8 +16,8 @@ module.exports = class SiteController extends Controller
     identifier = config[@type]?.identifier
 
     if @id and identifier
-      @find_where = {}
-      @find_where[identifier] = @id
+      find_where = {}
+      find_where[identifier] = @id
 
     switch @type
       when 'gallery'
@@ -59,6 +59,11 @@ module.exports = class SiteController extends Controller
     else
       @tagfilterer = @filterer
 
+    if @type in @pages.pluck 'name'
+      @find_where = name: @type
+    else if @id and identifier
+      @find_where = find_where
+
     @recent = collection.getRecent()
     @popular = collection.getPopular()
     @random = collection.getRandom()
@@ -74,8 +79,8 @@ module.exports = class SiteController extends Controller
   show: (params) =>
     utils.log "show #{@type} #{@id} site-controller"
     collection = @paginator.collection
-    collection.setPagers @filterer
     model = collection.findWhere @find_where
+    collection.setPagers @filterer
     title = model?.get 'title'
 
     @adjustTitle title
@@ -96,7 +101,7 @@ module.exports = class SiteController extends Controller
 
     if @type in @pages.pluck 'name'
       utils.log "#{@type} is a model"
-      model = collection.findWhere name: @type
+      model = collection.findWhere @find_where
       title = model?.get 'title'
       @adjustTitle title
 
