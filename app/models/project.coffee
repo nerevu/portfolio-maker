@@ -165,7 +165,7 @@ module.exports = class Project extends Model
       for char in trimby
         item = _.str.trim item, char
     else
-      item = false
+      item = ''
 
     item
 
@@ -229,13 +229,13 @@ module.exports = class Project extends Model
             temp[key] = value
 
         meta.environment = temp?.Environment
-        meta.version = parseEntry version, [",", "'"]
+        meta.version = @parseEntry version, [",", "'"]
         meta.license = temp?.License
-        keywords = parseEntry keywords, ['(', ')', ',', "'"]
+        keywords = @parseEntry keywords, ['(', ')', ',', "'"]
         meta.keywords = _.union keywords.split(','), temp?.Topic
         meta.os = temp?.Operating_System
         meta.audience = temp?.Intended_Audience
-        meta.type = parseEntry type, [",", "'"]
+        meta.type = @parseEntry type, [",", "'"]
 
       when 'package.xml'
         meta = $.parseXML content
