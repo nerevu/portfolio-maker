@@ -155,6 +155,20 @@ module.exports = class Project extends Model
 
       ls
 
+  parseEntry: (list, trimby) ->
+    if list.length > 0
+      item = _.first list
+      splitby = if _.str.count(item, '=') then '=' else ':'
+      item = item.split splitby
+      item = _.last(item).trim()
+
+      for char in trimby
+        item = _.str.trim item, char
+    else
+      item = false
+
+    item
+
   parseMeta: (data) =>
     meta = {}
     temp = {}
@@ -167,24 +181,32 @@ module.exports = class Project extends Model
         parsed = JSON.parse content
         meta.environment = parsed?.environment
         meta.version = parsed?.version
-        meta.status = parsed?.status
         meta.license = parsed?.license
-        meta.tags = parsed?.keywords
+        meta.keywords = parsed?.keywords
+        meta.os = parsed?.os
+        meta.type = parsed?.type
+        meta.audience = parsed?.audience
+        meta.status = parsed?.status
 
       when 'bower.json'
         parsed = JSON.parse content
         meta.environment = parsed?.environment
         meta.version = parsed?.version
         meta.license = parsed?.license
-        meta.tags = parsed?.keywords
+        meta.keywords = parsed?.keywords
+        meta.os = parsed?.os
+        meta.audience = parsed?.audience
+        meta.type = parsed?.type
 
       when 'composer.json'
         parsed = JSON.parse content
         meta.environment = parsed?.environment
-        meta.type = parsed?.type ? 'library'
         meta.version = parsed?.version
         meta.license = parsed?.license
-        meta.tags = parsed?.keywords
+        meta.keywords = parsed?.keywords
+        meta.os = parsed?.os
+        meta.audience = parsed?.audience
+        meta.type = parsed?.type ? 'library'
 
       when 'setup.py'
         parsed = _.str.lines content
@@ -193,28 +215,9 @@ module.exports = class Project extends Model
         parsed = (_.str.trim(line, '"') for line in parsed)
         keywords = _(parsed).filter (line) -> _.str.startsWith line, 'keywords'
         version = _(parsed).filter (line) -> _.str.startsWith line, 'version'
+        type = _(parsed).filter (line) -> _.str.startsWith line, 'type'
         parsed = _(parsed).filter (line) -> _.str.count line, '::'
         parsed = (_.str.trim(line, ',\'') for line in parsed)
-
-        if keywords.length > 0
-          keywords = _.first keywords
-          splitby = if _.str.count(keywords, '=') then '=' else ':'
-          keywords = keywords.split splitby
-          keywords = _.last(keywords).trim()
-          keywords = _.str.trim keywords, '('
-          keywords = _.str.trim keywords, ')'
-          keywords = _.str.trim keywords, ','
-          keywords = _.str.trim keywords, "'"
-        else
-          keywords = ''
-
-        if version.length > 0
-          version = _.first version
-          splitby = if _.str.count(version, '=') then '=' else ':'
-          version = version.split splitby
-          version = _.last(version).trim()
-          version = _.str.trim version, ","
-          version = _.str.trim version, "'"
 
         for line in parsed
           words = _.str.words line, '::'
@@ -225,12 +228,14 @@ module.exports = class Project extends Model
           else
             temp[key] = value
 
-        meta.audience = temp?.Intended_Audience
         meta.environment = temp?.Environment
-        meta.os = temp?.Operating_System
+        meta.version = parseEntry version, [",", "'"]
         meta.license = temp?.License
-        meta.tags = _.union keywords.split(','), temp?.Topic
-        meta.version = version
+        keywords = parseEntry keywords, ['(', ')', ',', "'"]
+        meta.keywords = _.union keywords.split(','), temp?.Topic
+        meta.os = temp?.Operating_System
+        meta.audience = temp?.Intended_Audience
+        meta.type = parseEntry type, [",", "'"]
 
       when 'package.xml'
         meta = $.parseXML content
@@ -258,21 +263,19 @@ module.exports = class Project extends Model
         meta.version = temp?.setReleaseVersion
         meta.license = license
 
-    meta.tags = @standardizeTags meta.tags
-    meta.audience = @standardizeAudience meta.audience
     meta.environment = @standardizeEnvironment meta.environment
     meta.license = @standardizeLicense meta.license
+    meta.keywords = @standardizeTags meta.keywords
+    meta.audience = @standardizeAudience meta.audience
     meta
 
     # if @package_managers
     #   meta.package_manager = @package_managers[0]
 
   setMeta: (meta) =>
-    tags = _.union meta?.tags, []
     for key, value of meta
-      @set(key, value) if key isnt 'tags'
-      tags = _(tags).union value if key not in [
-        'tags', 'version', 'os', 'license', 'type']
+      @set(key, value) if key isnt 'keywords'
+      tags = _(tags).union value if key in ['environment', 'type', 'keywords']
 
     @addTags tags
     @set meta: true
