@@ -48,6 +48,7 @@ module.exports = class ItemView extends View
         portfolio = portfolio.mergeModels screenshots, ['url_s'], 'small'
         portfolio = portfolio.mergeModels screenshots, ['url_m'], 'main'
         portfolio = portfolio.mergeModels screenshots, ['url_sq'], 'square'
+        portfolio = portfolio.mergeModels screenshots, ['url_e'], 'extra'
         @setTemplateData portfolio
 
     @subscribeEvent 'gallery:synced', (gallery) =>
