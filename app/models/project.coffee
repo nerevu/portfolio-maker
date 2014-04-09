@@ -257,11 +257,11 @@ module.exports = class Project extends Model
         meta.version = temp?.setReleaseVersion
         meta.license = license
 
-    meta.environment = @standardizeEnvironment meta.environment
-    meta.license = @standardizeLicense meta.license
+    meta.environment = @standardizeEnvironment meta.environment ? 'console'
+    meta.license = @standardizeLicense meta.license ? 'MIT'
     meta.keywords = @standardizeTags meta.keywords
-    meta.audience = @standardizeAudience meta.audience
-    meta.project_type = @standardizeType meta.project_type
+    meta.audience = @standardizeAudience meta.audience ? 'developers'
+    meta.project_type = @standardizeType(meta.project_type) ? 'application'
     meta
 
     # if @package_managers
