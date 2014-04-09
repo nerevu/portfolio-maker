@@ -18,5 +18,24 @@
   {{partial 'project-updated' this}}
 </div>
 
-<div id="project-content">{{{readme}}}</div>
-
+<div id="project-toolbar" class="btn-toolbar" role="toolbar">
+  {{#if homepage}}
+    <a href="http://{{homepage}}" class="nounderline">
+      <button type="button" class="btn btn-default btn-lg">
+        <span class="glyphicon glyphicon-globe"></span> Live Demo
+      </button>
+    </a>
+  {{/if}}
+  <a href="{{html_url}}" class="nounderline">
+    <button type="button" class="btn btn-default btn-lg">
+      <div class='row'>
+        <div class='col-xs-4'>
+          <span class='symbol'>githubalt</span>
+        </div>
+        <div class='col-xs-8 fixme'>
+          <span class='word'> GitHub</span>
+        </div>
+      </div>
+    </button>
+  </a>
+</div>

@@ -24,13 +24,18 @@ module.exports = class Project extends Model
     created = moment @get 'created_at'
     updated = moment @get 'updated_at'
     popularity = parseInt(@get 'stargazers_count') + parseInt(@get 'forks') * 2
-    meta_base_url = "#{github_api}/#{@get 'full_name'}/contents"
+    html_url = @get 'html_url'
+
+    @set meta_base_url: "#{github_api}/#{@get 'full_name'}/contents"
+    @set stargazers_url: "#{html_url}/stargazers"
+    @set forks_url: "#{html_url}/network"
+    @set languages_url: "#{html_url}/search?l=#{language}"
+    @set tags_url: "#{html_url}/releases"
 
     @set first: false
     @set last: false
     @set sub_type: sub_type
     @set type: type
-    @set meta_base_url: meta_base_url
     @set title: name
     @set popularity: popularity
     @set href: "/portfolio/item/#{name}"
