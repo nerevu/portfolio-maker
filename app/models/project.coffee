@@ -24,13 +24,18 @@ module.exports = class Project extends Model
     created = moment @get 'created_at'
     updated = moment @get 'updated_at'
     popularity = parseInt(@get 'stargazers_count') + parseInt(@get 'forks') * 2
-    meta_base_url = "#{github_api}/#{@get 'full_name'}/contents"
+    html_url = @get 'html_url'
+
+    @set meta_base_url: "#{github_api}/#{@get 'full_name'}/contents"
+    @set stargazers_url: "#{html_url}/stargazers"
+    @set forks_url: "#{html_url}/network"
+    @set languages_url: "#{html_url}/search?l=#{language}"
+    @set tags_url: "#{html_url}/releases"
 
     @set first: false
     @set last: false
     @set sub_type: sub_type
     @set type: type
-    @set meta_base_url: meta_base_url
     @set title: name
     @set popularity: popularity
     @set href: "/portfolio/item/#{name}"
@@ -105,55 +110,49 @@ module.exports = class Project extends Model
         .then(model.setMeta)
         .fail(model.failWhale)
 
-  standardizeTags: (tags) =>
-    if tags? and tags
+  standardizer: (func, value) ->
+    if value? and value
       members = []
-      tags = _.union tags
-
-      for member in tags
-        switch member
-          when 'Investment' then members.push 'finance'
-          else members.push member
-
+      values = _.union value
+      members.push func(member) for member in values
       members
+
+  standardizeTags: (tags) =>
+    func = (member) -> switch member
+      when 'Investment' then 'finance'
+      else member
+
+    @standardizer func, tags
+
+  standardizeType: (type) =>
+    func = (member) -> switch member
+      when 'project' then 'application'
+      else member
+
+    @standardizer func, type
 
   standardizeAudience: (audience) =>
-    if audience? and audience
-      members = []
-      audience = _.union audience
+    func = (member) -> switch member
+      when 'Financial and Insurance Industry' then 'finance'
+      when 'Science/Research' then 'science'
+      when 'End Users/Desktop' then 'end-users'
 
-      for member in audience
-        switch member
-          when 'Financial and Insurance Industry' then members.push 'finance'
-          when 'Science/Research' then members.push 'science'
-          when 'End Users/Desktop' then members.push 'end-users'
-
-      members
+    @standardizer func, audience
 
   standardizeEnvironment: (environment) =>
-    if environment? and environment
-      members = []
-      environment = _.union environment
+    func = (member) ->
+      member = member.toLowerCase().replace 'environment', ''
+      _.str.clean member
 
-      for member in environment
-        member = member.toLowerCase().replace 'environment', ''
-        members.push _.str.clean member
-
-      members
+    @standardizer func, environment
 
   standardizeLicense: (license) =>
-    if license? and license
-      ls = []
-      license = _.union license
+    func = (member) ->
       licenses = ['MIT', 'BSD', 'AGPL', 'LGPL', 'GPL', 'Apache', 'MPL']
+      _(licenses).some (lic) ->
+        if _.str.count(member.toUpperCase(), lic) then lic else false
 
-      for l in license
-        _(licenses).some (lic) ->
-          match = _.str.count(l.toUpperCase(), lic)
-          ls.push(lic) if match
-          match
-
-      ls
+    @standardizer func, license
 
   parseEntry: (list, trimby) ->
     if list.length > 0
@@ -184,7 +183,7 @@ module.exports = class Project extends Model
         meta.license = parsed?.license
         meta.keywords = parsed?.keywords
         meta.os = parsed?.os
-        meta.type = parsed?.type
+        meta.project_type = parsed?.type
         meta.audience = parsed?.audience
         meta.status = parsed?.status
 
@@ -196,7 +195,7 @@ module.exports = class Project extends Model
         meta.keywords = parsed?.keywords
         meta.os = parsed?.os
         meta.audience = parsed?.audience
-        meta.type = parsed?.type
+        meta.project_type = parsed?.type
 
       when 'composer.json'
         parsed = JSON.parse content
@@ -206,7 +205,7 @@ module.exports = class Project extends Model
         meta.keywords = parsed?.keywords
         meta.os = parsed?.os
         meta.audience = parsed?.audience
-        meta.type = parsed?.type ? 'library'
+        meta.project_type = parsed?.type ? 'library'
 
       when 'setup.py'
         parsed = _.str.lines content
@@ -235,7 +234,7 @@ module.exports = class Project extends Model
         meta.keywords = _.union keywords.split(','), temp?.Topic
         meta.os = temp?.Operating_System
         meta.audience = temp?.Intended_Audience
-        meta.type = @parseEntry type, [",", "'"]
+        meta.project_type = @parseEntry type, [",", "'"]
 
       when 'package.xml'
         meta = $.parseXML content
@@ -263,10 +262,11 @@ module.exports = class Project extends Model
         meta.version = temp?.setReleaseVersion
         meta.license = license
 
-    meta.environment = @standardizeEnvironment meta.environment
-    meta.license = @standardizeLicense meta.license
+    meta.environment = @standardizeEnvironment meta.environment ? 'console'
+    meta.license = @standardizeLicense meta.license ? 'MIT'
     meta.keywords = @standardizeTags meta.keywords
-    meta.audience = @standardizeAudience meta.audience
+    meta.audience = @standardizeAudience meta.audience ? 'developers'
+    meta.project_type = @standardizeType(meta.project_type) ? 'application'
     meta
 
     # if @package_managers

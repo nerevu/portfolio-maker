@@ -26,9 +26,13 @@ module.exports = class SiteController extends Controller
         @sub_type = 'photo'
 
       when 'portfolio'
-        collection = @portfolio.mergeModels @screenshots, ['url_s'], 'small'
-        collection = collection.mergeModels @screenshots, ['url_m'], 'main'
-        collection = collection.mergeModels @screenshots, ['url_sq'], 'square'
+        # console.log @screenshots
+        cltn = @portfolio.mergeModels @screenshots, ['url_s'], 'small'
+        cltn = cltn.mergeModels @screenshots, ['url_m'], 'main'
+        cltn = cltn.mergeModels @screenshots, ['url_sq'], 'square'
+        options = {placeholder: false, n: 3}
+        cltn = cltn.mergeModels @screenshots, ['url_e'], 'extra', options
+        collection = cltn
         @sub_title = 'Project '
         @sub_type = 'project'
 

@@ -115,6 +115,12 @@ html, body, body #container {height: 100%;}
 	margin-bottom: 0;
 	overflow-x: hidden;}
 
+/* Carousel */
+.carousel-control, .carousel .item {
+  background: none !important;
+  color: #ffffff !important;
+}
+
 /* Data Lists */
 .dl-excerpt {margin-bottom: 0;}
 .dl-excerpt dt {
@@ -144,6 +150,14 @@ html, body, body #container {height: 100%;}
 }
 
 /* Other */
+#project-toolbar .symbol {font-size: 40px;}
+#project-toolbar .btn-lg {line-height: .325;}
+#project-toolbar .row {margin-left: -20px;}
+.fixme {
+  margin-top: 6px;
+  padding: 0;
+}
+
 .active-nav {color: #555555 !important;}
 .progress .bar-muted {opacity: 0.2 !important;}
 .progress .bar-transparent {opacity: 0 !important;}

@@ -39,7 +39,7 @@ module.exports = class Collection extends Chaplin.Collection
         title: model.get 'title'
         url_s: model.get 'url_s'
         url_m: model.get 'url_m'
-        url_t: model.get 'url_t'
+        url_e: model.get 'url_e'
         url_sq: model.get 'url_sq'
 
       models.push(data)
@@ -47,7 +47,11 @@ module.exports = class Collection extends Chaplin.Collection
 
     models
 
-  mergeModels: (other, attrs, tag, filter=false) =>
+  mergeModels: (other, attrs, tag, options) =>
+    filter = options?.filter ? false
+    placeholder = options?.placeholder ? true
+    n = options?.n ? 1
+
     console.log "mergeModels"
     collection = @prefilter filter
     other = _(other.models).filter (model) -> tag in (model.get('tags') ? [])
@@ -55,9 +59,13 @@ module.exports = class Collection extends Chaplin.Collection
     _(collection.models).each (model) ->
       name = model.get('name').replace '-', ''
       filtered = _(other).filter (model) -> name in (model.get('tags') ? [])
+
       if filtered.length > 0
-        _(attrs).each (attr) -> model.set attr, _.first(filtered)?.get attr
-      else
+        _(attrs).each (attr) ->
+          data = (m?.get attr for m in _.first(filtered, n))
+          links = if data.length > 1 then data else _.first data
+          model.set attr, links
+      else if placeholder
         # utils.log "#{name} has no matching screenshots... setting default img"
         _(attrs).each (attr) ->
           model.set attr, "/images/placeholder_#{attr}-or8.png"
