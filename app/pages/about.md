@@ -4,9 +4,17 @@ sidebar: true
 sharing: false
 footer: true
 ---
+
+## Me
+
+My name is Reuben Cummings and I am Data Scientist and Web Application Developer.
+I specialize in financial/data analysis and offline capable web applications.
+I handle database development, API integration, responsive web design, and
+automated reporting solutions.
+
 ## My Life
 
-My name is Reuben Cummings and I graduated from [MIT](http://web.mit.edu/) in
+I graduated from [MIT](http://web.mit.edu/) in
 2005 with a degree in chemical engineering. During my time there I worked summer
 research internships at [Los Alamos National Laboratory](http://www.lanl.gov)
 and [Proctor & Gamble](http://www.pg.com) and soon realized R&D wasn't my cup of
@@ -40,14 +48,13 @@ I left GCS in late 2012 and currently live in Arusha, Tanzania developing
 
 ### _Technology_
 
-Over the years I've picked up quite a few computer skills. My introduction to
-programming was with BASIC on a
-[V-Tech Pre Computer Powerpad](https://www.google.com/search?q=vtech+pre+computer+powerpad)
-around the age of 12. Since then I've learned PHP, Visual Basic, C, MATLAB/R,
-SQL, HTML/CSS, and Python respectively. My initial applications were primarily
-command line based but I learned enough about [Joomla](http://www.joomla.org) to
-make a website for Pensero Group. Currently, I'm developing web based
-applications in Python with Flask.
+I first learned to code in BASIC at the age of 13 on a [VTECH Pre-Computer POWER PAD](https://www.google.com/search?q=vtech+pre+computer+powerpad). In high school I wrote games for my TI-81 calculator; and by college I had mastered Excel Pivot Tables and dabbled with with Linux shell scripting. Upon graduating from MIT in 2005, I made my first website in PHP and began creating Excel applications in VBA.
+
+Shortly thereafter, I was developing database (MS Access and SQLite), automated reporting, and business intelligence applications. And during that time I expanded my PHP and BASH scripting abilities.
+
+In 2010 I found Python and fell in love with its simplicity and elegance. I soon replaced PHP with it as my language of choice for new script or web development projects. Since then, I have used Python extensively for automating basic tasks, data analysis, creating API backends, and rapid web prototyping.
+
+More recently I have been using a combination of coffeescript/javascript (Nodejs, Backbone, jquery, etc.) and python (Flask) to create offline-capable database (PostgreSQL and MongoDB) or API driven web applications that dynamically respond to any device size (mobile, tablet, laptop, or desktop).
 
 ### _Finance/Investing_
 
@@ -68,8 +75,6 @@ Africa.
 
 * Reproducible research
 * Global health
-* Healthcare IT (think EMR)
+* Healthcare IT (EMR)
 * Personalized medicine
-* Biotech/Pharma
-* Diagnostics
 * Salsa dancing
