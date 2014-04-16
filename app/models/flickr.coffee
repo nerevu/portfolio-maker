@@ -82,8 +82,8 @@ module.exports = class Flickr extends Collection
 
     options.success = (resp) =>
       method = if options.reset then 'reset' else 'set'
-      setData = (data, collection, method) ->
-        utils.log "setting gallery data"
+      setData = (data, collection, method) =>
+        utils.log "setting #{@type} data"
         collection[method] data, options
         console.log collection
         success collection, data, options if success
