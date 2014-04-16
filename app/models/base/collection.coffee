@@ -136,12 +136,18 @@ module.exports = class Collection extends Chaplin.Collection
     else
       []
 
+  getFilter: =>
+    filterer = config[@type]?.filterer
+    filter = {}
+    filter[filterer?.key] = filterer?.value
+    return filter
+
   getRecent: =>
     console.log "get recent #{@type}"
     comparator = config[@type]?.recent_comparator
 
     if comparator
-      filter = config[@type]?.filterer
+      filter = @getFilter()
       collection = if filter then new Collection(@where(filter)) else @
       collection.comparator = (model) -> - model.get comparator
       collection.sort()
@@ -154,7 +160,7 @@ module.exports = class Collection extends Chaplin.Collection
     comparator = config[@type]?.popular_comparator
 
     if comparator
-      filter = config[@type]?.filterer
+      filter = @getFilter()
       collection = if filter then new Collection(@where(filter)) else @
       collection.comparator = (model) -> - model.get comparator
       collection.sort()
@@ -167,7 +173,7 @@ module.exports = class Collection extends Chaplin.Collection
     length = config[@type]?.random_count
 
     if length
-      filter = config[@type]?.filterer
+      filter = @getFilter()
       collection = if filter then @where(filter) else @models
       collection = new Collection _(collection).shuffle()
       @getModels collection, length

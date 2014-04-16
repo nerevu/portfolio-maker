@@ -46,18 +46,17 @@ module.exports = class SiteController extends Controller
         @sub_title = ''
         @sub_type = ''
 
-    filterer = config[@type]?.filterer
+    fltr = config[@type]?.filterer
 
-    if filterer
-      key = _.keys(filterer)[0]
-      value = _.values(filterer)[0]
-      @filterer = (model, index=false) => model.get(key) is value
+    if fltr
+      @filterer = (model, index=false) =>
+        model.get(fltr.key) is fltr.value
     else
       @filterer = null
 
     if @tag
       @tagfilterer = (model, index=false) =>
-        returned = if filterer then (model.get(key) is value) else true
+        returned = if fltr then (model.get(fltr.key) is fltr.value) else true
         returned = returned and @tag in (model.get('tags') ? [])
         returned
     else
