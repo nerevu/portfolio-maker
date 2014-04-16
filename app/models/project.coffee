@@ -61,6 +61,7 @@ module.exports = class Project extends Model
       @meta_files = @getOptions language, 'meta_files'
       @package_managers = @getOptions language, 'package_managers'
       # @meta_files.push 'meta.yml'
+      # https://api.github.com/repos/reubano/bump/tags
       @getMeta() if not (@get('meta') or @get('fetching_meta'))
 
   getOptions: (language, option) =>
