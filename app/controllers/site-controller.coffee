@@ -96,7 +96,7 @@ module.exports = class SiteController extends Controller
       type: @type
       sub_type: @sub_type
 
-  index: (params) => @compose "#{@type}:index", =>
+  index: (params) => @compose "#{@type}:index:#{@num}", =>
     utils.log "index #{@type} site-controller"
     collection = @paginator.collection
 
