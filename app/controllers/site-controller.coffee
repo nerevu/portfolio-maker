@@ -26,13 +26,7 @@ module.exports = class SiteController extends Controller
         @sub_type = 'photo'
 
       when 'portfolio'
-        # console.log @screenshots
-        cltn = @portfolio.mergeModels @screenshots, ['url_s'], 'small'
-        cltn = cltn.mergeModels @screenshots, ['url_m'], 'main'
-        cltn = cltn.mergeModels @screenshots, ['url_sq'], 'square'
-        options = {placeholder: false, n: 3}
-        cltn = cltn.mergeModels @screenshots, ['url_e'], 'extra', options
-        collection = cltn
+        collection = utils.mergePortfolio @portfolio, @screenshots
         @sub_title = 'Project '
         @sub_type = 'project'
 
@@ -46,18 +40,17 @@ module.exports = class SiteController extends Controller
         @sub_title = ''
         @sub_type = ''
 
-    filterer = config[@type]?.filterer
+    fltr = config[@type]?.filterer
 
-    if filterer
-      key = _.keys(filterer)[0]
-      value = _.values(filterer)[0]
-      @filterer = (model, index=false) => model.get(key) is value
+    if fltr
+      @filterer = (model, index=false) =>
+        model.get(fltr.key) is fltr.value
     else
       @filterer = null
 
     if @tag
       @tagfilterer = (model, index=false) =>
-        returned = if filterer then (model.get(key) is value) else true
+        returned = if fltr then (model.get(fltr.key) is fltr.value) else true
         returned = returned and @tag in (model.get('tags') ? [])
         returned
     else

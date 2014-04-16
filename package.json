@@ -2,7 +2,7 @@
   "author": "Reuben Cummings",
   "name": "portfolio-maker",
   "description": "Automatically generates a project portfolio via github and flickr APIs",
-  "version": "0.6.0",
+  "version": "0.6.1",
   "environment": "web",
   "homepage": "",
   "keywords": [

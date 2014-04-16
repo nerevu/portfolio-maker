@@ -70,6 +70,8 @@ module.exports = class Collection extends Chaplin.Collection
         _(attrs).each (attr) ->
           model.set attr, "/images/placeholder_#{attr}-or8.png"
 
+      model.save patch: true
+
     collection
 
   paginator: (page=1, filter=false) =>
@@ -110,10 +112,16 @@ module.exports = class Collection extends Chaplin.Collection
         cur.set prev_href: collection.at(real - 1).get 'href'
         cur.set next_href: collection.at(real + 1).get 'href'
 
+  getFilter: =>
+    filterer = config[@type]?.filterer
+    filter = {}
+    filter[filterer?.key] = filterer?.value
+    return filter
+
   getRelated: (model) =>
     if model
       console.log model
-      console.log "get related #{model.get 'sub_type'}'s"
+      console.log "get related #{model.get 'sub_type'}s"
       language = model.get 'language'
       audience = model.get 'audience'
       tags = _(model.get 'tags').union language, audience
@@ -121,7 +129,7 @@ module.exports = class Collection extends Chaplin.Collection
       tags = false
 
     if tags
-      filter = config[@type]?.filterer
+      filter = @getFilter()
       collection = if filter then new Collection(@where(filter)) else @
       collection.comparator = (other) ->
         language = other.get 'language'
@@ -141,7 +149,7 @@ module.exports = class Collection extends Chaplin.Collection
     comparator = config[@type]?.recent_comparator
 
     if comparator
-      filter = config[@type]?.filterer
+      filter = @getFilter()
       collection = if filter then new Collection(@where(filter)) else @
       collection.comparator = (model) -> - model.get comparator
       collection.sort()
@@ -154,7 +162,7 @@ module.exports = class Collection extends Chaplin.Collection
     comparator = config[@type]?.popular_comparator
 
     if comparator
-      filter = config[@type]?.filterer
+      filter = @getFilter()
       collection = if filter then new Collection(@where(filter)) else @
       collection.comparator = (model) -> - model.get comparator
       collection.sort()
@@ -167,7 +175,7 @@ module.exports = class Collection extends Chaplin.Collection
     length = config[@type]?.random_count
 
     if length
-      filter = config[@type]?.filterer
+      filter = @getFilter()
       collection = if filter then @where(filter) else @models
       collection = new Collection _(collection).shuffle()
       @getModels collection, length

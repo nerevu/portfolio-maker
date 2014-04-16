@@ -71,7 +71,7 @@ config =
     index_class: 'col-sm-6 col-md-6 col-lg-4'
     index_template: 'project-excerpt'
     show_pager: true
-    filterer: {fork: false}
+    filterer: {key: 'fork', value: false}
     identifier: 'name'
     recent_comparator: 'created_at'
     popular_comparator: 'popularity'

@@ -18,6 +18,7 @@ module.exports = class Project extends Model
     name = @get 'name'
     type = options?.collection_type
     sub_type = config[type]?.sub_type
+    filterer = config[type]?.filterer
     # utils.log "initialize #{name} #{sub_type} model"
     # console.log @
     language = @get('language')?.toLowerCase()
@@ -49,11 +50,18 @@ module.exports = class Project extends Model
     @set created_str: created.format("MMMM Do, YYYY")
     @set updated_str: updated.format("MMMM Do, YYYY")
 
-    # @addTags [language]
-    @meta_files = @getOptions language, 'meta_files'
-    @package_managers = @getOptions language, 'package_managers'
-    # @meta_files.push 'meta.yml'
-    @getMeta() if not (@get('meta') or @get('fetching_meta'))
+    if type and filterer
+      pass = @get(filterer.key) is filterer.value
+    else if type
+      pass = true
+    else
+      pass = false
+
+    if pass
+      @meta_files = @getOptions language, 'meta_files'
+      @package_managers = @getOptions language, 'package_managers'
+      # @meta_files.push 'meta.yml'
+      @getMeta() if not (@get('meta') or @get('fetching_meta'))
 
   getOptions: (language, option) =>
     switch language

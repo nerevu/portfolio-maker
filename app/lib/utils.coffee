@@ -33,6 +33,7 @@ _(utils).extend
   _deg2dms: (deg) ->
   # http://stackoverflow.com/a/5786627/408556
   # http://stackoverflow.com/a/5786281/408556
+    deg = Math.abs(deg)
     d = Math.floor deg
     minfloat = (deg - d) * 60
     m = Math.floor minfloat
@@ -51,11 +52,19 @@ _(utils).extend
   deg2dms: (deglat, deglon) ->
     lat = {}
     lon = {}
-    lat.dir = if lat > 0 then 'N' else 'S'
-    lon.dir = if lon > 0 then 'E' else 'W'
+    lat.dir = if deglat > 0 then 'N' else 'S'
+    lon.dir = if deglon > 0 then 'E' else 'W'
     _(lat).extend @_deg2dms deglat
     _(lon).extend @_deg2dms deglon
     lat: lat, lon: lon
+
+  mergePortfolio: (portfolio, screenshots) ->
+    cltn = portfolio.mergeModels screenshots, ['url_s'], 'small'
+    cltn = cltn.mergeModels screenshots, ['url_m'], 'main'
+    cltn = cltn.mergeModels screenshots, ['url_sq'], 'square'
+    options = {placeholder: false, n: 3}
+    collection = cltn.mergeModels screenshots, ['url_e'], 'extra', options
+    return collection
 
   makeChart: (data, selection, resize=true) ->
     retLab = (data) -> data.label
