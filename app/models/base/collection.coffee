@@ -112,6 +112,12 @@ module.exports = class Collection extends Chaplin.Collection
         cur.set prev_href: collection.at(real - 1).get 'href'
         cur.set next_href: collection.at(real + 1).get 'href'
 
+  getFilter: =>
+    filterer = config[@type]?.filterer
+    filter = {}
+    filter[filterer?.key] = filterer?.value
+    return filter
+
   getRelated: (model) =>
     if model
       console.log model
@@ -123,7 +129,7 @@ module.exports = class Collection extends Chaplin.Collection
       tags = false
 
     if tags
-      filter = config[@type]?.filterer
+      filter = @getFilter()
       collection = if filter then new Collection(@where(filter)) else @
       collection.comparator = (other) ->
         language = other.get 'language'
@@ -137,12 +143,6 @@ module.exports = class Collection extends Chaplin.Collection
       _(models).filter (related) -> related.title isnt model.get 'title'
     else
       []
-
-  getFilter: =>
-    filterer = config[@type]?.filterer
-    filter = {}
-    filter[filterer?.key] = filterer?.value
-    return filter
 
   getRecent: =>
     console.log "get recent #{@type}"
