@@ -57,6 +57,14 @@ _(utils).extend
     _(lon).extend @_deg2dms deglon
     lat: lat, lon: lon
 
+  mergePortfolio: (portfolio, screenshots) ->
+    cltn = portfolio.mergeModels screenshots, ['url_s'], 'small'
+    cltn = cltn.mergeModels screenshots, ['url_m'], 'main'
+    cltn = cltn.mergeModels screenshots, ['url_sq'], 'square'
+    options = {placeholder: false, n: 3}
+    collection = cltn.mergeModels screenshots, ['url_e'], 'extra', options
+    return collection
+
   makeChart: (data, selection, resize=true) ->
     retLab = (data) -> data.label
     retVal = (data) -> data.value

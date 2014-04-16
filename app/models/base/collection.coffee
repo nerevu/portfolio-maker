@@ -70,6 +70,8 @@ module.exports = class Collection extends Chaplin.Collection
         _(attrs).each (attr) ->
           model.set attr, "/images/placeholder_#{attr}-or8.png"
 
+      model.save patch: true
+
     collection
 
   paginator: (page=1, filter=false) =>

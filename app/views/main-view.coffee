@@ -40,11 +40,7 @@ module.exports = class IndexView extends CollectionView
 
     @subscribeEvent 'screenshots:synced', (screenshots) =>
       utils.log 'main-view heard screenshots synced event'
-      portfolio = mediator.portfolio
-      portfolio = portfolio.mergeModels screenshots, ['url_s'], 'small'
-      portfolio = portfolio.mergeModels screenshots, ['url_m'], 'main'
-      portfolio = portfolio.mergeModels screenshots, ['url_sq'], 'square'
-      @setTemplateData portfolio
+      @setTemplateData utils.mergePortfolio mediator.portfolio, screenshots
 
     @subscribeEvent "#{@type}:synced", (collection) =>
       utils.log "main-view heard #{@type} synced event"
