@@ -27,6 +27,7 @@ module.exports = class Application extends Chaplin.Application
         @publishEvent "#{collection}:synced", response
         store = "#{config.title}:#{mediator[collection].storeName}"
         localStorage.setItem "#{store}:synced", true
+        utils.preloadImages response
 
     super
 
