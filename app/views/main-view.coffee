@@ -55,7 +55,7 @@ module.exports = class IndexView extends CollectionView
       className: config[@type]["#{@template_name}_class"]
       tagName: config[@type]?["#{@template_name}_tag"] ? 'div'
 
-  render: =>
+  render: ->
     super
     utils.log 'rendering main view'
     # console.log @collection

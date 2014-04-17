@@ -68,6 +68,7 @@ config =
     random_count: 6
     items_per_index: 12
     sub_type: 'project'
+    sub_title: 'Project '
     index_class: 'col-sm-6 col-md-6 col-lg-4'
     index_template: 'project-excerpt'
     show_pager: true
@@ -97,6 +98,8 @@ config =
     related_count: 6
     random_count: 6
     items_per_index: 12
+    sub_type: 'photo'
+    sub_title: 'Photo '
     index_class: 'col-sm-4 col-md-3 col-lg-3'
     index_template: 'photo-excerpt'
     show_pager: true

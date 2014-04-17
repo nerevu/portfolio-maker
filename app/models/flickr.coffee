@@ -34,7 +34,7 @@ module.exports = class Flickr extends Collection
 
     $.get base_url, _(data).extend base_data
 
-  getSets: (response) =>
+  getSets: (response) ->
     extras = "license, date_upload, date_taken, owner_name, icon_server,"
     extras += "original_format, last_update, geo, tags, machine_tags,"
     extras += "o_dims, views, media, path_alias, url_sq, url_t, url_s,"
@@ -51,7 +51,7 @@ module.exports = class Flickr extends Collection
 
     deferreds
 
-  applySets: (deferreds) => $.when.apply($, deferreds)
+  applySets: (deferreds) -> $.when.apply($, deferreds)
 
   getData: (results...) =>
     utils.log "get #{@type} data"
@@ -60,10 +60,9 @@ module.exports = class Flickr extends Collection
   parse: (resp) =>
     return if @disposed
     console.log "#{@type} parse"
-    console.log resp
     @getCollection(resp).then(@getSets).then(@applySets).then(@getData)
 
-  wrapError: (collection, options) =>
+  wrapError: (collection, options) ->
     error = options.error
     options.error = (resp) ->
       error collection, resp, options if error

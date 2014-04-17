@@ -10,40 +10,24 @@ module.exports = class SiteController extends Controller
     utils.log 'initialize site-controller'
     @num = parseInt params?.num ? 1
     @type = params?.type ? 'home'
+    @sub_type = config[@type]?.sub_type ? ''
+    @sub_title = config[@type]?.sub_title ? ''
     @tag = params?.tag
     @id = params?.id
+
     recent_comparator = config[@type]?.recent_comparator
-    identifier = config[@type]?.identifier
 
-    if @id and identifier
-      find_where = {}
-      find_where[identifier] = @id
-
-    switch @type
-      when 'gallery'
-        collection = @gallery
-        @sub_title = 'Photo '
-        @sub_type = 'photo'
-
-      when 'portfolio'
-        collection = utils.mergePortfolio @portfolio, @screenshots
-        @sub_title = 'Project '
-        @sub_type = 'project'
-
-      when 'blog'
-        collection = @blog
-        @sub_title = ''
-        @sub_type = 'post'
-
-      else
-        collection = @pages
-        @sub_title = ''
-        @sub_type = ''
+    collection =
+      switch @type
+        when 'gallery' then @gallery
+        when 'portfolio' then utils.mergePortfolio @portfolio, @screenshots
+        when 'blog' then @blog
+        else @pages
 
     fltr = config[@type]?.filterer
 
     if fltr
-      @filterer = (model, index=false) =>
+      @filterer = (model, index=false) ->
         model.get(fltr.key) is fltr.value
     else
       @filterer = null
@@ -57,15 +41,22 @@ module.exports = class SiteController extends Controller
       @tagfilterer = @filterer
 
     if @type in @pages.pluck 'name'
+      utils.log "#{@type} is a model"
       @find_where = name: @type
-    else if @id and identifier
-      @find_where = find_where
+      @is_model = true
+    else
+      utils.log "#{@type} is a collection"
 
-    @recent = collection.getRecent()
-    @popular = collection.getPopular()
-    @random = collection.getRandom()
-    @tags = collection.getTags @filterer
-    @active = _.str.capitalize @type
+      if @id
+        @find_where = {}
+        @find_where[config[@type].identifier] = @id
+
+      @is_model = false
+      @recent = collection.getRecent()
+      @popular = collection.getPopular()
+      @random = collection.getRandom()
+      @tags = collection.getTags @filterer
+      @active = _.str.capitalize @type
 
     if recent_comparator
       collection.comparator = (model) -> - model.get recent_comparator
@@ -100,8 +91,7 @@ module.exports = class SiteController extends Controller
     utils.log "index #{@type} site-controller"
     collection = @paginator.collection
 
-    if @type in @pages.pluck 'name'
-      utils.log "#{@type} is a model"
+    if @is_model
       model = collection.findWhere @find_where
       title = model?.get 'title'
       @adjustTitle title
@@ -112,7 +102,6 @@ module.exports = class SiteController extends Controller
         title: title
 
     else
-      utils.log "#{@type} is a collection"
       title = "My #{@sub_title}#{@active}"
       @adjustTitle title
 

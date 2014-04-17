@@ -7,4 +7,4 @@ module.exports = class Gallery extends Collection
 
   type: type
   storeName: _.str.capitalize type
-  initialize: => super
+  initialize: -> super

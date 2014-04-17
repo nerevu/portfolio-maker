@@ -33,7 +33,7 @@ module.exports = class Application extends Chaplin.Application
     super
 
   # Create additional mediator properties.
-  initMediator: =>
+  initMediator: ->
     # Add additional application-specific properties and methods
     utils.log 'initializing mediator'
     mediator.pages = new Pages()

@@ -12,10 +12,10 @@ module.exports = class SiteView extends View
     footer: '#site-footer'
   template: template
 
-  initialize: (options) =>
+  initialize: (options) ->
     super
     utils.log 'initializing site view'
 
-  render: =>
+  render: ->
     super
     utils.log 'rendering site view'
