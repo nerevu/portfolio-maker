@@ -16,6 +16,6 @@ module.exports = class Controller extends Chaplin.Controller
   # You may also persist models etc.
   beforeAction: (params, route) =>
     utils.log "controller beforeAction"
-    @compose 'site', SiteView
-    @compose 'footer', FooterView
-    @compose 'navbar', => @view = new NavbarView {collection: @pages}
+    @reuse 'site', SiteView
+    @reuse 'footer', FooterView
+    @reuse 'navbar', => @view = new NavbarView {collection: @pages}

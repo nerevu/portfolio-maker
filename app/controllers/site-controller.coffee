@@ -64,7 +64,7 @@ module.exports = class SiteController extends Controller
 
     @paginator = collection.paginator @num, @tagfilterer
 
-  show: (params) => @compose "#{@type}:#{@id}", =>
+  show: (params) => @reuse "#{@type}:#{@id}", =>
     utils.log "show #{@type} #{@id} site-controller"
     collection = @paginator.collection
     model = collection.findWhere @find_where
@@ -87,7 +87,7 @@ module.exports = class SiteController extends Controller
       type: @type
       sub_type: @sub_type
 
-  index: (params) => @compose "#{@type}:index:#{@tag}:#{@num}", =>
+  index: (params) => @reuse "#{@type}:index:#{@tag}:#{@num}", =>
     utils.log "index #{@type} site-controller"
     collection = @paginator.collection
 
@@ -125,7 +125,7 @@ module.exports = class SiteController extends Controller
         template: 'index'
         list_selector: '#excerpt-list'
 
-  archives: (params) => @compose "#{@type}:archives", =>
+  archives: (params) => @reuse "#{@type}:archives", =>
     utils.log "archives #{@type} site-controller"
     collection = @paginator.collection
     active = 'Archives'
