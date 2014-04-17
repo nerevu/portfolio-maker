@@ -7,6 +7,4 @@ module.exports = class Screenshots extends Collection
 
   type: type
   storeName: _.str.capitalize type
-
-  initialize: =>
-    super
+  initialize: => super
