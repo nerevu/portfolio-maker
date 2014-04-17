@@ -15,11 +15,7 @@ module.exports = class SiteController extends Controller
     @tag = params?.tag
     @id = params?.id
     recent_comparator = config[@type]?.recent_comparator
-    identifier = config[@type]?.identifier
 
-    if @id and identifier
-      find_where = {}
-      find_where[identifier] = @id
 
     collection =
       switch @type
@@ -45,15 +41,22 @@ module.exports = class SiteController extends Controller
       @tagfilterer = @filterer
 
     if @type in @pages.pluck 'name'
+      utils.log "#{@type} is a model"
       @find_where = name: @type
-    else if @id and identifier
-      @find_where = find_where
+      @is_model = true
+    else
+      utils.log "#{@type} is a collection"
 
-    @recent = collection.getRecent()
-    @popular = collection.getPopular()
-    @random = collection.getRandom()
-    @tags = collection.getTags @filterer
-    @active = _.str.capitalize @type
+      if @id
+        @find_where = {}
+        @find_where[config[@type].identifier] = @id
+
+      @is_model = false
+      @recent = collection.getRecent()
+      @popular = collection.getPopular()
+      @random = collection.getRandom()
+      @tags = collection.getTags @filterer
+      @active = _.str.capitalize @type
 
     if recent_comparator
       collection.comparator = (model) -> - model.get recent_comparator
@@ -88,8 +91,7 @@ module.exports = class SiteController extends Controller
     utils.log "index #{@type} site-controller"
     collection = @paginator.collection
 
-    if @type in @pages.pluck 'name'
-      utils.log "#{@type} is a model"
+    if @is_model
       model = collection.findWhere @find_where
       title = model?.get 'title'
       @adjustTitle title
@@ -100,7 +102,6 @@ module.exports = class SiteController extends Controller
         title: title
 
     else
-      utils.log "#{@type} is a collection"
       title = "My #{@sub_title}#{@active}"
       @adjustTitle title
 
