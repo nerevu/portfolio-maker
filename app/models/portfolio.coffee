@@ -14,7 +14,6 @@ module.exports = class Portfolio extends Collection
   local: => localStorage.getItem "#{config.title}:#{@storeName}:synced"
 
   sync: (method, collection, options) =>
-    _(options).extend collection_type: @type
     utils.log "#{@storeName} collection's sync method is #{method}"
     utils.log "read #{@storeName} collection from server: #{not @local()}"
     Backbone.sync(method, collection, options)
@@ -26,5 +25,6 @@ module.exports = class Portfolio extends Collection
   fetch: =>
     utils.log "fetch #{@type} collection"
     $.Deferred((deferred) => super
+      collection_type: @type
       success: deferred.resolve
       error: deferred.reject).promise()
