@@ -14,8 +14,8 @@ module.exports = class SiteController extends Controller
     @sub_title = config[@type]?.sub_title ? ''
     @tag = params?.tag
     @id = params?.id
-    recent_comparator = config[@type]?.recent_comparator
 
+    recent_comparator = config[@type]?.recent_comparator
 
     collection =
       switch @type
@@ -27,7 +27,7 @@ module.exports = class SiteController extends Controller
     fltr = config[@type]?.filterer
 
     if fltr
-      @filterer = (model, index=false) =>
+      @filterer = (model, index=false) ->
         model.get(fltr.key) is fltr.value
     else
       @filterer = null
