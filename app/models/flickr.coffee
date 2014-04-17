@@ -18,13 +18,7 @@ module.exports = class Flickr extends Collection
 
   model: Model
   url: "#{base_url}?#{$.param _(url_data).extend base_data}"
-  local: => localStorage.getItem "#{config.title}:#{@storeName}:synced"
-
-  sync: (method, collection, options) =>
-    _(options).extend collection_type: @type
-    utils.log "#{@storeName} collection's sync method is #{method}"
-    utils.log "read #{@storeName} collection from server: #{not @local()}"
-    Backbone.sync(method, collection, options)
+  remote: true
 
   initialize: =>
     super
@@ -63,9 +57,10 @@ module.exports = class Flickr extends Collection
     utils.log "get #{@type} data"
     _.flatten (r[0].photoset.photo for r in results)
 
-  parseBeforeLocalSave: (resp) =>
+  parse: (resp) =>
     return if @disposed
-    console.log 'parseBeforeLocalSave'
+    console.log "#{@type} parse"
+    console.log resp
     @getCollection(resp).then(@getSets).then(@applySets).then(@getData)
 
   wrapError: (collection, options) =>
@@ -81,6 +76,7 @@ module.exports = class Flickr extends Collection
     success = options.success
 
     options.success = (resp) =>
+      console.log "#{@type} success"
       method = if options.reset then 'reset' else 'set'
       setData = (data, collection, method) =>
         utils.log "setting #{@type} data"
@@ -89,12 +85,9 @@ module.exports = class Flickr extends Collection
         success collection, data, options if success
         collection.finishSync()
 
-      if resp?.done
-        collection = @
-        do (collection, method) -> resp.done (data) ->
-          setData data, collection, method
-      else
-        setData resp, @, method
+      collection = @
+      do (collection, method) -> collection.parse(resp).done (data) ->
+        setData data, collection, method
 
     @wrapError @, options
     @sync 'read', @, options
@@ -102,5 +95,6 @@ module.exports = class Flickr extends Collection
   fetch: =>
     utils.log "fetch #{@type} collection"
     $.Deferred((deferred) => @_fetch
+      collection_type: @type
       success: deferred.resolve
       error: deferred.reject).promise()

@@ -35,6 +35,7 @@ module.exports = class IndexView extends CollectionView
     @subscribeEvent "change:tags", (tags) =>
       utils.log 'main-view heard change:tags event'
       @tags = _(@tags).union tags
+      @tags.sort()
       @getTemplateData()
       @render()
 
