@@ -60,7 +60,6 @@ module.exports = class Flickr extends Collection
   parse: (resp) =>
     return if @disposed
     console.log "#{@type} parse"
-    console.log resp
     @getCollection(resp).then(@getSets).then(@applySets).then(@getData)
 
   wrapError: (collection, options) ->

@@ -14,6 +14,8 @@ module.exports = class ItemView extends View
 
   initialize: (options) =>
     super
+    utils.log 'initializing detail-view'
+
     if @model
       @template = require "views/templates/#{@model.get 'template'}"
     else
