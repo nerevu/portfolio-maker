@@ -97,6 +97,7 @@ config =
     related_count: 6
     random_count: 6
     items_per_index: 12
+    sub_type: 'photo'
     index_class: 'col-sm-4 col-md-3 col-lg-3'
     index_template: 'photo-excerpt'
     show_pager: true
