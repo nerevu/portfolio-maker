@@ -10,6 +10,8 @@ module.exports = class SiteController extends Controller
     utils.log 'initialize site-controller'
     @num = parseInt params?.num ? 1
     @type = params?.type ? 'home'
+    @sub_type = config[@type]?.sub_type ? ''
+    @sub_title = config[@type]?.sub_title ? ''
     @tag = params?.tag
     @id = params?.id
     recent_comparator = config[@type]?.recent_comparator
@@ -19,26 +21,12 @@ module.exports = class SiteController extends Controller
       find_where = {}
       find_where[identifier] = @id
 
-    switch @type
-      when 'gallery'
-        collection = @gallery
-        @sub_title = 'Photo '
-        @sub_type = 'photo'
-
-      when 'portfolio'
-        collection = utils.mergePortfolio @portfolio, @screenshots
-        @sub_title = 'Project '
-        @sub_type = 'project'
-
-      when 'blog'
-        collection = @blog
-        @sub_title = ''
-        @sub_type = 'post'
-
-      else
-        collection = @pages
-        @sub_title = ''
-        @sub_type = ''
+    collection =
+      switch @type
+        when 'gallery' then @gallery
+        when 'portfolio' then utils.mergePortfolio @portfolio, @screenshots
+        when 'blog' then @blog
+        else @pages
 
     fltr = config[@type]?.filterer
 
