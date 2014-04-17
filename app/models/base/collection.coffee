@@ -31,7 +31,7 @@ module.exports = class Collection extends Chaplin.Collection
     filterd.sort()
     filterd
 
-  getModels: (collection, length) =>
+  getModels: (collection, length) ->
     models = []
     _(collection.models).some (model) ->
       data =

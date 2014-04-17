@@ -10,17 +10,17 @@ module.exports = class FooterView extends View
   region: 'footer'
   template: template
 
-  initialize: (options) =>
+  initialize: (options) ->
     super
     utils.log 'initializing footer view'
 
-  render: =>
+  render: ->
     super
     utils.log 'rendering footer view'
 
-  getTemplateData: =>
+  getTemplateData: ->
     templateData = super
     templateData.author = config.author
     templateData.year = new Date().getFullYear()
     templateData
-    
+

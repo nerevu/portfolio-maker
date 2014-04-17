@@ -9,8 +9,8 @@ module.exports = class ItemView extends View
   region: 'content'
 
   listen:
-    # 'all': (event) => utils.log "detail-view heard #{event}"
-    'addedToParent': => utils.log "heard addedToParent"
+    # 'all': (event) -> utils.log "detail-view heard #{event}"
+    'addedToParent': -> utils.log "heard addedToParent"
 
   initialize: (options) =>
     super

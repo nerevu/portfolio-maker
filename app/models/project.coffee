@@ -7,7 +7,7 @@ module.exports = class Project extends Model
   token = "access_token=#{config.github.api_token}"
   url: => "#{github_api}/#{@get 'full_name'}?#{token}"
 
-  sync: (method, model, options) =>
+  sync: (method, model, options) ->
     model.local = -> method isnt 'read'
     # utils.log "#{model.get 'name'}'s method is #{method}"
     # utils.log "#{model.get 'name'}'s local is #{model.local()}"
@@ -64,7 +64,7 @@ module.exports = class Project extends Model
       # https://api.github.com/repos/reubano/bump/tags
       @getMeta() if not (@get('meta') or @get('fetching_meta'))
 
-  getOptions: (language, option) =>
+  getOptions: (language, option) ->
     switch language
       when 'javascript', 'coffeescript', 'css'
         switch option
@@ -100,10 +100,9 @@ module.exports = class Project extends Model
     @set fetching_meta: true
     promise = $.get "#{@get('meta_base_url')}?#{token}"
 
-    do (model = @) -> promise
-      .then(model.getFileList)
-      .then(model.fetchFiles)
-      .fail(model.failWhale)
+    do (model = @) ->
+      promise
+        .then(model.getFileList).then(model.fetchFiles).fail(model.failWhale)
 
   getFileList: (data) =>
     names = _(data).pluck('name')
@@ -114,10 +113,9 @@ module.exports = class Project extends Model
     if file
       promise = $.get "#{@get 'meta_base_url'}/#{file}?#{token}"
 
-      do (model = @) -> promise
-        .then(model.parseMeta)
-        .then(model.setMeta)
-        .fail(model.failWhale)
+      do (model = @) ->
+        promise
+          .then(model.parseMeta).then(model.setMeta).fail(model.failWhale)
 
   standardizer: (func, value) ->
     if value? and value

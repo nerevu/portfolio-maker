@@ -26,7 +26,7 @@ module.exports = class NavbarView extends CollectionView
 
     @links = links
 
-  render: =>
+  render: ->
     super
     utils.log 'rendering navbar view'
 
