@@ -10,14 +10,14 @@
   <script src="javascripts/test.js"></script>
   <script>require('initialize');</script>
   <script>
-  $(function() {
-		window.require.list()
-		  .filter(function(name) {return /-test$/.test(name);})
-		  .forEach(require);
+	  $(function() {
+			window.require.list()
+			  .filter(function(_) {return /-test$/.test(_);})
+			  .forEach(require);
 
-    if (window.mochaPhantomJS) { mochaPhantomJS.run(); }
-    else { mocha.run(); }
-  });
+	    if (window.mochaPhantomJS) { mochaPhantomJS.run(); }
+	    else { mocha.run(); }
+	  });
   </script>
 </head>
 <body>
