@@ -16,6 +16,12 @@
     "lodash": "~2.4.1",
     "underscore.string": "~2.3.3"
   },
+  "devDependencies": {
+    "chai": "~1.9.1",
+    "mocha": "~1.18.2",
+    "sinon": "~1.9.1",
+    "sinon-chai": "~2.5.0"
+  },
   "overrides": {
     "underscore.string": {
       "dependencies": {},
@@ -31,6 +37,20 @@
         "jquery": "*"
       },
       "main": "backbone.js"
+    },
+    "sinon": {
+      "dependencies": {
+        "formatio": "~1.0",
+        "util": ">=0.10.3 <1"
+      },
+      "main": "./lib/sinon.js"
+    },
+    "sinon-chai": {
+      "dependencies": {
+        "chai": ">=1.0.0 <2",
+        "sinon": ">=1.4.0 <2"
+      },
+      "main": "./lib/sinon-chai.js"
     }
   }
 }
