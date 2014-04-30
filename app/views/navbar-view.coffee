@@ -16,13 +16,13 @@ module.exports = class NavbarView extends CollectionView
   initialize: (options) =>
     super
     utils.log 'initializing navbar view'
-    links = config.generated_pages
+    links = _.clone(config.generated_pages)
 
     _.each @collection.models, (model) ->
       if model.get 'nav_link'
         href = model.get 'href'
         title = model.get 'title'
-        links.push({href: href, title: title})
+        links.push({href, title})
 
     @links = links
 
