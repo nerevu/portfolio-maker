@@ -14,6 +14,10 @@ module.exports = class Collection extends Chaplin.Collection
   # Use the project base model per default, not Chaplin.Model
   model: Model
 
+  popular: => @getPopular()
+  recent: => @getRecent()
+  random: => @getRandom()
+
   prefilter: (filter=false) =>
     if  _.isFunction filter
       collection = new Collection _(@models).filter filter

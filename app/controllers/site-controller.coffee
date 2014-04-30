@@ -52,9 +52,9 @@ module.exports = class SiteController extends Controller
         @find_where[config[@type].identifier] = @id
 
       @is_model = false
-      @recent = collection.getRecent()
-      @popular = collection.getPopular()
-      @random = collection.getRandom()
+      @recent = collection.recent
+      @popular = collection.popular
+      @random = collection.random
       @tags = collection.getTags @filterer
       @active = _.str.capitalize @type
 

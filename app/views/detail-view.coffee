@@ -30,9 +30,9 @@ module.exports = class ItemView extends View
       @popular = options.popular
       @related = options.related
     else
-      @recent_posts = mediator.blog.getRecent()
-      @popular_projects = mediator.portfolio.getPopular()
-      @popular_photos = mediator.gallery.getPopular()
+      @recent_posts = mediator.blog.recent
+      @popular_projects = mediator.portfolio.popular
+      @popular_photos = mediator.gallery.popular
 
     @title = options.title
     @pager = options.pager
@@ -78,13 +78,13 @@ module.exports = class ItemView extends View
       @template = require "views/templates/404"
 
     if @sub_type
-      @recent = collection.getRecent()
-      @popular = collection.getPopular()
+      @recent = collection.recent
+      @popular = collection.popular
       @related = collection.getRelated @model
     else
       sub_type = config?[collection?.type]?.sub_type
       if sub_type
-        @["popular_#{sub_type}s"] = collection.getPopular()
+        @["popular_#{sub_type}s"] = collection.popular
 
     @getTemplateData()
     @render()
