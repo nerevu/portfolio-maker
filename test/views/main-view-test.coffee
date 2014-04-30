@@ -1,4 +1,4 @@
-View = require 'views/home-view'
+View = require 'views/main-view'
 
 describe 'View', ->
   beforeEach ->
