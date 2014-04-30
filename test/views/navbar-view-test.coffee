@@ -1,7 +1,7 @@
 NavbarView = require 'views/navbar-view'
 mediator = require 'mediator'
 
-describe 'NavbarView', =>
+describe 'NavbarView', ->
   beforeEach => @view = new NavbarView {collection: mediator.pages}
   afterEach => @view.dispose()
 
