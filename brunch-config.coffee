@@ -17,7 +17,9 @@ exports.config =
         'test/javascripts/test-vendor.js': /^test(\/|\\)(?=vendor)/
 
     stylesheets:
-      joinTo: 'stylesheets/app.css'
+      joinTo:
+        'stylesheets/app.css': /^(?!test)/
+        'test/stylesheets/test.css': /^test/
 
     templates:
       joinTo: 'javascripts/app.js'
