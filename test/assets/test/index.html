@@ -11,6 +11,10 @@
   <script>
   $(function() {
     require('test/initialize');
+		window.require.list()
+		  .filter(function(name) {return /-test$/.test(name);})
+		  .forEach(require);
+
     if (window.mochaPhantomJS) { mochaPhantomJS.run(); }
     else { mocha.run(); }
   });
