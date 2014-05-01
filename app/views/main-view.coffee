@@ -58,11 +58,11 @@ module.exports = class IndexView extends CollectionView
   render: ->
     super
     utils.log 'rendering main view'
-    # console.log @collection
+    # utils.log @collection
 
   setTemplateData: (collection) =>
     utils.log 'set main-view template data'
-    console.log collection.type
+    utils.log collection.type
     @paginator = collection.paginator @cur_page, @filterer
     @collection = @paginator.collection
     @recent = collection.recent

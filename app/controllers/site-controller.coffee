@@ -71,7 +71,7 @@ module.exports = class SiteController extends Controller
     @collection.setPagers @filterer
     @collection.type = @type
     title = model?.get 'title'
-    console.log @collection
+    utils.log @collection
 
     @adjustTitle title
     @view = new DetailView

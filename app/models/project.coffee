@@ -20,7 +20,7 @@ module.exports = class Project extends Model
     sub_type = config[type]?.sub_type
     filterer = config[type]?.filterer
     # utils.log "initializing #{name} #{sub_type} model"
-    # console.log @
+    # utils.log @
     language = @get('language')?.toLowerCase()
     created = moment @get 'created_at'
     updated = moment @get 'updated_at'
@@ -96,7 +96,7 @@ module.exports = class Project extends Model
       @save patch: true
 
   getMeta: =>
-    console.log "getMeta for #{@get 'name'}"
+    utils.log "getMeta for #{@get 'name'}"
     @set fetching_meta: true
     promise = $.get "#{@get('meta_base_url')}?#{token}"
 
@@ -179,8 +179,8 @@ module.exports = class Project extends Model
     meta = {}
     temp = {}
     content = Base64.decode data.content
-    # console.log @get 'name'
-    # console.log data.name
+    # utils.log @get 'name'
+    # utils.log data.name
 
     switch data.name
       when 'package.json'

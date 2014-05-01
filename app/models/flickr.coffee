@@ -58,7 +58,7 @@ module.exports = class Flickr extends Collection
 
   parse: (resp) =>
     return if @disposed
-    console.log "#{@type} parse"
+    utils.log "#{@type} parse"
     @getCollection(resp).then(@getSets).then(@applySets).then(@getData)
 
   wrapError: (options) =>
@@ -71,7 +71,7 @@ module.exports = class Flickr extends Collection
     utils.log "setting #{@type} data"
     method = if options.reset then 'reset' else 'set'
     @[method] data, options
-    console.log @
+    utils.log @
     success @, data, options if success
     @finishSync()
 
@@ -88,7 +88,7 @@ module.exports = class Flickr extends Collection
       @setData data, options, success
     else
       options.success = (resp) =>
-        console.log "#{@type} success"
+        utils.log "#{@type} success"
         collection = @
 
         do (collection, options, success) ->

@@ -1,17 +1,17 @@
 Application = require 'application'
 routes = require 'routes'
 mediator = require 'mediator'
+utils = require 'lib/utils'
 
 window.onLoadGoogleApiCallback = ->
   L.GeoSearch.Provider.Google.Geocoder = new google.maps.Geocoder()
   $.remove 'load_google_api'
   mediator.publish 'googleLoaded'
   mediator.googleLoaded = true
-  console.log 'published googleLoaded'
 
 # Initialize the application on DOM ready event.
 $ ->
-  console.log 'initializing app'
+  utils.log 'initializing app'
   new Application {
     controllerSuffix: '-controller'
     routes: routes

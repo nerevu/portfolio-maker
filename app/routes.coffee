@@ -1,5 +1,7 @@
+utils = require 'lib/utils'
+
 module.exports = (match) ->
-  console.log 'start router'
+  utils.log 'start router'
   match '', 'site#index'
   match ':type', 'site#index'
   match ':type/page', 'site#index'
