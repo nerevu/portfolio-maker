@@ -36,10 +36,8 @@ module.exports = class Flickr extends Collection
     $.get base_url, _(data).extend base_data
 
   getSets: (response) ->
-    extras = "license, date_upload, date_taken, owner_name, icon_server,"
-    extras += "original_format, last_update, geo, tags, machine_tags,"
-    extras += "o_dims, views, media, path_alias, url_sq, url_t, url_s,"
-    extras += "url_m, url_o"
+    extras = "license, date_upload, date_taken, original_format, last_update,"
+    extras += "geo, tags, o_dims, views, media, url_sq, url_t, url_s, url_m"
     deferreds = []
 
     for id in (s.id for s in response.collections.collection[0].set)
