@@ -7,7 +7,7 @@ utils = require 'lib/utils'
 
 module.exports = class SiteController extends Controller
   initialize: (params) =>
-    utils.log 'initialize site-controller'
+    utils.log 'initializing site-controller'
     @num = parseInt params?.num ? 1
     @type = params?.type ? 'home'
     @sub_type = config[@type]?.sub_type ? ''

@@ -9,7 +9,7 @@ module.exports = class Blog extends Collection
 
   initialize: =>
     super
-    utils.log "initialize #{@type} collection"
+    utils.log "initializing #{@type} collection"
 
   fetch: =>
     utils.log "fetch #{@type} collection"

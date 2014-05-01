@@ -19,7 +19,7 @@ module.exports = class Project extends Model
     type = options?.collection_type
     sub_type = config[type]?.sub_type
     filterer = config[type]?.filterer
-    # utils.log "initialize #{name} #{sub_type} model"
+    # utils.log "initializing #{name} #{sub_type} model"
     # console.log @
     language = @get('language')?.toLowerCase()
     created = moment @get 'created_at'

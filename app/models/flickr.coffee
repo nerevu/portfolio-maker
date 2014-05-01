@@ -23,7 +23,7 @@ module.exports = class Flickr extends Collection
 
   initialize: =>
     super
-    utils.log "initialize #{@type} collection"
+    utils.log "initializing #{@type} collection"
     @syncStateChange => console.debug "#{@type} state changed"
 
   getCollection: (response) =>
