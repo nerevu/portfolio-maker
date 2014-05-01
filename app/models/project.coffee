@@ -50,7 +50,7 @@ module.exports = class Project extends Model
     @set created_str: created.format("MMMM Do, YYYY")
     @set updated_str: updated.format("MMMM Do, YYYY")
 
-    if type and filterer
+    if filterer
       pass = @get(filterer.key) is filterer.value
     else if type
       pass = true
