@@ -34,7 +34,8 @@
     "ls-brunch": "git://github.com/reubano/ls-brunch",
     "yaml-front-matter": "~3.0.1",
     "sass-brunch": "~1.8.1",
-    "process-env-brunch": "~1.4.4-d"
+    "process-env-brunch": "~1.4.4-d",
+    "json-brunch": "~1.5.4"
   },
   "devDependencies": {}
 }
