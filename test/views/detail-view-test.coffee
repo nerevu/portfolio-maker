@@ -28,7 +28,7 @@ describe 'DetailView', ->
       it 'should have a title', =>
         @view.$('h1').text().should.not.equal 'Not Found'
 
-      it 'should have at least 7 related', =>
+      it 'should have at least 6 related', =>
         @view.$('div.gallery-related').children().should.have.length.of.at.least 6
 
       it 'should have 6 recent', =>
