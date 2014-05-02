@@ -1,8 +1,6 @@
 DetailView = require 'views/detail-view'
 mediator = require 'mediator'
 config = require 'config'
-
-# mediator.subscribe 'portfolio:synced', (portfolio) ->
 portfolio = mediator.portfolio
 recent = portfolio.recent
 popular = portfolio.popular
