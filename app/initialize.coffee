@@ -14,5 +14,6 @@ $ ->
   console.log 'initializing app'
   new Application {
     controllerSuffix: '-controller'
-    routes
+    routes: routes
+    pushState: false
   }

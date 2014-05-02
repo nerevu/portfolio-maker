@@ -3,7 +3,7 @@
   "version": "0.4.0",
   "main": "public/javascripts/app.js",
   "dependencies": {
-    "chaplin": "~0.11.3",
+    "chaplin": "~1.0.0",
     "console-polyfill": "~0.1.0",
     "jquery": "~2.0.2",
     "h5bp-helpers": "~0.1.0",
@@ -15,6 +15,12 @@
     "js-base64": "~2.1.2",
     "lodash": "~2.4.1",
     "underscore.string": "~2.3.3"
+  },
+  "devDependencies": {
+    "chai": "~1.9.1",
+    "mocha": "~1.18.2",
+    "sinon": "~1.9.1",
+    "sinon-chai": "~2.5.0"
   },
   "overrides": {
     "underscore.string": {
@@ -31,6 +37,20 @@
         "jquery": "*"
       },
       "main": "backbone.js"
+    },
+    "sinon": {
+      "dependencies": {
+        "formatio": "~1.0",
+        "util": ">=0.10.3 <1"
+      },
+      "main": "./lib/sinon.js"
+    },
+    "sinon-chai": {
+      "dependencies": {
+        "chai": ">=1.0.0 <2",
+        "sinon": ">=1.4.0 <2"
+      },
+      "main": "./lib/sinon-chai.js"
     }
   }
 }

@@ -3,17 +3,22 @@
   <meta charset="utf-8">
   <title>Mocha Tests</title>
   <link rel="stylesheet" href="stylesheets/test.css" />
+  <link rel="stylesheet" href="../stylesheets/app.css" />
 
   <script src="../javascripts/vendor.js"></script>
   <script src="../javascripts/app.js"></script>
   <script src="javascripts/test-vendor.js"></script>
   <script src="javascripts/test.js"></script>
+  <script>require('initialize');</script>
   <script>
-  $(function() {
-    require('test/initialize');
-    if (window.mochaPhantomJS) { mochaPhantomJS.run(); }
-    else { mocha.run(); }
-  });
+	  $(function() {
+			window.require.list()
+			  .filter(function(_) {return /-test$/.test(_);})
+			  .forEach(require);
+
+	    if (window.mochaPhantomJS) { mochaPhantomJS.run(); }
+	    else { mocha.run(); }
+	  });
   </script>
 </head>
 <body>

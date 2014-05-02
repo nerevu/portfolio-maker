@@ -1,18 +1,13 @@
-View = require 'views/navbar-view'
+NavbarView = require 'views/navbar-view'
+mediator = require 'mediator'
 
-class ViewTest extends View
-  renderTimes: 0
+describe 'NavbarView', ->
+  beforeEach => @view = new NavbarView {collection: mediator.pages}
+  afterEach => @view.dispose()
 
-  render: ->
-    super
-    @renderTimes += 1
+  it 'expect 3 models', => expect(@view.collection).to.have.length 3
+  it 'should have 3 models', => @view.collection.should.have.length 3
+  it 'should have 6 links', => @view.links.should.have.length 6
 
-describe 'View', ->
-  beforeEach ->
-    @view = new ViewTest
-
-  afterEach ->
-    @view.dispose()
-
-  it 'should display 4 links', ->
-    expect(@view.$el.find 'a').to.have.length 4
+  it 'should have 6 nav items', =>
+    @view.$el.find('ul.nav').children().should.have.length 6

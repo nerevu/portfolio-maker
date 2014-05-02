@@ -52,9 +52,9 @@ module.exports = class SiteController extends Controller
         @find_where[config[@type].identifier] = @id
 
       @is_model = false
-      @recent = collection.getRecent()
-      @popular = collection.getPopular()
-      @random = collection.getRandom()
+      @recent = collection.recent
+      @popular = collection.popular
+      @random = collection.random
       @tags = collection.getTags @filterer
       @active = _.str.capitalize @type
 
@@ -63,15 +63,15 @@ module.exports = class SiteController extends Controller
       collection.sort()
 
     @paginator = collection.paginator @num, @tagfilterer
+    @collection = _.clone(collection)
 
-  show: (params) => @compose "#{@type}:#{@id}", =>
+  show: (params) => @reuse "#{@type}:#{@id}", =>
     utils.log "show #{@type} #{@id} site-controller"
-    collection = @paginator.collection
-    model = collection.findWhere @find_where
-    collection.setPagers @filterer
-    collection.type = @type
+    model = @collection.findWhere @find_where
+    @collection.setPagers @filterer
+    @collection.type = @type
     title = model?.get 'title'
-    console.log collection
+    console.log @collection
 
     @adjustTitle title
     @view = new DetailView
@@ -83,16 +83,15 @@ module.exports = class SiteController extends Controller
       recent: @recent
       popular: @popular
       random: @random
-      related: collection.getRelated model
+      related: @collection.getRelated model
       type: @type
       sub_type: @sub_type
 
-  index: (params) => @compose "#{@type}:index:#{@tag}:#{@num}", =>
+  index: (params) => @reuse "#{@type}:index:#{@tag}:#{@num}", =>
     utils.log "index #{@type} site-controller"
-    collection = @paginator.collection
 
     if @is_model
-      model = collection.findWhere @find_where
+      model = @collection.findWhere @find_where
       title = model?.get 'title'
       @adjustTitle title
 
@@ -106,7 +105,7 @@ module.exports = class SiteController extends Controller
       @adjustTitle title
 
       @view = new MainView
-        collection: collection
+        collection: @paginator.collection
         paginator: @paginator
         filterer: @tagfilterer  # only show tagged items
         tagfilter: @filterer  # show tags for all site items
@@ -125,7 +124,7 @@ module.exports = class SiteController extends Controller
         template: 'index'
         list_selector: '#excerpt-list'
 
-  archives: (params) => @compose "#{@type}:archives", =>
+  archives: (params) => @reuse "#{@type}:archives", =>
     utils.log "archives #{@type} site-controller"
     collection = @paginator.collection
     active = 'Archives'

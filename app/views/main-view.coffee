@@ -65,9 +65,9 @@ module.exports = class IndexView extends CollectionView
     console.log collection.type
     @paginator = collection.paginator @cur_page, @filterer
     @collection = @paginator.collection
-    @recent = collection.getRecent()
-    @popular = collection.getPopular()
-    @random = collection.getRandom()
+    @recent = collection.recent
+    @popular = collection.popular
+    @random = collection.random
     @tags = collection.getTags @tagfilter
     @getTemplateData()
     @render()
