@@ -23,7 +23,7 @@ module.exports = class Application extends Chaplin.Application
     for collection in ['portfolio', 'screenshots', 'gallery']
       do (collection) => mediator[collection].fetch().done (response) =>
         if response.message then return
-        console.log "done fetching #{collection}"
+        utils.log "done fetching #{collection}"
         @publishEvent "#{collection}:synced", response
         store = "#{config.title}:#{mediator[collection].storeName}"
         if not mediator[collection].remote

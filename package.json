@@ -2,7 +2,7 @@
   "author": "Reuben Cummings",
   "name": "portfolio-maker",
   "description": "Automatically generates a project portfolio via github and flickr APIs",
-  "version": "0.8.0",
+  "version": "0.9.0",
   "environment": "web",
   "homepage": "",
   "keywords": [
@@ -34,7 +34,8 @@
     "ls-brunch": "git://github.com/reubano/ls-brunch",
     "yaml-front-matter": "~3.0.1",
     "sass-brunch": "~1.8.1",
-    "process-env-brunch": "~1.4.4-d"
+    "process-env-brunch": "~1.4.4-d",
+    "json-brunch": "~1.5.4"
   },
   "devDependencies": {}
 }

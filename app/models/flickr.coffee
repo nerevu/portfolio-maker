@@ -1,6 +1,7 @@
 Collection = require 'models/base/collection'
 Model = require 'models/photo'
 config = require 'config'
+devconfig = require 'devconfig'
 utils = require 'lib/utils'
 
 module.exports = class Flickr extends Collection
@@ -22,7 +23,7 @@ module.exports = class Flickr extends Collection
 
   initialize: =>
     super
-    utils.log "initialize #{@type} collection"
+    utils.log "initializing #{@type} collection"
     @syncStateChange => console.debug "#{@type} state changed"
 
   getCollection: (response) =>
@@ -35,10 +36,8 @@ module.exports = class Flickr extends Collection
     $.get base_url, _(data).extend base_data
 
   getSets: (response) ->
-    extras = "license, date_upload, date_taken, owner_name, icon_server,"
-    extras += "original_format, last_update, geo, tags, machine_tags,"
-    extras += "o_dims, views, media, path_alias, url_sq, url_t, url_s,"
-    extras += "url_m, url_o"
+    extras = "license, date_upload, date_taken, original_format, last_update,"
+    extras += "geo, tags, o_dims, views, media, url_sq, url_t, url_s, url_m"
     deferreds = []
 
     for id in (s.id for s in response.collections.collection[0].set)
@@ -59,37 +58,45 @@ module.exports = class Flickr extends Collection
 
   parse: (resp) =>
     return if @disposed
-    console.log "#{@type} parse"
+    utils.log "#{@type} parse"
     @getCollection(resp).then(@getSets).then(@applySets).then(@getData)
 
-  wrapError: (collection, options) ->
+  wrapError: (options) =>
     error = options.error
-    options.error = (resp) ->
-      error collection, resp, options if error
-      collection.unSync()
+    options.error = (resp) =>
+      error @, resp, options if error
+      @unSync()
+
+  setData: (data, options, success=null) =>
+    utils.log "setting #{@type} data"
+    method = if options.reset then 'reset' else 'set'
+    @[method] data, options
+    utils.log @
+    success @, data, options if success
+    @finishSync()
 
   _fetch: (options) =>
     utils.log "_fetch #{@type} collection"
     @beginSync()
+
     options = if options then _.clone(options) else {}
     success = options.success
 
-    options.success = (resp) =>
-      console.log "#{@type} success"
-      method = if options.reset then 'reset' else 'set'
-      setData = (data, collection, method) =>
-        utils.log "setting #{@type} data"
-        collection[method] data, options
-        console.log collection
-        success collection, data, options if success
-        collection.finishSync()
+    if devconfig.testing
+      result = require 'flickr_data'
+      data = @getData [result]
+      @setData data, options, success
+    else
+      options.success = (resp) =>
+        utils.log "#{@type} success"
+        collection = @
 
-      collection = @
-      do (collection, method) -> collection.parse(resp).done (data) ->
-        setData data, collection, method
+        do (collection, options, success) ->
+          collection.parse(resp).done (data) ->
+            collection.setData data, options, success
 
-    @wrapError @, options
-    @sync 'read', @, options
+      @wrapError @, options
+      @sync 'read', @, options
 
   fetch: =>
     utils.log "fetch #{@type} collection"

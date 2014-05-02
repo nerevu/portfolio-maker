@@ -60,8 +60,12 @@ module.exports = class ItemView extends View
 
   render: =>
     super
-    utils.log "rendering detail-view"
-    console.log @model
+    if @model
+      utils.log "rendering #{@model.get 'title'} detail-view"
+    else
+      utils.log "rendering 404 detail-view"
+
+    utils.log @model
 
   setTemplateData: (collection) =>
     utils.log 'set detail-view template data'

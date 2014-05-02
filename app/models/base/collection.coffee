@@ -56,7 +56,7 @@ module.exports = class Collection extends Chaplin.Collection
     placeholder = options?.placeholder ? true
     n = options?.n ? 1
 
-    console.log "mergeModels"
+    utils.log "mergeModels"
     collection = @prefilter filter
     other = _(other.models).filter (model) -> tag in (model.get('tags') ? [])
 
@@ -79,7 +79,7 @@ module.exports = class Collection extends Chaplin.Collection
     collection
 
   paginator: (page=1, filter=false) =>
-    console.log "paginator"
+    utils.log "paginator"
     collection = @prefilter filter
     per_page = config[@type]?.items_per_index ? 10
     pages = collection.length / per_page | 0
@@ -98,7 +98,7 @@ module.exports = class Collection extends Chaplin.Collection
       pages: pages}
 
   setPagers: (filter=false) =>
-    console.log "setPagers"
+    utils.log "setPagers"
     collection = @prefilter filter
     len = collection.length + 1
     num = len
@@ -124,8 +124,8 @@ module.exports = class Collection extends Chaplin.Collection
 
   getRelated: (model) =>
     if model
-      console.log model
-      console.log "get related #{model.get 'sub_type'}s"
+      utils.log model
+      utils.log "get related #{model.get 'sub_type'}s"
       language = model.get 'language'
       audience = model.get 'audience'
       tags = _(model.get 'tags').union language, audience
@@ -149,7 +149,7 @@ module.exports = class Collection extends Chaplin.Collection
       []
 
   getRecent: =>
-    console.log "get recent #{@type}"
+    utils.log "get recent #{@type}"
     comparator = config[@type]?.recent_comparator
 
     if comparator
@@ -162,7 +162,7 @@ module.exports = class Collection extends Chaplin.Collection
       []
 
   getPopular: =>
-    console.log "get popular #{@type}"
+    utils.log "get popular #{@type}"
     comparator = config[@type]?.popular_comparator
 
     if comparator
@@ -175,7 +175,7 @@ module.exports = class Collection extends Chaplin.Collection
       []
 
   getRandom: =>
-    console.log "get random #{@type}"
+    utils.log "get random #{@type}"
     length = config[@type]?.random_count
 
     if length
