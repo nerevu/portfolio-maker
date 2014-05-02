@@ -63,13 +63,13 @@ module.exports = class SiteController extends Controller
       collection.sort()
 
     @paginator = collection.paginator @num, @tagfilterer
+    @collection = _.clone(collection)
 
   show: (params) => @reuse "#{@type}:#{@id}", =>
     utils.log "show #{@type} #{@id} site-controller"
-    collection = @paginator.collection
-    model = collection.findWhere @find_where
-    collection.setPagers @filterer
-    collection.type = @type
+    model = @collection.findWhere @find_where
+    @collection.setPagers @filterer
+    @collection.type = @type
     title = model?.get 'title'
     console.log collection
 
@@ -83,16 +83,15 @@ module.exports = class SiteController extends Controller
       recent: @recent
       popular: @popular
       random: @random
-      related: collection.getRelated model
+      related: @collection.getRelated model
       type: @type
       sub_type: @sub_type
 
   index: (params) => @reuse "#{@type}:index:#{@tag}:#{@num}", =>
     utils.log "index #{@type} site-controller"
-    collection = @paginator.collection
 
     if @is_model
-      model = collection.findWhere @find_where
+      model = @collection.findWhere @find_where
       title = model?.get 'title'
       @adjustTitle title
 
@@ -106,7 +105,7 @@ module.exports = class SiteController extends Controller
       @adjustTitle title
 
       @view = new MainView
-        collection: collection
+        collection: @paginator.collection
         paginator: @paginator
         filterer: @tagfilterer  # only show tagged items
         tagfilter: @filterer  # show tags for all site items
