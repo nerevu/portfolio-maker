@@ -4,13 +4,9 @@ config = require 'config'
 
 # mediator.subscribe 'portfolio:synced', (portfolio) ->
 portfolio = mediator.portfolio
-console.log 'mocha heard event'
 recent = portfolio.recent
 popular = portfolio.popular
 random = portfolio.random
-console.log portfolio
-console.log recent
-console.log popular
 
 describe 'DetailView', ->
   _(portfolio.models[...5]).each (model) ->
