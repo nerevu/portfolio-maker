@@ -5,6 +5,7 @@ mocha.setup ui: 'bdd'
 
 # Create global variables for simpler syntax.
 window.expect = chai.expect
+window.should = undefined
 window.should = chai.should()
 
 # require tests
