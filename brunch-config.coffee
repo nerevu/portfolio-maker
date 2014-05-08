@@ -12,7 +12,7 @@ exports.config =
     javascripts:
       joinTo:
         'javascripts/app.js': /^app/
-        'javascripts/vendor.js': /^bower_components/
+        'javascripts/vendor.js': /^(vendor|bower_components)/
         'test/javascripts/test.js': /^test(\/|\\)(?!vendor)/
         'test/javascripts/test-vendor.js': /^test(\/|\\)(?=vendor)/
 
@@ -22,4 +22,4 @@ exports.config =
         'test/stylesheets/test.css': /^test/
 
     templates:
-      joinTo: 'javascripts/app.js'
+      joinTo: 'javascripts/app.js': /^app/
