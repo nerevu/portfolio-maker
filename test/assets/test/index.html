@@ -16,8 +16,7 @@
 			  .filter(function(_) {return /-test$/.test(_);})
 			  .forEach(require);
 
-	    if (window.mochaPhantomJS) { mochaPhantomJS.run(); }
-	    else { mocha.run(); }
+	    if (window.mochaPhantomJS) {mochaPhantomJS.run();} else {mocha.run();}
 	  });
   </script>
 </head>
