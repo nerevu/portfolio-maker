@@ -12,10 +12,6 @@
   <script>require('test/initialize-test');</script>
   <script>
 	  $(function() {
-			window.require.list()
-			  .filter(function(_) {return /-test$/.test(_);})
-			  .forEach(require);
-
 	    if (window.mochaPhantomJS) {mochaPhantomJS.run();} else {mocha.run();}
 	  });
   </script>
