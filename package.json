@@ -18,7 +18,7 @@
   },
   "scripts": {
     "start": "brunch watch --server",
-    "test": "mocha-phantomjs public/test/index.html "
+    "test": "mocha-phantomjs public/test/index.html"
   },
   "dependencies": {
     "auto-reload-brunch": ">= 1.0 < 1.8",
