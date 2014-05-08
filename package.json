@@ -37,5 +37,8 @@
     "process-env-brunch": "~1.4.4-d",
     "json-brunch": "~1.5.4"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "mocha-phantomjs": ">= 3.3.2",
+    "phantomjs": ">= 1.9.7"
+  }
 }
