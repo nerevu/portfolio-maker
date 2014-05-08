@@ -19,8 +19,8 @@ describe 'DetailView', ->
 
       opts = {model, title, id, type, sub_type, active, pager, recent, popular}
       _(opts).extend {random, related}
-      beforeEach => @view = new DetailView opts
-      afterEach => @view.dispose()
+      before => @view = new DetailView opts
+      after => @view.dispose()
 
       it "should have 'portfolio' type", =>
         @view.model.attributes.type.should.equal 'portfolio'

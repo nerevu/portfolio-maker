@@ -2,8 +2,8 @@ NavbarView = require 'views/navbar-view'
 mediator = require 'mediator'
 
 describe 'NavbarView', ->
-  beforeEach => @view = new NavbarView {collection: mediator.pages}
-  afterEach => @view.dispose()
+  before => @view = new NavbarView {collection: mediator.pages}
+  after => @view.dispose()
 
   it 'expect 3 models', => expect(@view.collection).to.have.length 3
   it 'should have 3 models', => @view.collection.should.have.length 3
