@@ -1,9 +1,12 @@
 Collection = require 'models/base/collection'
 Model = require 'models/project'
 config = require 'config'
+devconfig = require 'devconfig'
 utils = require 'lib/utils'
 
 module.exports = class Portfolio extends Collection
+  _(@prototype).extend Chaplin.SyncMachine
+
   token = "access_token=#{config.github.api_token}"
   type = 'portfolio'
 
@@ -11,7 +14,11 @@ module.exports = class Portfolio extends Collection
   model: Model
   url: "https://api.github.com/users/#{config.github.user}/repos?#{token}"
   storeName: 'Portfolio'
-  local: => localStorage.getItem "#{config.title}:#{@storeName}:synced"
+  local: =>
+    if devconfig.testing
+      false
+    else
+      localStorage.getItem "#{config.title}:#{@storeName}:synced"
 
   sync: (method, collection, options) =>
     utils.log "#{@storeName} collection's sync method is #{method}"
@@ -21,10 +28,30 @@ module.exports = class Portfolio extends Collection
   initialize: =>
     super
     utils.log "initializing #{@type} collection"
+    @syncStateChange => utils.log "#{@type} state changed"
+
+  setData: (data, options, success=null) =>
+    utils.log "setting #{@type} data"
+    method = if options.reset then 'reset' else 'set'
+    @[method] data, options
+    utils.log @
+    success @, data, options if success
+    @finishSync()
+
+  _load: (options) =>
+    utils.log "_fetch #{@type} collection"
+    @beginSync()
+
+    options = if options then _.clone(options) else {}
+    success = options.success
+    data = require 'portfolio_data'
+    @setData data, options, success
 
   fetch: =>
     utils.log "fetch #{@type} collection"
-    $.Deferred((deferred) => super
+    fetchFunc = if devconfig.testing then @_load else super
+
+    $.Deferred((deferred) => fetchFunc
       collection_type: @type
       success: deferred.resolve
       error: deferred.reject).promise()
