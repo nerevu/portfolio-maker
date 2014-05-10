@@ -1,0 +1,35 @@
+language: node_js
+node_js:
+- '0.10'
+- '0.11'
+
+notifications:
+  email:
+    on_success: always
+
+before_install:
+  - npm install -g brunch
+  - npm install -g bower
+
+install: npm install & bower install
+script: npm test
+
+after_success:
+  # check for pull request and correct python version
+  - if [[ "$TRAVIS_PULL_REQUEST" == "true" ]]; then exit 0; fi
+  - if [[ "$TRAVIS_NODE_VERSION" != "0.10" ]]; then exit 0; fi
+
+  # Get to the Travis build directory, configure git, and add remote repo
+  - cd $HOME
+  - git config --global user.email "travis@travis-ci.org"
+  - git config --global user.name "travis-ci"
+  - git remote add reubano git@github.com:reubano/reubano.github.com.git
+
+  # Build optimized site, commit and push the Changes
+  - brunch build -P
+  - git checkout --orphan gh-pages
+  - rm -r test
+  - mv -f public/* ./
+  - git add -f fonts images javascripts stylesheets index.html crossdomain.xml *.txt
+  - git commit -m "Update site"
+  - git push reubano master
