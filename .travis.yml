@@ -33,3 +33,7 @@ after_success:
   - git add -f fonts images javascripts stylesheets index.html crossdomain.xml *.txt
   - git commit -m "Update site"
   - git push reubano master
+
+env:
+  global:
+    secure: tC9x9oieuNv/li7IIWzlF8FIx17yWUyXeXtocnspqz+tW0Eb4rCu4wGtXBsIAuILs2vCTw+SK80mEvg5t5BMwn7ZPq2QbrAFIZMx+7eQvWKNXZfV5zODW3/u145nKBxkQ1gskw1yxEne7NHw4KAEU85QCAwbtdO3VZig5r/sWOA=
