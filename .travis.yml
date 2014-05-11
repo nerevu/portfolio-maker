@@ -18,7 +18,10 @@ before_install:
   - npm install -g brunch
   - npm install -g bower
 
-install: npm install & bower install
+install:
+  - npm install --dev
+  - bower install --dev
+
 script: npm test
 
 after_success:
