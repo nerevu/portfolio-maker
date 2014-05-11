@@ -45,4 +45,4 @@ after_success:
   - mv -f public/* ./
   - git add -f fonts images javascripts stylesheets index.html crossdomain.xml *.txt
   - git commit -m "Update site"
-  - git push reubano master
+  - yes | git push reubano master
