@@ -8,6 +8,13 @@ notifications:
     on_success: always
 
 before_install:
+  # Turn off warnings about SSH keys:
+  - echo "Host heroku.com" >> ~/.ssh/config
+  - echo "   StrictHostKeyChecking no" >> ~/.ssh/config
+  - echo "   CheckHostIP no" >> ~/.ssh/config
+  - echo "   UserKnownHostsFile=/dev/null" >> ~/.ssh/config
+
+  # Install brunch and bower
   - npm install -g brunch
   - npm install -g bower
 
@@ -18,6 +25,12 @@ after_success:
   # check for pull request and correct python version
   - if [[ "$TRAVIS_PULL_REQUEST" == "true" ]]; then exit 0; fi
   - if [[ "$TRAVIS_NODE_VERSION" != "0.10" ]]; then exit 0; fi
+
+  # Decrypt and add SSH key
+  - openssl aes-256-cbc -d -k "$secret" -in id_rsa_travis.enc -a -out id_rsa_travis
+  - ssh-add -D
+  - chmod 600 id_rsa_travis
+  - ssh-add ./id_rsa_travis
 
   # Get to the Travis build directory, configure git, and add remote repo
   - cd $HOME
