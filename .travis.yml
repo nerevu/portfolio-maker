@@ -22,9 +22,10 @@ install: npm install & bower install
 script: npm test
 
 after_success:
-  # check for pull request and correct python version
+  # check for pull request, correct python version, and branch
   - if [[ "$TRAVIS_PULL_REQUEST" == "true" ]]; then exit 0; fi
   - if [[ "$TRAVIS_NODE_VERSION" != "0.10" ]]; then exit 0; fi
+  - if [[ "$TRAVIS_BRANCH" != "master" ]]; then exit 0; fi
 
   # Decrypt and add SSH key
   - openssl aes-256-cbc -d -k "$secret" -in id_rsa_travis.enc -a -out id_rsa_travis
