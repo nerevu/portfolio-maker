@@ -23,7 +23,7 @@ install:
 
 before_script:
   - brunch build -P
-  - sleep 20
+  - sleep 30
 
 script: npm test
 
