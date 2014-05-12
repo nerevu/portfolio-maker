@@ -21,11 +21,8 @@ install:
   - npm install
   - bower install
 
-script:
-  # Build optimized site and test
-  - brunch build -P
-  - sleep 15
-  - npm test
+before_script: brunch build -P
+script: npm test
 
 after_success:
   # check for pull request, correct python version, and branch
