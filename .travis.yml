@@ -45,7 +45,7 @@ after_success:
   - git config --global user.name "travis-ci"
   - git remote add reubano git@github.com:reubano/reubano.github.com.git
 
-  # Commit and push the Changes
+  # Commit and push the changes
   - git checkout --orphan gh-pages
   - rm -r test
   - mv -f public/* ./
