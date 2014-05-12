@@ -26,7 +26,7 @@ module.exports = class Application extends Chaplin.Application
         utils.log "done fetching #{collection}"
         @publishEvent "#{collection}:synced", response
         store = "#{config.title}:#{mediator[collection].storeName}"
-        if not mediator[collection].remote
+        if mediator[collection].local
           localStorage.setItem("#{store}:synced", true)
         utils.preloadImages response
 

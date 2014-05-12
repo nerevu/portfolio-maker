@@ -19,7 +19,17 @@ module.exports = class Flickr extends Collection
 
   model: Model
   url: "#{base_url}?#{$.param _(url_data).extend base_data}"
-  remote: true
+
+  local: =>
+    if devconfig.testing
+      false
+    else
+      localStorage.getItem "#{config.title}:#{@storeName}:synced"
+
+  sync: (method, collection, options) =>
+    utils.log "#{@storeName} collection's sync method is #{method}"
+    utils.log "read #{@storeName} collection from server: #{not @local()}"
+    Backbone.sync(method, collection, options)
 
   initialize: =>
     super
@@ -56,7 +66,7 @@ module.exports = class Flickr extends Collection
     utils.log "get #{@type} data"
     _.flatten (r[0].photoset.photo for r in results)
 
-  parse: (resp) =>
+  parseBeforeLocalSave: (resp) =>
     return if @disposed
     utils.log "#{@type} parse"
     @getCollection(resp).then(@getSets).then(@applySets).then(@getData)
@@ -89,11 +99,15 @@ module.exports = class Flickr extends Collection
     else
       options.success = (resp) =>
         utils.log "#{@type} success"
-        collection = @
 
-        do (collection, options, success) ->
-          collection.parse(resp).done (data) ->
-            collection.setData data, options, success
+        if resp?.done
+          collection = @
+
+          do (collection, options, success) ->
+            resp.done (data) ->
+              collection.setData data, options, success
+        else
+          @setData resp, options, success
 
       @wrapError @, options
       @sync 'read', @, options
