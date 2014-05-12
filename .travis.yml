@@ -21,7 +21,10 @@ install:
   - npm install
   - bower install
 
-script: npm test
+script:
+  # Build optimized site and test
+  - brunch build -P
+  - npm test
 
 after_success:
   # check for pull request, correct python version, and branch
@@ -41,8 +44,7 @@ after_success:
   - git config --global user.name "travis-ci"
   - git remote add reubano git@github.com:reubano/reubano.github.com.git
 
-  # Build optimized site, commit and push the Changes
-  - brunch build -P
+  # Commit and push the Changes
   - git checkout --orphan gh-pages
   - rm -r test
   - mv -f public/* ./
