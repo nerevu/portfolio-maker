@@ -24,6 +24,7 @@ install:
 script:
   # Build optimized site and test
   - brunch build -P
+  - sleep 15
   - npm test
 
 after_success:
