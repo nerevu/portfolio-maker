@@ -16,10 +16,10 @@ module.exports = class Application extends Chaplin.Application
     author: config.author
 
   start: =>
-    # You can fetch some data here and start app
-    # (by calling `super`) after that.
+    # You can fetch some data here and start app by calling `super` after that.
     mediator.pages.fetch()
     mediator.blog.fetch()
+
     for collection in ['portfolio', 'screenshots', 'gallery']
       do (collection) => mediator[collection].fetch().done (response) =>
         if response.message then return

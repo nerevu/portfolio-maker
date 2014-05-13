@@ -14,6 +14,7 @@ module.exports = class Portfolio extends Collection
   model: Model
   url: "https://api.github.com/users/#{config.github.user}/repos?#{token}"
   storeName: "#{config.title}:#{type}"
+
   local: =>
     if devconfig.testing
       false
@@ -44,7 +45,7 @@ module.exports = class Portfolio extends Collection
 
     options = if options then _.clone(options) else {}
     success = options.success
-    data = require 'portfolio_data'
+    data = require "#{@type}_data"
     @setData data, options, success
 
   fetch: =>
