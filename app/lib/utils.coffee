@@ -30,6 +30,14 @@ _(utils).extend
 
       minilog[level] data if level isnt 'debug'
 
+  saveJSON: (store) ->
+    if devconfig.dual_storage
+      ids = localStorage.getItem(store).split(',')
+      data = [localStorage.getItem "#{store}#{id}" for id in ids]
+      collection = JSON.stringify data
+      href = "data:application/json;charset=utf-8,#{collection}"
+      mediator.download["#{store}_href"] = href
+
   setSynced: (collection, store) ->
     if mediator[collection].local
       localStorage.setItem("#{store}:synced", true)

@@ -27,6 +27,7 @@ module.exports = class Application extends Chaplin.Application
         store = mediator[collection].storeName
         @publishEvent "#{collection}:synced", response
         utils.setSynced collection, store
+        utils.saveJSON store
         utils.preloadImages response
 
     super
@@ -41,6 +42,7 @@ module.exports = class Application extends Chaplin.Application
     mediator.screenshots = new Screenshots()
     mediator.gallery = new Gallery()
 
+    mediator.download = {}
     mediator.active = null
     mediator.googleLoaded = null
     mediator.map = null
