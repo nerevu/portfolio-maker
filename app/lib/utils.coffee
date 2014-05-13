@@ -30,6 +30,10 @@ _(utils).extend
 
       minilog[level] data if level isnt 'debug'
 
+  setSynced: (collection, store) ->
+    if mediator[collection].local
+      localStorage.setItem("#{store}:synced", true)
+
   preloadImages: (collection) ->
   # http://stackoverflow.com/a/10240297/408556
     imgs = collection.paginator().collection.pluck 'url_s'

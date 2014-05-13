@@ -16,8 +16,8 @@ module.exports = class Portfolio extends Collection
   storeName: "#{config.title}:#{type}"
 
   local: =>
-    if devconfig.testing
       false
+    if devconfig.file_storage
     else
       localStorage.getItem "#{@storeName}:synced"
 
@@ -50,9 +50,12 @@ module.exports = class Portfolio extends Collection
 
   fetch: =>
     utils.log "fetch #{@type} collection"
-    fetchFunc = if devconfig.testing then @_load else super
 
-    $.Deferred((deferred) => fetchFunc
-      collection_type: @type
-      success: deferred.resolve
-      error: deferred.reject).promise()
+    $.Deferred((deferred) =>
+      options =
+        collection_type: @type
+        success: deferred.resolve
+        error: deferred.reject
+
+      if devconfig.file_storage then @_load options else super options
+    ).promise()

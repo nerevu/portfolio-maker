@@ -21,8 +21,8 @@ module.exports = class Flickr extends Collection
   url: "#{base_url}?#{$.param _(url_data).extend base_data}"
 
   local: =>
-    if devconfig.testing
       false
+    if devconfig.file_storage
     else
       localStorage.getItem "#{@storeName}:synced"
 
@@ -92,7 +92,7 @@ module.exports = class Flickr extends Collection
     options = if options then _.clone(options) else {}
     success = options.success
 
-    if devconfig.testing
+    if devconfig.file_storage
       result = require 'flickr_data'
       data = @getData [result]
       @setData data, options, success
