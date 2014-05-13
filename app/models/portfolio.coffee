@@ -13,12 +13,12 @@ module.exports = class Portfolio extends Collection
   type: type
   model: Model
   url: "https://api.github.com/users/#{config.github.user}/repos?#{token}"
-  storeName: 'Portfolio'
+  storeName: "#{config.title}:#{type}"
   local: =>
     if devconfig.testing
       false
     else
-      localStorage.getItem "#{config.title}:#{@storeName}:synced"
+      localStorage.getItem "#{@storeName}:synced"
 
   sync: (method, collection, options) =>
     utils.log "#{@storeName} collection's sync method is #{method}"

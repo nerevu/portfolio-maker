@@ -24,7 +24,7 @@ module.exports = class Flickr extends Collection
     if devconfig.testing
       false
     else
-      localStorage.getItem "#{config.title}:#{@storeName}:synced"
+      localStorage.getItem "#{@storeName}:synced"
 
   sync: (method, collection, options) =>
     utils.log "#{@storeName} collection's sync method is #{method}"
