@@ -16,6 +16,10 @@ register 'partial', (name, context) ->
 
 # Helpers
 # -----------
+# Get Chaplin-declared named routes. {{url "likes#show" "105"}}
+register 'url', (routeName, params..., options) ->
+  Chaplin.helpers.reverse routeName, params
+
 # Make 'with' behave a little more mustachey.
 register 'with', (context, options) ->
   if not context or Handlebars.Utils.isEmpty context
@@ -29,10 +33,6 @@ register 'without', (context, options) ->
   options.inverse = options.fn
   options.fn = inverse
   Handlebars.helpers.with.call(this, context, options)
-
-# Get Chaplin-declared named routes. {{url "likes#show" "105"}}
-register 'url', (routeName, params..., options) ->
-  Chaplin.helpers.reverse routeName, params
 
 # Evaluate block with context being download
 register 'with_download', (options) ->

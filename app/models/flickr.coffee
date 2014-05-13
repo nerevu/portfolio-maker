@@ -102,10 +102,8 @@ module.exports = class Flickr extends Collection
 
         if resp?.done
           collection = @
-
-          do (collection, options, success) ->
-            resp.done (data) ->
-              collection.setData data, options, success
+          do (collection, options, success) -> resp.done (data) ->
+            collection.setData data, options, success
         else
           @setData resp, options, success
 
