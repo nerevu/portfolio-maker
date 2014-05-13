@@ -14,7 +14,7 @@
       {{/if}}
     {{/if}}
     {{#times pages}}
-      {{#ifCurrent this ../cur_page}}
+      {{#if_current this ../cur_page}}
         <li class="active">
           <a>{{this}}<span class="sr-only">(current)</span></a>
         </li>
@@ -28,7 +28,7 @@
         {{else}}
           <li><a href="/{{../../../type}}/page/{{this}}">{{this}}</a></li>
         {{/if}}
-      {{/ifCurrent}}
+      {{/if_current}}
     {{/times}}
     {{#if last_page}}
       <li class="disabled"><a>&raquo;</a></li>

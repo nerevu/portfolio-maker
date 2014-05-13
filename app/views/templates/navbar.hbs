@@ -9,7 +9,7 @@
     {{#each links}}<span class="icon-bar"></span>{{/each}}
   </button>
   <a
-    class="{{#ifActive main.title}}active-nav{{/ifActive}} navbar-brand"
+    class="{{#if_active main.title}}active-nav{{/if_active}} navbar-brand"
     href="{{main.href}}">
     {{main.title}}
   </a>
@@ -17,7 +17,7 @@
 <div class="collapse navbar-collapse">
   <ul class="nav navbar-nav">
  	{{#each links}}
-    <li {{#ifActive title}}class="active"{{/ifActive}}>
+    <li {{#if_active title}}class="active"{{/if_active}}>
       <a href="{{href}}">{{title}}</a>
     </li>
 	{{/each}}

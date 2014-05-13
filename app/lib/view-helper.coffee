@@ -35,19 +35,19 @@ register 'url', (routeName, params..., options) ->
 
 # Conditional evaluation
 # ----------------------
-register 'ifLoggedIn', (options) ->
+register 'if_logged_in', (options) ->
   if mediator.user then options.fn(this) else options.inverse(this)
 
-register 'ifActive', (title, options) ->
+register 'if_active', (title, options) ->
   if mediator.active is title then options.fn(this) else options.inverse(this)
 
-register 'ifCurrent', (item, cur_item, options) ->
+register 'if_current', (item, cur_item, options) ->
   if item is cur_item then options.fn(this) else options.inverse(this)
 
 # Other helpers
 # -----------
 # Convert date to day
-register 'getDay', (date) ->
+register 'get_day', (date) ->
   day = if date[-2..-2] is '0' then date[-1..] else date[-2..]
   new Handlebars.SafeString day
 
