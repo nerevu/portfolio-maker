@@ -21,8 +21,8 @@ module.exports = class Flickr extends Collection
   url: "#{base_url}?#{$.param _(url_data).extend base_data}"
 
   local: =>
-      false
     if devconfig.file_storage
+      true
     else
       localStorage.getItem "#{@storeName}:synced"
 

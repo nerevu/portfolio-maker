@@ -16,8 +16,8 @@ module.exports = class Portfolio extends Collection
   storeName: "#{config.title}:#{type}"
 
   local: =>
-      false
     if devconfig.file_storage
+      true
     else
       localStorage.getItem "#{@storeName}:synced"
 
