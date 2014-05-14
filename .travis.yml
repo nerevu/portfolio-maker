@@ -1,55 +1,43 @@
 language: node_js
 node_js:
 - '0.10'
-
 notifications:
   email:
     on_success: always
-
 before_install:
-  # Turn off warnings about SSH keys:
-  - echo "Host heroku.com" >> ~/.ssh/config
-  - echo "   StrictHostKeyChecking no" >> ~/.ssh/config
-  - echo "   CheckHostIP no" >> ~/.ssh/config
-  - echo "   UserKnownHostsFile=/dev/null" >> ~/.ssh/config
-
-  # Install brunch and bower
-  - npm install -g brunch
-  - npm install -g bower
-
+- echo "Host heroku.com" >> ~/.ssh/config
+- echo "   StrictHostKeyChecking no" >> ~/.ssh/config
+- echo "   CheckHostIP no" >> ~/.ssh/config
+- echo "   UserKnownHostsFile=/dev/null" >> ~/.ssh/config
+- npm install -g brunch
+- npm install -g bower
 install:
-  - npm install
-  - bower install
-
+- npm install
+- bower install
 before_script: brunch build -P
 script: npm test
-
 after_success:
-  # check for pull request, correct python version, and branch
-  - if [[ "$TRAVIS_PULL_REQUEST" == "true" ]]; then exit 0; fi
-  - if [[ "$TRAVIS_NODE_VERSION" != "0.10" ]]; then exit 0; fi
-  - if [[ "$TRAVIS_BRANCH" != "master" ]]; then exit 0; fi
-
-  # Decrypt and add SSH key
-  - openssl aes-256-cbc -d -k "$secret" -in id_rsa_travis.enc -a -out id_rsa_travis
-  - ssh-add -D
-  - chmod 600 id_rsa_travis
-  - ssh-add ./id_rsa_travis
-
-  # Get to the Travis build directory, configure git, and add remote repo
-  - cd $HOME
-  - git config --global user.email "travis@travis-ci.org"
-  - git config --global user.name "travis-ci"
-  - git remote add reubano git@github.com:reubano/reubano.github.com.git
-
-  # Commit and push the changes
-  - git checkout --orphan gh-pages
-  - rm -r test
-  - mv -f public/* ./
-  - git add -f fonts images javascripts stylesheets index.html crossdomain.xml *.txt
-  - git commit -m "Update site"
-  - yes | git push reubano master
-
+- if [[ "$TRAVIS_PULL_REQUEST" == "true" ]]; then exit 0; fi
+- if [[ "$TRAVIS_NODE_VERSION" != "0.10" ]]; then exit 0; fi
+- if [[ "$TRAVIS_BRANCH" != "master" ]]; then exit 0; fi
+- openssl aes-256-cbc -d -k "$secret" -in id_rsa_travis.enc -a -out id_rsa_travis
+- ssh-add -D
+- chmod 600 id_rsa_travis
+- ssh-add ./id_rsa_travis
+- cd $HOME
+- git config --global user.email "travis@travis-ci.org"
+- git config --global user.name "travis-ci"
+- git remote add reubano git@github.com:reubano/reubano.github.com.git
+- git checkout --orphan gh-pages
+- rm -r test
+- mv -f public/* ./
+- git add -f fonts images javascripts stylesheets index.html crossdomain.xml *.txt
+- git commit -m "Update site"
+- yes | git push reubano master
 env:
   global:
-    secure: MOg1NVJAmRusHc6dx0ksS/JGbjmmb+wfQlqsJbArBQg2mxhA952CXObUaNV8BcSnuiuxw4TrcRH+klrWZr3XsW/z+DJFeR6mQPK56jXCEKhIAOdRLoDG+hMfx0JuhDwphfM9A6C7kb0fLoEWJDbtr7FvDUcZA4h23HU2NEiua20=
+  - secure: MOg1NVJAmRusHc6dx0ksS/JGbjmmb+wfQlqsJbArBQg2mxhA952CXObUaNV8BcSnuiuxw4TrcRH+klrWZr3XsW/z+DJFeR6mQPK56jXCEKhIAOdRLoDG+hMfx0JuhDwphfM9A6C7kb0fLoEWJDbtr7FvDUcZA4h23HU2NEiua20=
+  - secure: C2B7WKUX62lJ8AIWtcgyKXyyIOXqo9NaDfv2ljLHq3VOSXJY0MLja4tmj9NYZ4TfnSY6auP3Hh2idJmGmudZdDEFa30YICTNIR2UTk8pUHbcqsXm2uMeZQbXLB50eXAFrJ6oJBw94nxJ7JDatPXAlv5Q5EH4/vhtx77aEnpMtWQ=
+  - secure: c+yoI8VLxTf9vi/HyfUf9mtOjHNv/mT0RHb/Lb0Aikilf2K6C5Jj+EFlrU87O82CZ8DIeoYv3irfU3LkxbjMrbdbayVeQPhHty5ZlJ2wZszbRJ61iIRr2xtJ0gtZOVMaKtA/6Ipjbfrr7e+JpIWS10T5G4zUoELwRffwfixJLz8=
+  - secure: lchp3G/UYShYnoUINAPZFS6On/smOycUXIavwGjHY3JJS7UFqXZjugldHY+vgACwSiZEj9rT7VIIlaNVfbD6Lc8VDDSl/TeEGt3OcU8eGTCOrC8Xl0FGEo0QxuOt6gxKQRxjQ1EdM1HfD1RHnjqlG3ipmlVgwBSRcGYP+ZJop0E=
+  - secure: KWCiWnEJ6DGd/l3/x2aM+OZyCe9x3xwGLAZa5ocY3BgI6itugY86Y2wGkJn5zWnLgxiKwj0+nFWbupm0D/m7wBWT7XG3Lc7a2THOuBbzbywxSozJEUud+d5AtijxZ3mHyGVWebi0uTvDL1rX1IxHwJnxJ4WcMd9SROuP2yAQ7o4=
