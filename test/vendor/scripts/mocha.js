@@ -1,1 +1,1 @@
-/Users/reubano/Documents/Projects/portfolio-maker/bower_components/mocha/mocha.js
+../../../bower_components/mocha/mocha.js

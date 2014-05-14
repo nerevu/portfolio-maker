@@ -1,1 +1,1 @@
-/Users/reubano/Documents/Projects/portfolio-maker/bower_components/chai/chai.js
+../../../bower_components/chai/chai.js
