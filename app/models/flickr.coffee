@@ -93,8 +93,7 @@ module.exports = class Flickr extends Collection
     success = options.success
 
     if devconfig.file_storage
-      result = require 'flickr_data'
-      data = @getData [result]
+      data = require "#{@type}_data"
       @setData data, options, success
     else
       options.success = (resp) =>
