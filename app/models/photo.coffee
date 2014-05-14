@@ -46,3 +46,4 @@ module.exports = class Photo extends Model
     @set updated: updated
     @set created_str: created.format("MMMM Do, YYYY")
     @set updated_str: updated.format("MMMM Do, YYYY")
+    @save patch: true
