@@ -33,7 +33,7 @@ _(utils).extend
   saveJSON: (store) ->
     if devconfig.dual_storage
       ids = localStorage.getItem(store).split(',')
-      data = [localStorage.getItem "#{store}#{id}" for id in ids]
+      data = (JSON.parse(localStorage.getItem "#{store}#{id}") for id in ids)
       collection = JSON.stringify data
       href = "data:application/json;charset=utf-8,#{collection}"
       mediator.download["#{store}_href"] = href
