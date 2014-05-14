@@ -9,15 +9,10 @@
   <script src="../javascripts/app.js"></script>
   <script src="javascripts/test-vendor.js"></script>
   <script src="javascripts/test.js"></script>
-  <script>require('initialize');</script>
+  <script>require('test/initialize-test');</script>
   <script>
 	  $(function() {
-			window.require.list()
-			  .filter(function(_) {return /-test$/.test(_);})
-			  .forEach(require);
-
-	    if (window.mochaPhantomJS) { mochaPhantomJS.run(); }
-	    else { mocha.run(); }
+	    if (window.mochaPhantomJS) {mochaPhantomJS.run();} else {mocha.run();}
 	  });
   </script>
 </head>

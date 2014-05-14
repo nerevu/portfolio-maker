@@ -7,32 +7,34 @@ popular = portfolio.popular
 random = portfolio.random
 
 describe 'DetailView', ->
+  type = portfolio.type
+  active = _.str.capitalize type
+  pager = config[type].show_pager
+
   _(portfolio.models[...5]).each (model) ->
-    do (model) -> describe "Project #{model.get 'title'}", ->
-      title = model.get 'title'
-      type = model.get 'type'
+    title = model.get 'title'
+
+    do (model, title) -> describe "Project #{title}", ->
       sub_type = model.get 'sub_type'
       id = model.get 'name'
-      active = _.str.capitalize type
-      pager = config[type].show_pager
       related = portfolio.getRelated model
 
       opts = {model, title, id, type, sub_type, active, pager, recent, popular}
       _(opts).extend {random, related}
-      beforeEach => @view = new DetailView opts
-      afterEach => @view.dispose()
+      before => @view = new DetailView opts
+      after => @view.dispose()
 
-      it "should have 'portfolio' type", =>
-        @view.model.attributes.type.should.equal 'portfolio'
+      it "should have type: #{type}", =>
+        @view.type.should.equal type
 
-      it 'should have a title', =>
-        @view.$('h1').text().should.not.equal 'Not Found'
+      it "should have title: #{title}", =>
+        @view.title.should.equal title
 
       it 'should have at least 6 related', =>
-        @view.$('div.gallery-related').children().should.have.length.of.at.least 6
+        @view.related.should.have.length.of.at.least 6
 
       it 'should have 6 recent', =>
-        @view.$('div.gallery-recent').children().should.have.length 6
+        @view.recent().should.have.length 6
 
       it 'should have 6 popular', =>
-        @view.$('div.gallery-popular').children().should.have.length 6
+        @view.popular().should.have.length 6
