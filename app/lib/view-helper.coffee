@@ -1,4 +1,5 @@
 mediator = require 'mediator'
+devconfig = require 'devconfig'
 
 # Application-specific view helpers
 # http://handlebarsjs.com/#helpers
@@ -15,6 +16,10 @@ register 'partial', (name, context) ->
 
 # Helpers
 # -----------
+# Get Chaplin-declared named routes. {{url "likes#show" "105"}}
+register 'url', (routeName, params..., options) ->
+  Chaplin.helpers.reverse routeName, params
+
 # Make 'with' behave a little more mustachey.
 register 'with', (context, options) ->
   if not context or Handlebars.Utils.isEmpty context
@@ -29,25 +34,29 @@ register 'without', (context, options) ->
   options.fn = inverse
   Handlebars.helpers.with.call(this, context, options)
 
-# Get Chaplin-declared named routes. {{url "likes#show" "105"}}
-register 'url', (routeName, params..., options) ->
-  Chaplin.helpers.reverse routeName, params
+# Evaluate block with context being download
+register 'with_download', (options) ->
+  context = mediator.download or {}
+  Handlebars.helpers.with.call(this, context, options)
 
 # Conditional evaluation
 # ----------------------
-register 'ifLoggedIn', (options) ->
+register 'if_logged_in', (options) ->
   if mediator.user then options.fn(this) else options.inverse(this)
 
-register 'ifActive', (title, options) ->
+register 'if_dual_store', (options) ->
+  if devconfig.dual_storage then options.fn(this) else options.inverse(this)
+
+register 'if_active', (title, options) ->
   if mediator.active is title then options.fn(this) else options.inverse(this)
 
-register 'ifCurrent', (item, cur_item, options) ->
+register 'if_current', (item, cur_item, options) ->
   if item is cur_item then options.fn(this) else options.inverse(this)
 
 # Other helpers
 # -----------
 # Convert date to day
-register 'getDay', (date) ->
+register 'get_day', (date) ->
   day = if date[-2..-2] is '0' then date[-1..] else date[-2..]
   new Handlebars.SafeString day
 

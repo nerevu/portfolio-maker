@@ -16,18 +16,18 @@ module.exports = class Application extends Chaplin.Application
     author: config.author
 
   start: =>
-    # You can fetch some data here and start app
-    # (by calling `super`) after that.
+    # You can fetch some data here and start app by calling `super` after that.
     mediator.pages.fetch()
     mediator.blog.fetch()
+
     for collection in ['portfolio', 'screenshots', 'gallery']
       do (collection) => mediator[collection].fetch().done (response) =>
         if response.message then return
         utils.log "done fetching #{collection}"
+        store = mediator[collection].storeName
         @publishEvent "#{collection}:synced", response
-        store = "#{config.title}:#{mediator[collection].storeName}"
-        if not mediator[collection].remote
-          localStorage.setItem("#{store}:synced", true)
+        utils.setSynced collection, store
+        utils.saveJSON store
         utils.preloadImages response
 
     super
@@ -42,6 +42,7 @@ module.exports = class Application extends Chaplin.Application
     mediator.screenshots = new Screenshots()
     mediator.gallery = new Gallery()
 
+    mediator.download = {}
     mediator.active = null
     mediator.googleLoaded = null
     mediator.map = null

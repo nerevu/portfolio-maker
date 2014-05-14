@@ -13,12 +13,13 @@ module.exports = class Portfolio extends Collection
   type: type
   model: Model
   url: "https://api.github.com/users/#{config.github.user}/repos?#{token}"
-  storeName: 'Portfolio'
+  storeName: "#{config.title}:#{type}"
+
   local: =>
-    if devconfig.testing
-      false
+    if devconfig.file_storage
+      true
     else
-      localStorage.getItem "#{config.title}:#{@storeName}:synced"
+      localStorage.getItem "#{@storeName}:synced"
 
   sync: (method, collection, options) =>
     utils.log "#{@storeName} collection's sync method is #{method}"
@@ -44,14 +45,17 @@ module.exports = class Portfolio extends Collection
 
     options = if options then _.clone(options) else {}
     success = options.success
-    data = require 'portfolio_data'
+    data = require "#{@type}_data"
     @setData data, options, success
 
   fetch: =>
     utils.log "fetch #{@type} collection"
-    fetchFunc = if devconfig.testing then @_load else super
 
-    $.Deferred((deferred) => fetchFunc
-      collection_type: @type
-      success: deferred.resolve
-      error: deferred.reject).promise()
+    $.Deferred((deferred) =>
+      options =
+        collection_type: @type
+        success: deferred.resolve
+        error: deferred.reject
+
+      if devconfig.file_storage then @_load options else super options
+    ).promise()
