@@ -63,7 +63,7 @@ module.exports = class Project extends Model
       # @meta_files.push 'meta.yml'
       @getMeta() if not (@get('meta') or @get('fetching_meta'))
 
-  getOptions: (language, option) =>
+  getOptions: (language, option) ->
     switch language
       when 'javascript', 'coffeescript', 'css'
         switch option
@@ -99,10 +99,9 @@ module.exports = class Project extends Model
     @set fetching_meta: true
     promise = $.get "#{@get('meta_base_url')}?#{token}"
 
-    do (model = @) -> promise
-      .then(model.getFileList)
-      .then(model.fetchFiles)
-      .fail(model.failWhale)
+    do (model = @) ->
+      promise
+        .then(model.getFileList).then(model.fetchFiles).fail(model.failWhale)
 
   getFileList: (data) =>
     names = _(data).pluck('name')
@@ -113,10 +112,9 @@ module.exports = class Project extends Model
     if file
       promise = $.get "#{@get 'meta_base_url'}/#{file}?#{token}"
 
-      do (model = @) -> promise
-        .then(model.parseMeta)
-        .then(model.setMeta)
-        .fail(model.failWhale)
+      do (model = @) ->
+        promise
+          .then(model.parseMeta).then(model.setMeta).fail(model.failWhale)
 
   standardizer: (func, value) ->
     if value? and value
