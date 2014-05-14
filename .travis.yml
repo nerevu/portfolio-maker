@@ -21,10 +21,7 @@ install:
   - npm install
   - bower install
 
-before_script:
-  - brunch build -P
-  - sleep 30
-
+before_script: brunch build -P
 script: npm test
 
 after_success:
