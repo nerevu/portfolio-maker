@@ -35,7 +35,6 @@ devconfig =
   ########################
   file_storage: storage_mode is 'file'
   dual_storage: storage_mode is 'dualsync'
-  debug_prod: debug_production
   prod: environment is 'production'
   dev: environment is 'development'
   testing: environment is 'testing'
