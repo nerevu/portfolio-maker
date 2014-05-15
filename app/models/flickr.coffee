@@ -81,7 +81,7 @@ module.exports = class Flickr extends Collection
     utils.log "setting #{@type} data"
     method = if options.reset then 'reset' else 'set'
     @[method] data, options
-    utils.log @
+    utils.log @, 'debug'
     success @, data, options if success
     @finishSync()
 

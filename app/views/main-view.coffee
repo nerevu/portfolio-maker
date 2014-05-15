@@ -58,7 +58,7 @@ module.exports = class IndexView extends CollectionView
   render: ->
     super
     utils.log 'rendering main view'
-    # utils.log @collection
+    # utils.log @collection, 'debug'
 
   setTemplateData: (collection) =>
     utils.log 'set main-view template data'

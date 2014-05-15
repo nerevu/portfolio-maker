@@ -65,7 +65,7 @@ module.exports = class ItemView extends View
     else
       utils.log "rendering 404 detail-view"
 
-    utils.log @model
+    utils.log @model, 'debug'
 
   setTemplateData: (collection) =>
     utils.log 'set detail-view template data'
