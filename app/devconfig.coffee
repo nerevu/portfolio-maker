@@ -16,12 +16,12 @@ else if host in ['localhost', 'tokpro.local', 'tokpro'] and not debug_production
   storage_mode = 'dualsync'
   force_mobile = debug_mobile
   api_logs = "http://localhost:8888/api/logs"
-  age = 72 # in hours
+  stale_age = 72 # in hours
 else
   environment = 'production'
   storage_mode = 'file'
   api_logs = 'http://flogger.herokuapp.com/api/logs'
-  age = 12 # in hours
+  stale_age = 12 # in hours
 
 mobile = force_mobile ? mobile_device
 console.log "host: #{host}"
@@ -43,6 +43,6 @@ devconfig =
   verbose: verbose
   api_logs: api_logs
   mobile: mobile
-  max_age: age
+  stale_age: stale_age
 
 module.exports = devconfig
