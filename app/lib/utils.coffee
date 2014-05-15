@@ -35,7 +35,7 @@ _(utils).extend
       ids = localStorage.getItem(store).split(',')
       data = (JSON.parse(localStorage.getItem "#{store}#{id}") for id in ids)
       collection = JSON.stringify data
-      href = "data:application/json;charset=utf-8,#{collection}"
+      href = "data:application/json;charset=utf-8,#{escape collection}"
       mediator.download["#{store}_href"] = href
 
   setSynced: (collection, store) ->
