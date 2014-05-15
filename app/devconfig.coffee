@@ -14,7 +14,6 @@ if mocha? or mochaPhantomJS?
 else if host in ['localhost', 'tokpro.local', 'tokpro'] and not debug_production
   environment = 'development'
   storage_mode = 'dualsync'
-  force_mobile = debug_mobile
   api_logs = "http://localhost:8888/api/logs"
   stale_age = 72 # in hours
 else
@@ -23,7 +22,7 @@ else
   api_logs = 'http://flogger.herokuapp.com/api/logs'
   stale_age = 12 # in hours
 
-mobile = force_mobile ? mobile_device
+mobile = debug_mobile or mobile_device
 console.log "host: #{host}"
 console.log "#{environment} environment set"
 console.log "mobile device: #{mobile}"
