@@ -124,7 +124,7 @@ module.exports = class Collection extends Chaplin.Collection
 
   getRelated: (model) =>
     if model
-      utils.log model
+      utils.log model, 'debug'
       utils.log "get related #{model.get 'sub_type'}s"
       language = model.get 'language'
       audience = model.get 'audience'

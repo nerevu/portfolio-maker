@@ -16,10 +16,23 @@ minilog = Minilog 'tophubbers'
 _(utils).extend
   # Logging helper
   # ---------------------
-  log: (message, level='debug') ->
-    if devconfig.dev and not devconfig.debug_minilog then console.log message
-    else if level
-      console.log message if devconfig.verbose and level is 'debug'
+  _getPriority: (level) ->
+    switch level
+      when 'debug' then 1
+      when 'info' then 2
+      when 'warn' then 3
+      when 'error' then 4
+      else 0
+
+  log: (message, level='info') ->
+    priority = @_getPriority level
+
+    if devconfig.verbose
+      console.log message if priority > 0
+    else
+      console.log message if priority > 1 and not devconfig.prod
+
+    if (devconfig.prod or devconfig.debug_minilog) and priority > 1
       text = JSON.stringify message
       message = if text.length > 512 then "size exceeded" else message
 
@@ -28,7 +41,7 @@ _(utils).extend
         time: (new Date()).getTime()
         user: mediator?.user?.get('email')
 
-      minilog[level] data if level isnt 'debug'
+      minilog[level] data
 
   saveJSON: (store) ->
     if devconfig.dual_storage

@@ -11,7 +11,7 @@ module.exports = class Photo extends Model
     type = options?.collection_type
     sub_type = @get 'media'
     # utils.log "initializing #{name} #{sub_type} model"
-    # utils.log @
+    # utils.log @, 'debug'
 
     try
       tags = @get('tags').split(' ')
