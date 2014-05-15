@@ -1,5 +1,7 @@
 debug_mobile = false
 debug_production = false
+verbose = true
+
 host = window?.location?.hostname ? require('os').hostname()
 ua = navigator?.userAgent?.toLowerCase()
 list = 'iphone|ipod|ipad|android|blackberry|opera mini|opera mobi'
@@ -38,6 +40,7 @@ devconfig =
   prod: environment is 'production'
   dev: environment is 'development'
   testing: environment is 'testing'
+  verbose: verbose
   api_logs: api_logs
   mobile: mobile
   max_age: age
