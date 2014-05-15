@@ -1,6 +1,6 @@
 debug_mobile = false
 debug_production = false
-verbose = true
+verbose = false
 
 host = window?.location?.hostname ? require('os').hostname()
 ua = navigator?.userAgent?.toLowerCase()
@@ -25,8 +25,8 @@ else
 mobile = debug_mobile or mobile_device
 console.log "host: #{host}"
 console.log "#{environment} environment set"
+console.log "verbose: #{verbose}"
 console.log "mobile device: #{mobile}"
-console.log "debug production: #{debug_production}"
 console.log "storage mode: #{storage_mode}"
 
 devconfig =
