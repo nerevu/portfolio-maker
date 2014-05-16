@@ -4,7 +4,7 @@ mediator = require 'mediator'
 config = require 'config'
 utils = require 'lib/utils'
 
-module.exports = class IndexView extends CollectionView
+module.exports = class MainView extends CollectionView
   itemView: View
   autoRender: true
   className: 'row'
