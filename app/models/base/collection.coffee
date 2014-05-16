@@ -1,5 +1,6 @@
 Model = require './model'
 config = require 'config'
+devconfig = require 'devconfig'
 utils = require 'lib/utils'
 
 module.exports = class Collection extends Chaplin.Collection
