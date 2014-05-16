@@ -8,10 +8,6 @@ module.exports = class ItemView extends View
   className: 'row'
   region: 'content'
 
-  listen:
-    # 'all': (event) -> utils.log "detail-view heard #{event}"
-    'addedToParent': -> utils.log "heard addedToParent"
-
   initialize: (options) =>
     super
     utils.log 'initializing detail-view'
@@ -42,6 +38,9 @@ module.exports = class ItemView extends View
       utils.log "initializing #{@model.get 'title'} detail-view"
     else
       utils.log "initializing 404 detail-view"
+
+    @listenTo @, 'all', (event) =>
+      utils.log "detail-view heard #{event}", 'debug'
 
     @subscribeEvent 'screenshots:synced', (screenshots) =>
       if @type isnt 'gallery'

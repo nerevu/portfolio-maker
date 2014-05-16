@@ -60,7 +60,7 @@ module.exports = class Flickr extends Collection
       @unSync()
 
   _fetch: (options) =>
-    utils.log "_fetch #{@type} collection"
+    utils.log "_fetch #{@type} collection from backbone"
     @beginSync()
 
     options = if options then _.clone(options) else {}

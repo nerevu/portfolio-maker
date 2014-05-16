@@ -7,7 +7,6 @@ utils = require 'lib/utils'
 
 module.exports = class SiteController extends Controller
   initialize: (params) =>
-    utils.log 'initializing site-controller'
     @num = parseInt params?.num ? 1
     @type = params?.type ? 'home'
     @sub_type = config[@type]?.sub_type ? ''
@@ -15,6 +14,7 @@ module.exports = class SiteController extends Controller
     @tag = params?.tag
     @id = params?.id
 
+    utils.log "initializing #{@type}'s site-controller"
     recent_comparator = config[@type]?.recent_comparator
 
     collection =

@@ -68,7 +68,7 @@ module.exports = class Collection extends Chaplin.Collection
     returned
 
   paginator: (page=1, filter=false) =>
-    utils.log "paginator"
+    utils.log "#{@type} paginator"
     models = @prefilter filter
     per_page = config[@type]?.items_per_index ? 10
     pages = models.length / per_page | 0
@@ -94,7 +94,7 @@ module.exports = class Collection extends Chaplin.Collection
     collection
 
   setPagers: (filter=false) =>
-    utils.log "setPagers"
+    utils.log "set #{@type}'s pagers"
     models = @prefilter filter
     collection = @cloned models
     len = collection.length + 1
@@ -114,12 +114,14 @@ module.exports = class Collection extends Chaplin.Collection
         cur.set next_href: collection.at(real + 1).get 'href'
 
   getFilter: =>
+    utils.log "get #{@type}'s filter"
     filterer = config[@type]?.filterer
     filter = {}
     filter[filterer?.key] = filterer?.value
     return filter
 
   getRelated: (model) =>
+    utils.log "get related #{@type}"
     if model
       utils.log model, 'debug'
       utils.log "get related #{model.get 'sub_type'}s"
@@ -187,7 +189,7 @@ module.exports = class Collection extends Chaplin.Collection
     @finishSync()
 
   loadData: (options) =>
-    utils.log "_fetch #{@type} collection"
+    utils.log "load #{@type} collection from file"
     @beginSync()
 
     options = if options then _.clone(options) else {}

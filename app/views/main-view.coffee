@@ -32,6 +32,9 @@ module.exports = class MainView extends CollectionView
     @tag = options.tag
     mediator.setActive options.active
 
+    @listenTo @, 'all', (event) =>
+      utils.log "main-view heard #{event}", 'debug'
+
     @subscribeEvent "change:tags", (tags) =>
       utils.log 'main-view heard change:tags event'
       @tags = _(@tags).union tags
@@ -60,11 +63,10 @@ module.exports = class MainView extends CollectionView
   render: ->
     super
     utils.log 'rendering main view'
-    # utils.log @collection, 'debug'
+    utils.log @collection, 'debug'
 
   setTemplateData: (collection) =>
-    utils.log 'set main-view template data'
-    utils.log collection.type
+    utils.log "main-view #{collection.type} template data"
     @paginator = collection.paginator @cur_page, @filterer
     @collection = @paginator.collection
     @recent = collection.recent
