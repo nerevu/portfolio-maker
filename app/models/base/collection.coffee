@@ -215,3 +215,14 @@ module.exports = class Collection extends Chaplin.Collection
     data = require "#{@type}_data"
     @setData data, options, success
 
+  preloadImages: =>
+  # http://stackoverflow.com/a/10240297/408556
+    return if not @preload
+    utils.log "preload #{@type} images"
+    imgs = @paginator().collection.pluck 'url_s'
+    preload = []
+    img = new Image()
+    _(imgs).each (url) ->
+      img.src = url
+      preload.push(img)
+

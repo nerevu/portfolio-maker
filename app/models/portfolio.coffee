@@ -9,6 +9,7 @@ module.exports = class Portfolio extends Collection
   type = 'portfolio'
 
   type: type
+  preload: true
   model: Model
   url: "https://api.github.com/users/#{config.github.user}/repos?#{token}"
   storeName: "#{config.title}:#{type}"

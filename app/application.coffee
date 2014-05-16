@@ -28,7 +28,7 @@ module.exports = class Application extends Chaplin.Application
         @publishEvent "#{collection}:synced", response
         utils.setSynced collection, store
         utils.saveJSON store
-        utils.preloadImages response
+        mediator[collection].preloadImages()
 
     super
 
