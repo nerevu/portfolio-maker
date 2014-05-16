@@ -66,26 +66,27 @@ module.exports = class Flickr extends Collection
     options = if options then _.clone(options) else {}
     success = options.success
 
-    if devconfig.file_storage
-      data = require "#{@type}_data"
-      @setData data, options, success
-    else
-      options.success = (resp) =>
-        utils.log "#{@type} success"
+    options.success = (resp) =>
+      utils.log "#{@type} success"
 
-        if resp?.done
-          collection = @
-          do (collection, options, success) -> resp.done (data) ->
-            collection.setData data, options, success
-        else
-          @setData resp, options, success
+      if resp?.done
+        collection = @
+        do (collection, options, success) -> resp.done (data) ->
+          collection.setData data, options, success
+      else
+        @setData resp, options, success
 
-      @wrapError @, options
-      @sync 'read', @, options
+    @wrapError @, options
+    @sync 'read', @, options
 
   fetch: =>
     utils.log "fetch #{@type} collection"
-    $.Deferred((deferred) => @_fetch
-      collection_type: @type
-      success: deferred.resolve
-      error: deferred.reject).promise()
+
+    $.Deferred((deferred) =>
+      options =
+        collection_type: @type
+        success: deferred.resolve
+        error: deferred.reject
+
+      if devconfig.file_storage then @loadData options else @_fetch options
+    ).promise()
