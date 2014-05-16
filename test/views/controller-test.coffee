@@ -11,7 +11,7 @@ describe 'Controller', =>
     title = model.get 'title'
 
     do (model, type, title) -> describe "Project #{title}", ->
-      before => @controller = new Controller({type, id})
+      before => @controller = new Controller {type, id}
       after => @controller.dispose()
 
       it "should be in collection", =>

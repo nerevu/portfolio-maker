@@ -11,7 +11,7 @@ describe 'ControllerDetailView', =>
 
     do (model, id, title) -> describe "Project #{title}", ->
       before =>
-        @controller = new Controller({type, id})
+        @controller = new Controller {type, id}
         @composition = @controller.show()
         @view = @composition.compose()
 
