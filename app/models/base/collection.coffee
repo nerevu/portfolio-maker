@@ -32,25 +32,29 @@ module.exports = class Collection extends Chaplin.Collection
   random: => @getRandom()
 
   prefilter: (filter=false) =>
-    if  _.isFunction filter
-      collection = new Collection _(@models).filter filter
+    utils.log "#{@type} prefilter"
+    if _.isFunction filter
+      models = @filter filter
     else if filter? and filter
-      collection = new Collection @where filter
+      models = @where filter
     else
-      collection = @
+      models = @models
 
-    collection
+    models
 
   getTags: (filter=false) =>
-    collection = @prefilter filter
+    utils.log "get #{@type}'s tags"
+    models = @prefilter filter
+    collection = @cloned models
     tags = _(_.flatten(collection.pluck 'tags')).uniq()
-    filterd = _.filter tags, (tag) -> tag
-    filterd.sort()
-    filterd
+    filtered = _.filter tags, (tag) -> tag
+    filtered.sort()
+    filtered
 
-  getModels: (collection, length) ->
-    models = []
-    _(collection.models).some (model) ->
+  getModels: (models, length) ->
+    utils.log "get #{@type}'s models"
+    returned = []
+    _(models).some (model) ->
       data =
         href: model.get 'href'
         title: model.get 'title'
@@ -59,21 +63,20 @@ module.exports = class Collection extends Chaplin.Collection
         url_e: model.get 'url_e'
         url_sq: model.get 'url_sq'
 
-      models.push(data)
-      models.length is length
+      returned.push(data)
+      returned.length is length
 
-    models
-
-
+    returned
 
   paginator: (page=1, filter=false) =>
     utils.log "paginator"
-    collection = @prefilter filter
+    models = @prefilter filter
     per_page = config[@type]?.items_per_index ? 10
-    pages = collection.length / per_page | 0
-    pages = if collection.length % per_page then pages + 1 else pages
-    collection = collection.rest per_page * (page - 1)
-    collection = new Collection _(collection).first per_page
+    pages = models.length / per_page | 0
+    pages = if models.length % per_page then pages + 1 else pages
+    rest = _(models).rest per_page * (page - 1)
+    first = _(rest).first per_page
+    collection = @cloned first
     first_page = page is 1
     last_page = page is pages
     only_page = pages is 1
@@ -85,9 +88,16 @@ module.exports = class Collection extends Chaplin.Collection
       only_page: only_page
       pages: pages}
 
+  cloned: (models) =>
+    remove = _(@models).difference models
+    collection = @clone()
+    collection.remove remove
+    collection
+
   setPagers: (filter=false) =>
     utils.log "setPagers"
-    collection = @prefilter filter
+    models = @prefilter filter
+    collection = @cloned models
     len = collection.length + 1
     num = len
 
@@ -121,17 +131,16 @@ module.exports = class Collection extends Chaplin.Collection
       tags = false
 
     if tags
-      filter = @getFilter()
-      collection = if filter then new Collection(@where(filter)) else @
-      collection.comparator = (other) ->
+      models = @prefilter @getFilter()
+      comparator = (other) ->
         language = other.get 'language'
         audience = other.get 'audience'
         other_tags = _(other.get 'tags').union language, audience
         common = _(tags).intersection other_tags
         - common.length
 
-      collection.sort()
-      models = @getModels collection, config[@type].related_count + 1
+      sorted = _(models).sortBy comparator
+      models = @getModels sorted, config[@type].related_count + 1
       _(models).filter (related) -> related.title isnt model.get 'title'
     else
       []
@@ -141,11 +150,10 @@ module.exports = class Collection extends Chaplin.Collection
     comparator = config[@type]?.recent_comparator
 
     if comparator
-      filter = @getFilter()
-      collection = if filter then new Collection(@where(filter)) else @
-      collection.comparator = (model) -> - model.get comparator
-      collection.sort()
-      @getModels collection, config[@type].recent_count
+      models = @prefilter @getFilter()
+      comparator = (model) -> - model.get comparator
+      sorted = _(models).sortBy comparator
+      @getModels sorted, config[@type].recent_count
     else
       []
 
@@ -154,11 +162,10 @@ module.exports = class Collection extends Chaplin.Collection
     comparator = config[@type]?.popular_comparator
 
     if comparator
-      filter = @getFilter()
-      collection = if filter then new Collection(@where(filter)) else @
-      collection.comparator = (model) -> - model.get comparator
-      collection.sort()
-      @getModels collection, config[@type].popular_count
+      models = @prefilter @getFilter()
+      comparator = (model) -> - model.get comparator
+      sorted = _(models).sortBy comparator
+      @getModels sorted, config[@type].popular_count
     else
       []
 
@@ -167,10 +174,8 @@ module.exports = class Collection extends Chaplin.Collection
     length = config[@type]?.random_count
 
     if length
-      filter = @getFilter()
-      collection = if filter then @where(filter) else @models
-      collection = new Collection _(collection).shuffle()
-      @getModels collection, length
+      models = @prefilter @getFilter()
+      @getModels _(models).shuffle(), length
     else
       []
 
