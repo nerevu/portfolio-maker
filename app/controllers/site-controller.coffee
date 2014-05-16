@@ -20,7 +20,9 @@ module.exports = class SiteController extends Controller
     collection =
       switch @type
         when 'gallery' then @gallery
-        when 'portfolio' then utils.mergePortfolio @portfolio, @screenshots
+        when 'portfolio'
+          @portfolio.mergePortfolio @screenshots
+          @portfolio
         when 'blog' then @blog
         else @pages
 

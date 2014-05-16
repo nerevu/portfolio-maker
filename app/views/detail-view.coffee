@@ -46,7 +46,9 @@ module.exports = class ItemView extends View
     @subscribeEvent 'screenshots:synced', (screenshots) =>
       if @type isnt 'gallery'
         utils.log 'detail-view heard screenshots synced event'
-        @setTemplateData utils.mergePortfolio mediator.portfolio, screenshots
+        portfolio = mediator.portfolio
+        portfolio.mergePortfolio screenshots
+        @setTemplateData portfolio
 
     @subscribeEvent 'gallery:synced', (gallery) =>
       if @type isnt 'portfolio'

@@ -63,32 +63,7 @@ module.exports = class Collection extends Chaplin.Collection
 
     models
 
-  mergeModels: (other, attrs, tag, options) =>
-    filter = options?.filter ? false
-    placeholder = options?.placeholder ? true
-    n = options?.n ? 1
 
-    utils.log "mergeModels"
-    collection = @prefilter filter
-    other = _(other.models).filter (model) -> tag in (model.get('tags') ? [])
-
-    _(collection.models).each (model) ->
-      name = model.get('name').replace '-', ''
-      filtered = _(other).filter (model) -> name in (model.get('tags') ? [])
-
-      if filtered.length > 0
-        _(attrs).each (attr) ->
-          data = (m?.get attr for m in _.first(filtered, n))
-          links = if data.length > 1 then data else _.first data
-          model.set attr, links
-      else if placeholder
-        # utils.log "#{name} has no matching screenshots... setting default img"
-        _(attrs).each (attr) ->
-          model.set attr, "/images/placeholder_#{attr}-or8.png"
-
-      model.save patch: true
-
-    collection
 
   paginator: (page=1, filter=false) =>
     utils.log "paginator"
