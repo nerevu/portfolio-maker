@@ -65,7 +65,7 @@ module.exports = class SiteController extends Controller
       collection.sort()
 
     @paginator = collection.paginator @num, @tagfilterer
-    @collection = _.clone(collection)
+    @collection = collection.clone()
 
   show: (params) => @reuse "#{@type}:#{@id}", =>
     utils.log "show #{@type} #{@id} site-controller"
