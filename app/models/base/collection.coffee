@@ -4,12 +4,24 @@ utils = require 'lib/utils'
 
 module.exports = class Collection extends Chaplin.Collection
   # Mixin a synchronization state machine.
-  # _(@prototype).extend Chaplin.SyncMachine
-  # initialize: ->
-  #   super
-  #   @on 'request', @beginSync
-  #   @on 'sync', @finishSync
-  #   @on 'error', @unsync
+  _(@prototype).extend Chaplin.SyncMachine
+
+  local: =>
+    if devconfig.file_storage
+      true
+    else
+      localStorage.getItem "#{@storeName}:synced"
+
+  sync: (method, collection, options) =>
+    utils.log "#{@type} collection's sync method is #{method}"
+    utils.log "read #{@type} collection from server: #{not @local()}"
+    Backbone.sync(method, collection, options)
+
+  initialize: =>
+    super
+    utils.log "initializing #{@type} collection"
+    # @syncStateChange => utils.log "#{@type} heard state changed"
+    @listenTo @, 'all', (event) => utils.log "#{@type} heard #{event}"
 
   # Use the project base model per default, not Chaplin.Model
   model: Model
@@ -185,4 +197,21 @@ module.exports = class Collection extends Chaplin.Collection
       @getModels collection, length
     else
       []
+
+  setData: (data, options, success=null) =>
+    utils.log "setting #{@type} data"
+    method = if options.reset then 'reset' else 'set'
+    @[method] data, options
+    utils.log @, 'debug'
+    success @, data, options if success
+    @finishSync()
+
+  loadData: (options) =>
+    utils.log "_fetch #{@type} collection"
+    @beginSync()
+
+    options = if options then _.clone(options) else {}
+    success = options.success
+    data = require "#{@type}_data"
+    @setData data, options, success
 

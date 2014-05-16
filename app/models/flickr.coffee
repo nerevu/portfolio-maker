@@ -5,8 +5,6 @@ devconfig = require 'devconfig'
 utils = require 'lib/utils'
 
 module.exports = class Flickr extends Collection
-  _(@prototype).extend Chaplin.SyncMachine
-
   base_url = "https://api.flickr.com/services/rest/"
   base_data =
     api_key: config.flickr.api_token
@@ -19,22 +17,6 @@ module.exports = class Flickr extends Collection
 
   model: Model
   url: "#{base_url}?#{$.param _(url_data).extend base_data}"
-
-  local: =>
-    if devconfig.file_storage
-      true
-    else
-      localStorage.getItem "#{@storeName}:synced"
-
-  sync: (method, collection, options) =>
-    utils.log "#{@storeName} collection's sync method is #{method}"
-    utils.log "read #{@storeName} collection from server: #{not @local()}"
-    Backbone.sync(method, collection, options)
-
-  initialize: =>
-    super
-    utils.log "initializing #{@type} collection"
-    @syncStateChange => utils.log "#{@type} state changed"
 
   getCollection: (response) =>
     utils.log "get #{@type}'s flickr collection"
@@ -76,14 +58,6 @@ module.exports = class Flickr extends Collection
     options.error = (resp) =>
       error @, resp, options if error
       @unSync()
-
-  setData: (data, options, success=null) =>
-    utils.log "setting #{@type} data"
-    method = if options.reset then 'reset' else 'set'
-    @[method] data, options
-    utils.log @, 'debug'
-    success @, data, options if success
-    @finishSync()
 
   _fetch: (options) =>
     utils.log "_fetch #{@type} collection"

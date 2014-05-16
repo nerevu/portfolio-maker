@@ -7,4 +7,3 @@ module.exports = class Screenshots extends Collection
 
   type: type
   storeName: "#{config.title}:#{type}"
-  initialize: -> super

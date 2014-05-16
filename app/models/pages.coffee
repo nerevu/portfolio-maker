@@ -7,10 +7,6 @@ module.exports = class Pages extends Collection
   type: 'pages'
   model: Model
 
-  initialize: =>
-    super
-    utils.log "initializing #{@type} collection"
-
   fetch: =>
     utils.log "fetch #{@type} collection"
     data = []
