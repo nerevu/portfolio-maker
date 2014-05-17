@@ -1,0 +1,43 @@
+language: node_js
+node_js:
+- '0.10'
+notifications:
+  email:
+    on_success: always
+before_install:
+- echo "Host heroku.com" >> ~/.ssh/config
+- echo "   StrictHostKeyChecking no" >> ~/.ssh/config
+- echo "   CheckHostIP no" >> ~/.ssh/config
+- echo "   UserKnownHostsFile=/dev/null" >> ~/.ssh/config
+- npm install -g brunch
+- npm install -g bower
+install:
+- npm install
+- bower install
+before_script:
+- phantomjs --version
+- brunch build -P
+script: npm test
+after_success:
+- if [[ "$TRAVIS_PULL_REQUEST" == "true" ]]; then exit 0; fi
+- if [[ "$TRAVIS_NODE_VERSION" != "0.10" ]]; then exit 0; fi
+- if [[ "$TRAVIS_BRANCH" != "master" ]]; then exit 0; fi
+- openssl aes-256-cbc -d -k "$secret" -in id_rsa_travis.enc -a -out id_rsa_travis
+- ssh-add -D
+- chmod 600 id_rsa_travis
+- ssh-add ./id_rsa_travis
+- cd $HOME
+- git config --global user.email "travis@travis-ci.org"
+- git config --global user.name "travis-ci"
+- git remote add reubano git@github.com:reubano/reubano.github.com.git
+- git checkout --orphan gh-pages
+- rm -r test
+- mv -f public/* ./
+- git add -f fonts images javascripts stylesheets index.html crossdomain.xml *.txt
+- git commit -m "Update site"
+- yes | git push reubano master
+env:
+  global:
+  - secure: MOg1NVJAmRusHc6dx0ksS/JGbjmmb+wfQlqsJbArBQg2mxhA952CXObUaNV8BcSnuiuxw4TrcRH+klrWZr3XsW/z+DJFeR6mQPK56jXCEKhIAOdRLoDG+hMfx0JuhDwphfM9A6C7kb0fLoEWJDbtr7FvDUcZA4h23HU2NEiua20=
+  - secure: C2B7WKUX62lJ8AIWtcgyKXyyIOXqo9NaDfv2ljLHq3VOSXJY0MLja4tmj9NYZ4TfnSY6auP3Hh2idJmGmudZdDEFa30YICTNIR2UTk8pUHbcqsXm2uMeZQbXLB50eXAFrJ6oJBw94nxJ7JDatPXAlv5Q5EH4/vhtx77aEnpMtWQ=
+
