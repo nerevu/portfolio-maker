@@ -6,5 +6,5 @@ module.exports = class Screenshots extends Collection
   type = 'screenshots'
 
   type: type
+  preload: false
   storeName: "#{config.title}:#{type}"
-  initialize: -> super

@@ -5,48 +5,14 @@ devconfig = require 'devconfig'
 utils = require 'lib/utils'
 
 module.exports = class Portfolio extends Collection
-  _(@prototype).extend Chaplin.SyncMachine
-
   token = "access_token=#{config.github.api_token}"
   type = 'portfolio'
 
   type: type
+  preload: true
   model: Model
   url: "https://api.github.com/users/#{config.github.user}/repos?#{token}"
   storeName: "#{config.title}:#{type}"
-
-  local: =>
-    if devconfig.file_storage
-      true
-    else
-      localStorage.getItem "#{@storeName}:synced"
-
-  sync: (method, collection, options) =>
-    utils.log "#{@storeName} collection's sync method is #{method}"
-    utils.log "read #{@storeName} collection from server: #{not @local()}"
-    Backbone.sync(method, collection, options)
-
-  initialize: =>
-    super
-    utils.log "initializing #{@type} collection"
-    @syncStateChange => utils.log "#{@type} state changed"
-
-  setData: (data, options, success=null) =>
-    utils.log "setting #{@type} data"
-    method = if options.reset then 'reset' else 'set'
-    @[method] data, options
-    utils.log @
-    success @, data, options if success
-    @finishSync()
-
-  _load: (options) =>
-    utils.log "_fetch #{@type} collection"
-    @beginSync()
-
-    options = if options then _.clone(options) else {}
-    success = options.success
-    data = require "#{@type}_data"
-    @setData data, options, success
 
   fetch: =>
     utils.log "fetch #{@type} collection"
@@ -57,5 +23,40 @@ module.exports = class Portfolio extends Collection
         success: deferred.resolve
         error: deferred.reject
 
-      if devconfig.file_storage then @_load options else super options
+      if devconfig.file_storage then @loadData options else super options
     ).promise()
+
+  mergeModels: (other, attrs, tag, options) =>
+    placeholder = options?.placeholder ? true
+    n = options?.n ? 1
+
+    utils.log "mergeModels"
+    other = _(other.models).filter (model) -> tag in (model.get('tags') ? [])
+    fltr = config[type]?.filterer
+    filter = (model, index=false) -> model.get(fltr.key) is fltr.value
+    models = @prefilter filter
+
+    _(models).each (model) ->
+      name = model.get('name').replace /-/g, ''
+      filtered = _(other).filter (model) -> name in (model.get('tags') ? [])
+
+      _(attrs).each (attr) ->
+        return if model.has attr
+        if filtered.length > 0
+          data = (m?.get attr for m in _.first(filtered, n))
+          links = if data.length > 1 then data else _.first data
+          model.set attr, links
+        else if placeholder
+          # utils.log "#{name} has no matching screenshots... setting default"
+          model.set attr, "/images/placeholder_#{attr}-or8.png"
+
+      model.save(patch: true) if model.changedAttributes()
+
+  mergePortfolio: (screenshots) ->
+    utils.log "mergePortfolio"
+
+    options = {placeholder: false, n: 3}
+    @mergeModels screenshots, ['url_s'], 'small'
+    @mergeModels screenshots, ['url_m'], 'main'
+    @mergeModels screenshots, ['url_sq'], 'square'
+    @mergeModels screenshots, ['url_e'], 'extra', options

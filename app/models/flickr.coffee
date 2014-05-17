@@ -5,8 +5,6 @@ devconfig = require 'devconfig'
 utils = require 'lib/utils'
 
 module.exports = class Flickr extends Collection
-  _(@prototype).extend Chaplin.SyncMachine
-
   base_url = "https://api.flickr.com/services/rest/"
   base_data =
     api_key: config.flickr.api_token
@@ -19,22 +17,6 @@ module.exports = class Flickr extends Collection
 
   model: Model
   url: "#{base_url}?#{$.param _(url_data).extend base_data}"
-
-  local: =>
-    if devconfig.file_storage
-      true
-    else
-      localStorage.getItem "#{@storeName}:synced"
-
-  sync: (method, collection, options) =>
-    utils.log "#{@storeName} collection's sync method is #{method}"
-    utils.log "read #{@storeName} collection from server: #{not @local()}"
-    Backbone.sync(method, collection, options)
-
-  initialize: =>
-    super
-    utils.log "initializing #{@type} collection"
-    @syncStateChange => utils.log "#{@type} state changed"
 
   getCollection: (response) =>
     utils.log "get #{@type}'s flickr collection"
@@ -77,41 +59,34 @@ module.exports = class Flickr extends Collection
       error @, resp, options if error
       @unSync()
 
-  setData: (data, options, success=null) =>
-    utils.log "setting #{@type} data"
-    method = if options.reset then 'reset' else 'set'
-    @[method] data, options
-    utils.log @
-    success @, data, options if success
-    @finishSync()
-
   _fetch: (options) =>
-    utils.log "_fetch #{@type} collection"
+    utils.log "_fetch #{@type} collection from backbone"
     @beginSync()
 
     options = if options then _.clone(options) else {}
     success = options.success
 
-    if devconfig.file_storage
-      data = require "#{@type}_data"
-      @setData data, options, success
-    else
-      options.success = (resp) =>
-        utils.log "#{@type} success"
+    options.success = (resp) =>
+      utils.log "#{@type} success"
 
-        if resp?.done
-          collection = @
-          do (collection, options, success) -> resp.done (data) ->
-            collection.setData data, options, success
-        else
-          @setData resp, options, success
+      if resp?.done
+        collection = @
+        do (collection, options, success) -> resp.done (data) ->
+          collection.setData data, options, success
+      else
+        @setData resp, options, success
 
-      @wrapError @, options
-      @sync 'read', @, options
+    @wrapError @, options
+    @sync 'read', @, options
 
   fetch: =>
     utils.log "fetch #{@type} collection"
-    $.Deferred((deferred) => @_fetch
-      collection_type: @type
-      success: deferred.resolve
-      error: deferred.reject).promise()
+
+    $.Deferred((deferred) =>
+      options =
+        collection_type: @type
+        success: deferred.resolve
+        error: deferred.reject
+
+      if devconfig.file_storage then @loadData options else @_fetch options
+    ).promise()

@@ -6,5 +6,5 @@ module.exports = class Gallery extends Collection
   type = 'gallery'
 
   type: type
+  preload: true
   storeName: "#{config.title}:#{type}"
-  initialize: -> super

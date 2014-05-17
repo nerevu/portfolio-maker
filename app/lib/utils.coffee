@@ -7,19 +7,45 @@ mediator = require 'mediator'
 # Delegate to Chaplin’s utils module.
 utils = Chaplin.utils.beget Chaplin.utils
 
+options =
+  url: devconfig.api_logs
+  interval: devconfig.minilog_interval
+
 Minilog
   .enable()
-  .pipe new Minilog.backends.jQuery {url: devconfig.api_logs, interval: 5000}
+  .pipe new Minilog.backends.jQuery options
 
 minilog = Minilog 'tophubbers'
 
 _(utils).extend
   # Logging helper
   # ---------------------
-  log: (message, level='debug') ->
-    if devconfig.dev and not devconfig.debug_minilog then console.log message
-    else if level
-      console.log message if devconfig.debug_prod_verbose and level is 'debug'
+  _getPriority: (level) ->
+    switch level
+      when 'debug' then 1
+      when 'info' then 2
+      when 'warn' then 3
+      when 'error' then 4
+      else 0
+
+  log: (message, level='info') ->
+    priority = @_getPriority level
+
+    if devconfig.prod
+      switch devconfig.verbosity
+        when 0 then console.log message if priority > 2
+        when 1 then console.log message if priority > 1
+        when 2 then console.log message if priority > 0
+        when 3 then console.log message
+    else
+      switch devconfig.verbosity
+        when 1 then console.log message if priority > 2
+        when 2 then console.log message if priority > 1
+        when 3 then console.log message if priority > 0
+
+    logging = devconfig.prod or devconfig.debug_minilog
+
+    if logging and priority >= devconfig.minilog_priority
       text = JSON.stringify message
       message = if text.length > 512 then "size exceeded" else message
 
@@ -28,28 +54,19 @@ _(utils).extend
         time: (new Date()).getTime()
         user: mediator?.user?.get('email')
 
-      minilog[level] data if level isnt 'debug'
+      minilog[level] data
 
   saveJSON: (store) ->
     if devconfig.dual_storage
       ids = localStorage.getItem(store).split(',')
       data = (JSON.parse(localStorage.getItem "#{store}#{id}") for id in ids)
       collection = JSON.stringify data
-      href = "data:application/json;charset=utf-8,#{collection}"
+      href = "data:application/json;charset=utf-8,#{escape collection}"
       mediator.download["#{store}_href"] = href
 
   setSynced: (collection, store) ->
     if mediator[collection].local
       localStorage.setItem("#{store}:synced", true)
-
-  preloadImages: (collection) ->
-  # http://stackoverflow.com/a/10240297/408556
-    imgs = collection.paginator().collection.pluck 'url_s'
-    preload = []
-    img = new Image()
-    _(imgs).each (url) ->
-      img.src = url
-      preload.push(img)
 
   _deg2dms: (deg) ->
   # http://stackoverflow.com/a/5786627/408556
@@ -78,14 +95,6 @@ _(utils).extend
     _(lat).extend @_deg2dms deglat
     _(lon).extend @_deg2dms deglon
     lat: lat, lon: lon
-
-  mergePortfolio: (portfolio, screenshots) ->
-    cltn = portfolio.mergeModels screenshots, ['url_s'], 'small'
-    cltn = cltn.mergeModels screenshots, ['url_m'], 'main'
-    cltn = cltn.mergeModels screenshots, ['url_sq'], 'square'
-    options = {placeholder: false, n: 3}
-    collection = cltn.mergeModels screenshots, ['url_e'], 'extra', options
-    return collection
 
   makeChart: (data, selection, resize=true) ->
     retLab = (data) -> data.label

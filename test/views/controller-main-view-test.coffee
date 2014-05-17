@@ -17,9 +17,10 @@ describe 'ControllerMainView', =>
     @composition.dispose()
     @controller.dispose()
 
-  it 'should have 12 models', => @view.collection.should.have.length 12
+  num = config[portfolio.type]?.items_per_index ? 10
+  it "should have #{num} models", => @view.collection.should.have.length num
 
-  _(portfolio.models[...10]).each (model) =>
+  _(portfolio.models[...num]).each (model) =>
     id = model.get 'name'
     title = model.get 'title'
     find_where = {}

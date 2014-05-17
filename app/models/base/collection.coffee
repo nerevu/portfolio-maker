@@ -1,43 +1,59 @@
 Model = require './model'
 config = require 'config'
+devconfig = require 'devconfig'
 utils = require 'lib/utils'
 
 module.exports = class Collection extends Chaplin.Collection
   # Mixin a synchronization state machine.
-  # _(@prototype).extend Chaplin.SyncMachine
-  # initialize: ->
-  #   super
-  #   @on 'request', @beginSync
-  #   @on 'sync', @finishSync
-  #   @on 'error', @unsync
+  _(@prototype).extend Chaplin.SyncMachine
+
+  local: =>
+    if devconfig.file_storage
+      true
+    else
+      localStorage.getItem "#{@storeName}:synced"
+
+  sync: (method, collection, options) =>
+    utils.log "#{@type} collection's sync method is #{method}"
+    utils.log "read #{@type} collection from server: #{not @local()}"
+    Backbone.sync(method, collection, options)
+
+  initialize: =>
+    super
+    utils.log "initializing #{@type} collection"
+    # @syncStateChange => utils.log "#{@type} heard state changed"
+    @listenTo @, 'all', (event) => utils.log "#{@type} heard #{event}", 'debug'
 
   # Use the project base model per default, not Chaplin.Model
   model: Model
-
   popular: => @getPopular()
   recent: => @getRecent()
   random: => @getRandom()
 
   prefilter: (filter=false) =>
-    if  _.isFunction filter
-      collection = new Collection _(@models).filter filter
+    utils.log "#{@type} prefilter"
+    if _.isFunction filter
+      models = @filter filter
     else if filter? and filter
-      collection = new Collection @where filter
+      models = @where filter
     else
-      collection = @
+      models = @models
 
-    collection
+    models
 
   getTags: (filter=false) =>
-    collection = @prefilter filter
-    tags = _(_.flatten(collection.pluck 'tags')).uniq()
-    filterd = _.filter tags, (tag) -> tag
-    filterd.sort()
-    filterd
+    utils.log "get #{@type}'s tags"
+    models = @prefilter filter
+    plucked = _.flatten(model.get 'tags' for model in models)
+    tags = _(plucked).uniq()
+    filtered = _.filter tags, (tag) -> tag
+    filtered.sort()
+    filtered
 
-  getModels: (collection, length) ->
-    models = []
-    _(collection.models).some (model) ->
+  getModels: (models, length) ->
+    utils.log "get #{@type}'s models"
+    returned = []
+    _(models).some (model) ->
       data =
         href: model.get 'href'
         title: model.get 'title'
@@ -46,46 +62,20 @@ module.exports = class Collection extends Chaplin.Collection
         url_e: model.get 'url_e'
         url_sq: model.get 'url_sq'
 
-      models.push(data)
-      models.length is length
+      returned.push(data)
+      returned.length is length
 
-    models
-
-  mergeModels: (other, attrs, tag, options) =>
-    filter = options?.filter ? false
-    placeholder = options?.placeholder ? true
-    n = options?.n ? 1
-
-    utils.log "mergeModels"
-    collection = @prefilter filter
-    other = _(other.models).filter (model) -> tag in (model.get('tags') ? [])
-
-    _(collection.models).each (model) ->
-      name = model.get('name').replace '-', ''
-      filtered = _(other).filter (model) -> name in (model.get('tags') ? [])
-
-      if filtered.length > 0
-        _(attrs).each (attr) ->
-          data = (m?.get attr for m in _.first(filtered, n))
-          links = if data.length > 1 then data else _.first data
-          model.set attr, links
-      else if placeholder
-        # utils.log "#{name} has no matching screenshots... setting default img"
-        _(attrs).each (attr) ->
-          model.set attr, "/images/placeholder_#{attr}-or8.png"
-
-      model.save patch: true
-
-    collection
+    returned
 
   paginator: (page=1, filter=false) =>
-    utils.log "paginator"
-    collection = @prefilter filter
+    utils.log "#{@type} paginator"
+    models = @prefilter filter
     per_page = config[@type]?.items_per_index ? 10
-    pages = collection.length / per_page | 0
-    pages = if collection.length % per_page then pages + 1 else pages
-    collection = collection.rest per_page * (page - 1)
-    collection = new Collection _(collection).first per_page
+    pages = models.length / per_page | 0
+    pages = if models.length % per_page then pages + 1 else pages
+    rest = _(models).rest per_page * (page - 1)
+    first = _(rest).first per_page
+    collection = @cloned first
     first_page = page is 1
     last_page = page is pages
     only_page = pages is 1
@@ -97,34 +87,42 @@ module.exports = class Collection extends Chaplin.Collection
       only_page: only_page
       pages: pages}
 
+  cloned: (models) =>
+    remove = _(@models).difference models
+    collection = @clone()
+    collection.remove remove
+    collection
+
   setPagers: (filter=false) =>
-    utils.log "setPagers"
-    collection = @prefilter filter
-    len = collection.length + 1
+    utils.log "set #{@type}'s pagers"
+    models = @prefilter filter
+    len = models.length + 1
     num = len
 
     while num -= 1
       real = num - 1
-      cur = collection.at(real)
+      cur = models[real]
       if real is len - 2
         cur.set last: true
-        cur.set prev_href: collection.at(real - 1).get 'href'
+        cur.set prev_href: models[real - 1].get 'href'
       else if real is 0
         cur.set first: true
-        cur.set next_href: collection.at(real + 1).get 'href'
+        cur.set next_href: models[real + 1].get 'href'
       else
-        cur.set prev_href: collection.at(real - 1).get 'href'
-        cur.set next_href: collection.at(real + 1).get 'href'
+        cur.set prev_href: models[real - 1].get 'href'
+        cur.set next_href: models[real + 1].get 'href'
 
   getFilter: =>
+    utils.log "get #{@type}'s filter"
     filterer = config[@type]?.filterer
     filter = {}
     filter[filterer?.key] = filterer?.value
     return filter
 
   getRelated: (model) =>
+    utils.log "get related #{@type}"
     if model
-      utils.log model
+      utils.log model, 'debug'
       utils.log "get related #{model.get 'sub_type'}s"
       language = model.get 'language'
       audience = model.get 'audience'
@@ -133,17 +131,16 @@ module.exports = class Collection extends Chaplin.Collection
       tags = false
 
     if tags
-      filter = @getFilter()
-      collection = if filter then new Collection(@where(filter)) else @
-      collection.comparator = (other) ->
+      models = @prefilter @getFilter()
+      comparator = (other) ->
         language = other.get 'language'
         audience = other.get 'audience'
         other_tags = _(other.get 'tags').union language, audience
         common = _(tags).intersection other_tags
         - common.length
 
-      collection.sort()
-      models = @getModels collection, config[@type].related_count + 1
+      sorted = _(models).sortBy comparator
+      models = @getModels sorted, config[@type].related_count + 1
       _(models).filter (related) -> related.title isnt model.get 'title'
     else
       []
@@ -153,11 +150,10 @@ module.exports = class Collection extends Chaplin.Collection
     comparator = config[@type]?.recent_comparator
 
     if comparator
-      filter = @getFilter()
-      collection = if filter then new Collection(@where(filter)) else @
-      collection.comparator = (model) -> - model.get comparator
-      collection.sort()
-      @getModels collection, config[@type].recent_count
+      models = @prefilter @getFilter()
+      comparator = (model) -> - model.get comparator
+      sorted = _(models).sortBy comparator
+      @getModels sorted, config[@type].recent_count
     else
       []
 
@@ -166,11 +162,10 @@ module.exports = class Collection extends Chaplin.Collection
     comparator = config[@type]?.popular_comparator
 
     if comparator
-      filter = @getFilter()
-      collection = if filter then new Collection(@where(filter)) else @
-      collection.comparator = (model) -> - model.get comparator
-      collection.sort()
-      @getModels collection, config[@type].popular_count
+      models = @prefilter @getFilter()
+      comparator = (model) -> - model.get comparator
+      sorted = _(models).sortBy comparator
+      @getModels sorted, config[@type].popular_count
     else
       []
 
@@ -179,10 +174,36 @@ module.exports = class Collection extends Chaplin.Collection
     length = config[@type]?.random_count
 
     if length
-      filter = @getFilter()
-      collection = if filter then @where(filter) else @models
-      collection = new Collection _(collection).shuffle()
-      @getModels collection, length
+      models = @prefilter @getFilter()
+      @getModels _(models).shuffle(), length
     else
       []
+
+  setData: (data, options, success=null) =>
+    utils.log "setting #{@type} data"
+    method = if options.reset then 'reset' else 'set'
+    @[method] data, options
+    utils.log @, 'debug'
+    success @, data, options if success
+    @finishSync()
+
+  loadData: (options) =>
+    utils.log "load #{@type} collection from file"
+    @beginSync()
+
+    options = if options then _.clone(options) else {}
+    success = options.success
+    data = require "#{@type}_data"
+    @setData data, options, success
+
+  preloadImages: =>
+  # http://stackoverflow.com/a/10240297/408556
+    return if not @preload
+    utils.log "preload #{@type} images"
+    imgs = @paginator().collection.pluck 'url_s'
+    preload = []
+    img = new Image()
+    _(imgs).each (url) ->
+      img.src = url
+      preload.push(img)
 

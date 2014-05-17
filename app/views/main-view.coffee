@@ -4,7 +4,7 @@ mediator = require 'mediator'
 config = require 'config'
 utils = require 'lib/utils'
 
-module.exports = class IndexView extends CollectionView
+module.exports = class MainView extends CollectionView
   itemView: View
   autoRender: true
   className: 'row'
@@ -32,6 +32,9 @@ module.exports = class IndexView extends CollectionView
     @tag = options.tag
     mediator.setActive options.active
 
+    @listenTo @, 'all', (event) ->
+      utils.log "main-view heard #{event}", 'debug'
+
     @subscribeEvent "change:tags", (tags) =>
       utils.log 'main-view heard change:tags event'
       @tags = _(@tags).union tags
@@ -41,7 +44,9 @@ module.exports = class IndexView extends CollectionView
 
     @subscribeEvent 'screenshots:synced', (screenshots) =>
       utils.log 'main-view heard screenshots synced event'
-      @setTemplateData utils.mergePortfolio mediator.portfolio, screenshots
+      portfolio = mediator.portfolio
+      portfolio.mergePortfolio screenshots
+      @setTemplateData portfolio
 
     @subscribeEvent "#{@type}:synced", (collection) =>
       utils.log "main-view heard #{@type} synced event"
@@ -58,11 +63,10 @@ module.exports = class IndexView extends CollectionView
   render: ->
     super
     utils.log 'rendering main view'
-    # utils.log @collection
+    utils.log @collection, 'debug'
 
   setTemplateData: (collection) =>
-    utils.log 'set main-view template data'
-    utils.log collection.type
+    utils.log "main-view #{collection.type} template data"
     @paginator = collection.paginator @cur_page, @filterer
     @collection = @paginator.collection
     @recent = collection.recent

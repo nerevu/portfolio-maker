@@ -8,10 +8,6 @@ module.exports = class ItemView extends View
   className: 'row'
   region: 'content'
 
-  listen:
-    # 'all': (event) -> utils.log "detail-view heard #{event}"
-    'addedToParent': -> utils.log "heard addedToParent"
-
   initialize: (options) =>
     super
     utils.log 'initializing detail-view'
@@ -43,10 +39,15 @@ module.exports = class ItemView extends View
     else
       utils.log "initializing 404 detail-view"
 
+    @listenTo @, 'all', (event) ->
+      utils.log "detail-view heard #{event}", 'debug'
+
     @subscribeEvent 'screenshots:synced', (screenshots) =>
       if @type isnt 'gallery'
         utils.log 'detail-view heard screenshots synced event'
-        @setTemplateData utils.mergePortfolio mediator.portfolio, screenshots
+        portfolio = mediator.portfolio
+        portfolio.mergePortfolio screenshots
+        @setTemplateData portfolio
 
     @subscribeEvent 'gallery:synced', (gallery) =>
       if @type isnt 'portfolio'
@@ -65,7 +66,7 @@ module.exports = class ItemView extends View
     else
       utils.log "rendering 404 detail-view"
 
-    utils.log @model
+    utils.log @model, 'debug'
 
   setTemplateData: (collection) =>
     utils.log 'set detail-view template data'

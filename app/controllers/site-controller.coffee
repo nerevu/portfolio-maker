@@ -7,7 +7,6 @@ utils = require 'lib/utils'
 
 module.exports = class SiteController extends Controller
   initialize: (params) =>
-    utils.log 'initializing site-controller'
     @num = parseInt params?.num ? 1
     @type = params?.type ? 'home'
     @sub_type = config[@type]?.sub_type ? ''
@@ -15,12 +14,15 @@ module.exports = class SiteController extends Controller
     @tag = params?.tag
     @id = params?.id
 
+    utils.log "initializing #{@type}'s site-controller"
     recent_comparator = config[@type]?.recent_comparator
 
     collection =
       switch @type
         when 'gallery' then @gallery
-        when 'portfolio' then utils.mergePortfolio @portfolio, @screenshots
+        when 'portfolio'
+          @portfolio.mergePortfolio @screenshots
+          @portfolio
         when 'blog' then @blog
         else @pages
 
@@ -63,7 +65,7 @@ module.exports = class SiteController extends Controller
       collection.sort()
 
     @paginator = collection.paginator @num, @tagfilterer
-    @collection = _.clone(collection)
+    @collection = collection.clone()
 
   show: (params) => @reuse "#{@type}:#{@id}", =>
     utils.log "show #{@type} #{@id} site-controller"
@@ -71,7 +73,7 @@ module.exports = class SiteController extends Controller
     @collection.setPagers @filterer
     @collection.type = @type
     title = model?.get 'title'
-    utils.log @collection
+    utils.log @collection, 'debug'
 
     @adjustTitle title
     @view = new DetailView
