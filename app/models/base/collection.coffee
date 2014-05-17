@@ -44,8 +44,8 @@ module.exports = class Collection extends Chaplin.Collection
   getTags: (filter=false) =>
     utils.log "get #{@type}'s tags"
     models = @prefilter filter
-    collection = @cloned models
-    tags = _(_.flatten(collection.pluck 'tags')).uniq()
+    plucked = _.flatten(model.get 'tags' for model in models)
+    tags = _(plucked).uniq()
     filtered = _.filter tags, (tag) -> tag
     filtered.sort()
     filtered
@@ -96,22 +96,21 @@ module.exports = class Collection extends Chaplin.Collection
   setPagers: (filter=false) =>
     utils.log "set #{@type}'s pagers"
     models = @prefilter filter
-    collection = @cloned models
-    len = collection.length + 1
+    len = models.length + 1
     num = len
 
     while num -= 1
       real = num - 1
-      cur = collection.at(real)
+      cur = models[real]
       if real is len - 2
         cur.set last: true
-        cur.set prev_href: collection.at(real - 1).get 'href'
+        cur.set prev_href: models[real - 1].get 'href'
       else if real is 0
         cur.set first: true
-        cur.set next_href: collection.at(real + 1).get 'href'
+        cur.set next_href: models[real + 1].get 'href'
       else
-        cur.set prev_href: collection.at(real - 1).get 'href'
-        cur.set next_href: collection.at(real + 1).get 'href'
+        cur.set prev_href: models[real - 1].get 'href'
+        cur.set next_href: models[real + 1].get 'href'
 
   getFilter: =>
     utils.log "get #{@type}'s filter"
