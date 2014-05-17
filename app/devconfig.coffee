@@ -23,9 +23,9 @@ else
   stale_age = 12 # in hours
 
 mobile = debug_mobile or mobile_device
-console.log "host: #{host}"
 console.log "#{environment} environment set"
 console.log "verbose: #{verbose}"
+console.log "host: #{host}" if host
 console.log "mobile device: #{mobile}"
 console.log "storage mode: #{storage_mode}"
 
