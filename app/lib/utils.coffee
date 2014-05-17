@@ -7,9 +7,13 @@ mediator = require 'mediator'
 # Delegate to Chaplin’s utils module.
 utils = Chaplin.utils.beget Chaplin.utils
 
+options =
+  url: devconfig.api_logs
+  interval: devconfig.minilog_interval
+
 Minilog
   .enable()
-  .pipe new Minilog.backends.jQuery {url: devconfig.api_logs, interval: 5000}
+  .pipe new Minilog.backends.jQuery options
 
 minilog = Minilog 'tophubbers'
 

@@ -1,6 +1,7 @@
 debug_mobile = false
 debug_production = false
 verbose = false
+minilog_interval = 5000
 
 host = window?.location?.hostname ? require('os').hostname()
 ua = navigator?.userAgent?.toLowerCase()
