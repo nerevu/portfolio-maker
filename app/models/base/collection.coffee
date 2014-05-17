@@ -22,7 +22,7 @@ module.exports = class Collection extends Chaplin.Collection
     super
     utils.log "initializing #{@type} collection"
     # @syncStateChange => utils.log "#{@type} heard state changed"
-    @listenTo @, 'all', (event) => utils.log "#{@type} heard #{event}"
+    @listenTo @, 'all', (event) => utils.log "#{@type} heard #{event}", 'debug'
 
   # Use the project base model per default, not Chaplin.Model
   model: Model
