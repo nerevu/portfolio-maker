@@ -31,12 +31,21 @@ _(utils).extend
   log: (message, level='info') ->
     priority = @_getPriority level
 
-    if devconfig.verbose
-      console.log message if priority > 0
+    if devconfig.prod
+      switch devconfig.verbosity
+        when 0 then console.log message if priority > 2
+        when 1 then console.log message if priority > 1
+        when 2 then console.log message if priority > 0
+        when 3 then console.log message
     else
-      console.log message if priority > 1 and not devconfig.prod
+      switch devconfig.verbosity
+        when 1 then console.log message if priority > 2
+        when 2 then console.log message if priority > 1
+        when 3 then console.log message if priority > 0
 
-    if (devconfig.prod or devconfig.debug_minilog) and priority > 1
+    logging = devconfig.prod or devconfig.debug_minilog
+
+    if logging and priority >= devconfig.minilog_priority
       text = JSON.stringify message
       message = if text.length > 512 then "size exceeded" else message
 
