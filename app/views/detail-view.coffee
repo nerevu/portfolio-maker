@@ -39,7 +39,7 @@ module.exports = class ItemView extends View
     else
       utils.log "initializing 404 detail-view"
 
-    @listenTo @, 'all', (event) =>
+    @listenTo @, 'all', (event) ->
       utils.log "detail-view heard #{event}", 'debug'
 
     @subscribeEvent 'screenshots:synced', (screenshots) =>

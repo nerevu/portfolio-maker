@@ -32,7 +32,7 @@ module.exports = class MainView extends CollectionView
     @tag = options.tag
     mediator.setActive options.active
 
-    @listenTo @, 'all', (event) =>
+    @listenTo @, 'all', (event) ->
       utils.log "main-view heard #{event}", 'debug'
 
     @subscribeEvent "change:tags", (tags) =>
