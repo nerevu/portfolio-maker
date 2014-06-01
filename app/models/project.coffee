@@ -39,7 +39,7 @@ module.exports = class Project extends Model
     @set type: type
     @set title: name
     @set popularity: popularity
-    @set href: "/portfolio/item/#{name}"
+    @set href: "/#portfolio/item/#{name}"
     @set template: 'item'
     @set partial: sub_type
     @set asides: config[type]?.page_asides

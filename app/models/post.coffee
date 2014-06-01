@@ -30,7 +30,7 @@ module.exports = class Post extends Model
     @set date: date
     @set date_str: date.format("MMMM Do, YYYY")
     @set excerpt: _.str.prune content, 500
-    @set href: "/blog/#{year}/#{month}/#{day}/#{slug}"
+    @set href: "/#blog/#{year}/#{month}/#{day}/#{slug}"
     @set template: @get('template') ? 'item'
     @set partial: @get('partial') ? sub_type
     @set comments: @get('comments') ? true
