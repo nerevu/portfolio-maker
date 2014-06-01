@@ -7,10 +7,9 @@ footer: true
 
 ## Me
 
-My name is Reuben Cummings and I am Data Scientist and Web Application Developer.
-I specialize in financial/data analysis and offline capable web applications.
-I handle database development, API integration, responsive web design, and
-automated reporting solutions.
+I'm Reuben Cummings, a [Data Scientist](http://en.wikipedia.org/wiki/Data_scientist) and [Web Application Developer](http://en.wikipedia.org/wiki/Web_application).
+I specialize in [financial/data analysis](/#portfolio/items/tagged/finance) and [offline capable](/#portfolio/items/tagged/offline), [responsive web applications](/#portfolio/items/tagged/application&web).
+I handle [database development](/#portfolio/items/tagged/database), API [development](/#portfolio/items/tagged/web&server) and [integration](/#portfolio/items/tagged/api-consumer), and automated [reporting solutions](/#portfolio/items/tagged/visualization).
 
 ## My Life
 
@@ -32,17 +31,16 @@ reporting and analysis consulting company, and worked as a business consultant
 at [MIDIOR Consulting](http://www.midior.com/) helping clients develop
 new-product strategies.
 
-Having lived in [Cambridge, MA]() for ten years, I left in 2010 to work for
+Having lived in [Cambridge, MA](http://en.wikipedia.org/wiki/Cambridge,_Massachusetts) for ten years, I left in 2010 to work for
 [Global Cycle Solutions](http://www.gcstz.com/) (GCS) in
-[Arusha, Tanzania](http://goo.gl/maps/eula2). At GCS I worked on various
+[Arusha, Tanzania](http://en.wikipedia.org/wiki/Arusha). At GCS I worked on various
 projects including accounting and financial modeling; sales, marketing, and
 strategy; [CRM](http://en.wikipedia.org/wiki/CRM), reporting system, and
 inventory management system development; training design and facilitation; and
 recruitment.
 
 
-I left GCS in late 2012 and currently live in Arusha, Tanzania developing
-[web and command line applications](/projects).
+I left GCS in late 2012, but still live in Arusha developing [web and command line applications](/#portfolio).
 
 ## My Interests
 
@@ -54,13 +52,13 @@ Shortly thereafter, I was developing database (MS Access and SQLite), automated 
 
 In 2010 I found Python and fell in love with its simplicity and elegance. I soon replaced PHP with it as my language of choice for new script or web development projects. Since then, I have used Python extensively for automating basic tasks, data analysis, creating API backends, and rapid web prototyping.
 
-More recently I have been using a combination of coffeescript/javascript (Nodejs, Backbone, jquery, etc.) and python (Flask) to create offline-capable database (PostgreSQL and MongoDB) or API driven web applications that dynamically respond to any device size (mobile, tablet, laptop, or desktop).
+More recently I have been using a combination of coffeescript/javascript (Nodejs, Backbone, jquery, etc.) and Python (Flask) to create offline-capable database (PostgreSQL and MongoDB) or API driven web applications that dynamically respond to any device size (mobile, tablet, laptop, or desktop).
 
 ### _Finance/Investing_
 
 I started investing at the end of 1999 at the age of 17. Unknown to me at the
 time, I couldn't have picked a worse period to begin... this was the beginning
-of the [market collapse of 2000](). I've learned a lot since then and am
+of the [market collapse of 2000](http://en.wikipedia.org/wiki/Dot-com_bubble). I've learned a lot since then and am
 convinced about the principles of dollar cost averaging, passive index
 investing, and asset allocation. I'm also enamored with hedge funds and in the
 process of developing an application to unlock the secrets of [replicating their
@@ -69,12 +67,11 @@ returns](http://en.wikipedia.org/wiki/Hedge_fund_replication).
 ### _Travel_
 
 I love to travel and have so far been to around 20 countries including 13 in
-Africa.
+Africa. I occasionally post pictures from my travels [here](/#gallery).
 
 ### _Other_
 
-* Reproducible research
-* Global health
-* Healthcare IT (EMR)
-* Personalized medicine
-* Salsa dancing
+* [Reproducible research](http://cran.r-project.org/web/views/ReproducibleResearch.html)
+* [Healthcare IT](http://en.wikipedia.org/wiki/Electronic_health_record)
+* [Personalized medicine](http://en.wikipedia.org/wiki/Personalized_medicine)
+* [Salsa dancing](https://www.google.com/search?q=Salsa&tbm=vid)
