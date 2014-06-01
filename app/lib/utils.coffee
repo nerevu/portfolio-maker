@@ -58,7 +58,7 @@ _(utils).extend
 
   saveJSON: (store) ->
     if devconfig.dual_storage
-      ids = localStorage.getItem(store).split(',')
+      ids = localStorage.getItem(store)?.split(',') ? []
       data = (JSON.parse(localStorage.getItem "#{store}#{id}") for id in ids)
       collection = JSON.stringify data
       href = "data:application/json;charset=utf-8,#{escape collection}"

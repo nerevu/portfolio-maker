@@ -37,8 +37,10 @@ module.exports = class SiteController extends Controller
     if @tag
       @tagfilterer = (model, index=false) =>
         returned = if fltr then (model.get(fltr.key) is fltr.value) else true
-        returned = returned and @tag in (model.get('tags') ? [])
-        returned
+        tags = _.union @tag.split('&')
+        intersection = _(tags).intersection(model.get('tags') ? [])
+        matched = tags.length is intersection.length
+        returned and matched
     else
       @tagfilterer = @filterer
 

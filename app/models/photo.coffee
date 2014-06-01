@@ -31,7 +31,7 @@ module.exports = class Photo extends Model
     @set type: type
     @set sub_type: sub_type
     @set tags: tags
-    @set href: "/#{type}/item/#{id}"
+    @set href: "/##{type}/item/#{id}"
     @set url_e: @get 'url_m'
     @set dms: dms
     @set dms_str: dms_str

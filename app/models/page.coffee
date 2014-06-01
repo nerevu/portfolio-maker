@@ -15,7 +15,7 @@ module.exports = class Page extends Model
     @set type: type
     @set sub_type: sub_type
     @set slug: slug
-    @set href: "/#{slug}"
+    @set href: "/##{slug}"
     @set template: @get('template') ? 'item'
     @set partial: @get('partial') ? sub_type
     @set nav_link: @get('nav_link') ? true

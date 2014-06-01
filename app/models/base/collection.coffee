@@ -11,7 +11,7 @@ module.exports = class Collection extends Chaplin.Collection
     if devconfig.file_storage
       true
     else
-      localStorage.getItem "#{@storeName}:synced"
+      JSON.parse localStorage.getItem "#{@storeName}:synced"
 
   sync: (method, collection, options) =>
     utils.log "#{@type} collection's sync method is #{method}"

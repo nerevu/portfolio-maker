@@ -39,7 +39,7 @@ module.exports = class Project extends Model
     @set type: type
     @set title: name
     @set popularity: popularity
-    @set href: "/portfolio/item/#{name}"
+    @set href: "/#portfolio/item/#{name}"
     @set template: 'item'
     @set partial: sub_type
     @set asides: config[type]?.page_asides
@@ -125,8 +125,9 @@ module.exports = class Project extends Model
       members
 
   standardizeTags: (tags) =>
-    func = (member) -> switch member
-      when 'Investment' then 'finance'
+    func = (member) -> switch member.toLowerCase()
+      when 'investment' then 'finance'
+      when 'indexing/search' then 'search'
       else member
 
     @standardizer func, tags
