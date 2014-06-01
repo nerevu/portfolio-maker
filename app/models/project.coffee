@@ -125,8 +125,9 @@ module.exports = class Project extends Model
       members
 
   standardizeTags: (tags) =>
-    func = (member) -> switch member
-      when 'Investment' then 'finance'
+    func = (member) -> switch member.toLowerCase()
+      when 'investment' then 'finance'
+      when 'indexingsearch' then 'search'
       else member
 
     @standardizer func, tags
